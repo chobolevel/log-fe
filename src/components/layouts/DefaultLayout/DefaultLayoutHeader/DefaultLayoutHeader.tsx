@@ -25,7 +25,14 @@ const DefaultLayoutHeader = () => {
         </Text>
       </Flex>
       <Flex align={"center"} gap={2}>
-        <Text style={linkStyle}>ARCHIVE</Text>
+        <Text
+          style={linkStyle}
+          onClick={() => {
+            push(toUrl(PageRoutes.Posts));
+          }}
+        >
+          ARCHIVE
+        </Text>
         <Text style={linkStyle}>TAGS</Text>
       </Flex>
     </Flex>

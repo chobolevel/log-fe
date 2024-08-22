@@ -16,6 +16,7 @@ export enum PageRoutes {
   Home = "/",
   SignIn = "/sign/in",
   SignUp = "/sign/up",
+  Posts = "/posts",
 }
 
 // 로그인 없이 접근 불가능한 페이지

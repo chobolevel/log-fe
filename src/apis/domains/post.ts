@@ -1,4 +1,12 @@
-import { ID, PageQueryParams, Scheme, Tag, useGetPage, User } from "@/apis";
+import {
+  ID,
+  PageQueryParams,
+  Scheme,
+  Tag,
+  useFetch,
+  useGetPage,
+  User,
+} from "@/apis";
 import { toUrl } from "@/utils";
 import { ApiRoutes } from "@/constants";
 
@@ -23,6 +31,16 @@ export interface GetPostsParams extends PageQueryParams {
   orderTypes?: PostOrderType[];
 }
 
+export interface GetPostParams {
+  id: ID;
+}
+
 export const useGetPosts = (params?: GetPostsParams) => {
   return useGetPage<Post[]>(toUrl(ApiRoutes.Posts), params);
+};
+
+export const useGetPost = (params: GetPostParams) => {
+  return useFetch<Post>(toUrl(ApiRoutes.Posts, { id: params.id }), undefined, {
+    enabled: params.id !== 0,
+  });
 };
