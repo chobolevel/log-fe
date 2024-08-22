@@ -1,16 +1,21 @@
-import {match, MatchFunction} from "path-to-regexp";
+import { match, MatchFunction } from "path-to-regexp";
 
 // API 주소 정의
 // https://api.oh-my-diving.com/swagger-ui/index.html
 export enum ApiRoutes {
+  // auth
   AuthReissueUsers = "/api/v1/reissue",
-  Users = "/api/v1/users"
+  // user
+  Users = "/api/v1/users",
+  // post
+  Posts = "/api/v1/posts/:id?",
 }
 
 // 페이지 주소 정의
 export enum PageRoutes {
+  Home = "/",
   SignIn = "/sign/in",
-  SignUp = "/sign/up"
+  SignUp = "/sign/up",
 }
 
 // 로그인 없이 접근 불가능한 페이지

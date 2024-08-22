@@ -1,11 +1,35 @@
-import {Flex} from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import { useSafePush } from "@/hooks";
+import { toUrl } from "@/utils";
+import { PageRoutes } from "@/constants";
+import { CSSProperties } from "react";
+
+const linkStyle: CSSProperties = {
+  fontSize: "lg",
+  fontWeight: "bold",
+  cursor: "pointer",
+};
 
 const DefaultLayoutHeader = () => {
+  const { push } = useSafePush();
   return (
-    <Flex as={"header"} h={100} border={"1px solid red"}>
-
+    <Flex as={"header"} h={100} justify={"space-between"} align={"center"}>
+      <Flex>
+        <Text
+          style={linkStyle}
+          onClick={() => {
+            push(toUrl(PageRoutes.Home));
+          }}
+        >
+          CHOLO
+        </Text>
+      </Flex>
+      <Flex align={"center"} gap={2}>
+        <Text style={linkStyle}>ARCHIVE</Text>
+        <Text style={linkStyle}>TAGS</Text>
+      </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default DefaultLayoutHeader
+export default DefaultLayoutHeader;
