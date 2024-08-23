@@ -22,6 +22,7 @@ export enum PageRoutes {
   SignUp = "/sign/up",
   // post
   Posts = "/posts",
+  PostDetailById = "/posts/:id?",
   // tag
   Tags = "/tags",
 }
