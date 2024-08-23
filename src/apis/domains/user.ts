@@ -1,6 +1,8 @@
-import { ID, ImageScheme, Scheme, useFetch, usePost } from "@/apis";
+import { Api, ApiResponse, ID, ImageScheme, Scheme, usePost } from "@/apis";
 import { toUrl } from "@/utils";
 import { ApiRoutes } from "@/constants";
+import { Nullable } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 export type UserLoginType = "GENERAL" | "KAKAO" | "NAVER" | "GOOGLE";
 export type UserRoleType = "ROLE_USER" | "ROLE_ADMIN";
@@ -11,7 +13,7 @@ export interface User extends Scheme {
   nickname: string;
   phone: string;
   role: UserRoleType;
-  profile_image: ImageScheme;
+  profile_image: Nullable<ImageScheme>;
 }
 
 export interface CreateUserRequest {
@@ -24,7 +26,16 @@ export interface CreateUserRequest {
 }
 
 export const useGetMe = () => {
-  return useFetch<User>(toUrl(ApiRoutes.Me));
+  return useQuery({
+    queryKey: [toUrl(ApiRoutes.Me), null],
+    queryFn: () => {
+      return Api.get<ApiResponse<User>>(toUrl(ApiRoutes.Me))
+        .then((res) => res.data)
+        .catch(() => null);
+    },
+    staleTime: 1000 * 60,
+    cacheTime: 1000 * 60,
+  });
 };
 
 export const useCreateUser = () => {

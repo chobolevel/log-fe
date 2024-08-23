@@ -6,7 +6,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { ApiError, QueryKey, UrlBuilder } from "./types";
-import { ReissueRequest } from "@/apis/domains";
+import { ReissueRequest, ReissueResponse } from "@/apis/domains";
 
 const protoc = process.env.NODE_ENV === "development" ? "http" : "https";
 
@@ -123,18 +123,20 @@ Api.instance.interceptors.response.use(
         } as ReissueRequest;
 
         // 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급합니다.
-        const result = await Api.request(
+        const result = await Api.request<ReissueResponse>(
           toUrl(ApiRoutes.AuthReissue),
           "POST",
           req,
         );
-        const reissued = result.headers.authorization;
+        const reissuedResponse = result.data.data;
 
         // 새로운 액세스 토큰을 저장합니다.
-        Api.addToken(reissued);
+        Api.addToken(reissuedResponse.access_token);
+        localStorage.setItem("refresh", reissuedResponse.refresh_token);
 
         // 새로운 액세스 토큰을 사용하여 요청을 재시도합니다.
-        originalRequest.headers["Authorization"] = reissued;
+        originalRequest.headers["Authorization"] =
+          `Bearer ${reissuedResponse.access_token}`;
         return Api.instance(originalRequest);
       } catch {
         console.error("refresh token is invalid");

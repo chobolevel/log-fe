@@ -1,8 +1,9 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
 import { PageRoutes } from "@/constants";
 import { CSSProperties } from "react";
+import { useGetMe, useLogout } from "@/apis";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -12,6 +13,9 @@ const linkStyle: CSSProperties = {
 
 const DefaultLayoutHeader = () => {
   const { push } = useSafePush();
+  const logout = useLogout();
+
+  const { data: me } = useGetMe();
   return (
     <Flex as={"header"} h={100} justify={"space-between"} align={"center"}>
       <Flex>
@@ -24,15 +28,33 @@ const DefaultLayoutHeader = () => {
           CHOLO
         </Text>
       </Flex>
-      <Flex align={"center"} gap={2}>
-        <Text
-          style={linkStyle}
-          onClick={() => {
-            push(toUrl(PageRoutes.SignIn));
-          }}
-        >
-          LOGIN
-        </Text>
+      <Flex align={"center"} gap={4}>
+        {me ? (
+          <>
+            <Avatar
+              size={"sm"}
+              cursor={"pointer"}
+              src={me.profile_image?.origin_url}
+            />
+            <Text
+              style={linkStyle}
+              onClick={() => {
+                logout();
+              }}
+            >
+              LOGOUT
+            </Text>
+          </>
+        ) : (
+          <Text
+            style={linkStyle}
+            onClick={() => {
+              push(toUrl(PageRoutes.SignIn));
+            }}
+          >
+            LOGIN
+          </Text>
+        )}
         <Text
           style={linkStyle}
           onClick={() => {

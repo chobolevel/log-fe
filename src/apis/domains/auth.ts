@@ -1,7 +1,9 @@
 import { Api, useInvalidate, UserLoginType } from "@/apis";
 import { useMutation } from "@tanstack/react-query";
 import { toUrl } from "@/utils";
-import { ApiRoutes } from "@/constants";
+import { ApiRoutes, PageRoutes } from "@/constants";
+import { useSafePush } from "@/hooks";
+import { useModalStore } from "@/stores";
 
 export interface LoginRequestType {
   email: string;
@@ -18,6 +20,13 @@ export interface LoginResponseType {
 
 export interface ReissueRequest {
   refresh_token: string;
+}
+
+export interface ReissueResponse {
+  data: {
+    access_token: string;
+    refresh_token: string;
+  };
 }
 
 const login = async (params: LoginRequestType) => {
@@ -54,4 +63,19 @@ export const useLogin = () => {
       ignoreSuccess: true,
     },
   });
+};
+
+export const useLogout = () => {
+  const { push } = useSafePush();
+  const invalidate = useInvalidate(toUrl(ApiRoutes.Me));
+  const { openAlert } = useModalStore(["openAlert"]);
+
+  return () => {
+    push(toUrl(PageRoutes.Home))?.then(() => {
+      openAlert({ content: "로그아웃 되었습니다." });
+      localStorage.removeItem("refresh");
+      Api.removeTokens();
+      invalidate();
+    });
+  };
 };
