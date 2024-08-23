@@ -28,6 +28,14 @@ const DefaultLayoutHeader = () => {
         <Text
           style={linkStyle}
           onClick={() => {
+            push(toUrl(PageRoutes.SignIn));
+          }}
+        >
+          LOGIN
+        </Text>
+        <Text
+          style={linkStyle}
+          onClick={() => {
             push(toUrl(PageRoutes.Posts));
           }}
         >

@@ -1,11 +1,12 @@
-import {ApiRoutes} from "@/constants";
-import {toUrl} from "@/utils";
+import { ApiRoutes } from "@/constants";
+import { toUrl } from "@/utils";
 import axios, {
   AxiosError,
   AxiosInstance,
   InternalAxiosRequestConfig,
 } from "axios";
-import {ApiError, QueryKey, UrlBuilder} from "./types";
+import { ApiError, QueryKey, UrlBuilder } from "./types";
+import { ReissueRequest } from "@/apis/domains";
 
 const protoc = process.env.NODE_ENV === "development" ? "http" : "https";
 
@@ -32,19 +33,11 @@ export class Api {
   });
 
   static addToken = (token: string) => {
-    Api.instance.defaults.headers.common["Authorization"] = token;
-    this.instance.defaults.headers["oh-my-diving-session-data"] =
-      `{"type": "user"}`;
-  };
-
-  static addRefreshToken = (token: string) => {
-    this.instance.defaults.headers.common["Refreshusertoken"] = token;
+    Api.instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
   static removeTokens = () => {
-    delete Api.instance.defaults.headers["oh-my-diving-session-data"];
     delete Api.instance.defaults.headers.common["Authorization"];
-    delete Api.instance.defaults.headers.common["Refreshusertoken"];
   };
 
   static get = async <T>(url: string, params?: object) => {
@@ -104,11 +97,11 @@ Api.instance.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig<any> & {
       _retry?: boolean;
     };
-    const {request, response} = error;
+    const { request, response } = error;
 
     // 이전 요청이 Reissiue 요청이라면 에러를 반환합니다.
     // 저장된 모든 토큰을 삭제합니다.
-    if (request?.responseURL?.includes(toUrl(ApiRoutes.AuthReissueUsers))) {
+    if (request?.responseURL?.includes(toUrl(ApiRoutes.AuthReissue))) {
       localStorage.removeItem("refresh");
       Api.removeTokens();
       return Promise.reject(error);
@@ -125,12 +118,15 @@ Api.instance.interceptors.response.use(
       }
 
       try {
-        Api.addRefreshToken(refresh);
+        const req = {
+          refresh_token: refresh,
+        } as ReissueRequest;
 
         // 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급합니다.
         const result = await Api.request(
-          toUrl(ApiRoutes.AuthReissueUsers),
-          "POST"
+          toUrl(ApiRoutes.AuthReissue),
+          "POST",
+          req,
         );
         const reissued = result.headers.authorization;
 
@@ -147,5 +143,5 @@ Api.instance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );

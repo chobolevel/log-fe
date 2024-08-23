@@ -4,9 +4,12 @@ import { match, MatchFunction } from "path-to-regexp"; // API 주소 정의
 // https://api.oh-my-diving.com/swagger-ui/index.html
 export enum ApiRoutes {
   // auth
-  AuthReissueUsers = "/api/v1/reissue",
+  AuthLogin = "/api/v1/login",
+  AuthReissue = "/api/v1/reissue",
   // user
+  CreateUser = "/api/v1/users",
   Users = "/api/v1/users",
+  Me = "/api/v1/users/me",
   // tag
   Tags = "/api/v1/tags/:id?",
   // post
