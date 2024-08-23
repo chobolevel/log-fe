@@ -13,7 +13,7 @@ const iconBoxStyle: CSSProperties = {
 
 const DefaultLayoutFooter = () => {
   return (
-    <Flex as={"footer"} direction={"column"} align={"center"} gap={4}>
+    <Flex as={"footer"} direction={"column"} align={"center"} gap={4} py={10}>
       <Flex gap={4}>
         <Link style={iconBoxStyle} href={"mailto:rodaka123@naver.com"}>
           <IoIosMail size={30} />
