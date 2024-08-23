@@ -33,7 +33,14 @@ const DefaultLayoutHeader = () => {
         >
           ARCHIVE
         </Text>
-        <Text style={linkStyle}>TAGS</Text>
+        <Text
+          style={linkStyle}
+          onClick={() => {
+            push(toUrl(PageRoutes.Tags));
+          }}
+        >
+          TAGS
+        </Text>
       </Flex>
     </Flex>
   );
