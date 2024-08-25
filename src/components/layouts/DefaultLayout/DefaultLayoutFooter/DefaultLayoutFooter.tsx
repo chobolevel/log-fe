@@ -36,7 +36,7 @@ const DefaultLayoutFooter = () => {
         </Link>
       </Flex>
       <Flex gap={4}>
-        <Text>Copyright 2024 chobolevel All rights reserved.</Text>
+        <Text fontWeight={"bold"}>Copyright 2024 chobolevel All rights reserved.</Text>
       </Flex>
     </Flex>
   );

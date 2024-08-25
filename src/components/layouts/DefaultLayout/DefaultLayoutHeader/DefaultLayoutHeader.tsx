@@ -17,7 +17,7 @@ const DefaultLayoutHeader = () => {
 
   const { data: me } = useGetMe();
   return (
-    <Flex as={"header"} h={100} justify={"space-between"} align={"center"}>
+    <Flex as={"header"} h={100} justify={"space-between"} align={"center"} px={2}>
       <Flex>
         <Text
           style={linkStyle}
