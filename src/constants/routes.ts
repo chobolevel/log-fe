@@ -10,6 +10,8 @@ export enum ApiRoutes {
   CreateUser = "/api/v1/users",
   Users = "/api/v1/users",
   Me = "/api/v1/users/me",
+  UpdateUser = "/api/v1/users/:id?",
+  ChangeUserPassword = "/api/v1/users/change-password",
   // tag
   Tags = "/api/v1/tags/:id?",
   // post
@@ -26,6 +28,9 @@ export enum PageRoutes {
   // auth
   SignIn = "/sign/in",
   SignUp = "/sign/up",
+  // user
+  Profile = "/profile",
+  ChangePassword = "/change-password",
   // post
   Posts = "/posts",
   PostDetailById = "/posts/:id?",
@@ -34,7 +39,7 @@ export enum PageRoutes {
 }
 
 // 로그인 없이 접근 불가능한 페이지
-export const restrictedRoutes = [];
+export const restrictedRoutes = [PageRoutes.Profile, PageRoutes.ChangePassword];
 
 export const onlyAdminAllowedRoutes = [];
 

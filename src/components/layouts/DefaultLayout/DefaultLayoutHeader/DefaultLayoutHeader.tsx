@@ -17,7 +17,13 @@ const DefaultLayoutHeader = () => {
 
   const { data: me } = useGetMe();
   return (
-    <Flex as={"header"} h={100} justify={"space-between"} align={"center"} px={2}>
+    <Flex
+      as={"header"}
+      h={100}
+      justify={"space-between"}
+      align={"center"}
+      px={2}
+    >
       <Flex>
         <Text
           style={linkStyle}
@@ -35,6 +41,9 @@ const DefaultLayoutHeader = () => {
               size={"sm"}
               cursor={"pointer"}
               src={me.profile_image?.origin_url}
+              onClick={() => {
+                push(toUrl(PageRoutes.Profile));
+              }}
             />
             <Text
               style={linkStyle}

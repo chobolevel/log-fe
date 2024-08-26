@@ -1,4 +1,13 @@
-import { Api, ApiResponse, ID, ImageScheme, Scheme, usePost } from "@/apis";
+import {
+  Api,
+  ApiResponse,
+  ID,
+  ImageScheme,
+  Scheme,
+  useInvalidate,
+  usePost,
+  useUpdate,
+} from "@/apis";
 import { toUrl } from "@/utils";
 import { ApiRoutes } from "@/constants";
 import { Nullable } from "@/types";
@@ -6,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export type UserLoginType = "GENERAL" | "KAKAO" | "NAVER" | "GOOGLE";
 export type UserRoleType = "ROLE_USER" | "ROLE_ADMIN";
+export type UserUpdateMask = "NICKNAME" | "PHONE";
 
 export interface User extends Scheme {
   email: string;
@@ -25,6 +35,19 @@ export interface CreateUserRequest {
   phone: string;
 }
 
+export interface UpdateUserRequest {
+  id: ID;
+  nickname?: string;
+  phone?: string;
+  update_mask: UserUpdateMask[];
+}
+
+export interface ChangeUserPasswordRequest {
+  cur_password: string;
+  new_password: string;
+  check_new_password: string;
+}
+
 export const useGetMe = () => {
   return useQuery({
     queryKey: [toUrl(ApiRoutes.Me), null],
@@ -40,4 +63,18 @@ export const useGetMe = () => {
 
 export const useCreateUser = () => {
   return usePost<User, CreateUserRequest, ID>(toUrl(ApiRoutes.CreateUser));
+};
+
+export const useUpdateUser = () => {
+  return useUpdate<User, UpdateUserRequest>(
+    (data) => toUrl(ApiRoutes.UpdateUser, { id: data.id }),
+    undefined,
+    { onSettled: useInvalidate(toUrl(ApiRoutes.Me)) },
+  );
+};
+
+export const useChangeUserPassword = () => {
+  return useUpdate<User, ChangeUserPasswordRequest>(
+    toUrl(ApiRoutes.UpdateUser),
+  );
 };
