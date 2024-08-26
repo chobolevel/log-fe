@@ -13,7 +13,10 @@ export enum ApiRoutes {
   // tag
   Tags = "/api/v1/tags/:id?",
   // post
+  CreatePost = "/api/v1/posts",
   Posts = "/api/v1/posts/:id?",
+  // presigned-url
+  CreatePresignedUrl = "/api/v1/upload/presigned-url",
 }
 
 // 페이지 주소 정의
