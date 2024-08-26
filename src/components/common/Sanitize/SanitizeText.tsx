@@ -8,7 +8,6 @@ interface SanitizeTextProps {
 const SanitizeText = ({ htmlString }: SanitizeTextProps) => {
   return (
     <Box
-      fontSize={"sm"}
       whiteSpace={"break-spaces"}
       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(htmlString) }}
     />

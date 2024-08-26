@@ -1,5 +1,5 @@
-import {fonts} from "@/constants";
-import {extendTheme} from "@chakra-ui/react";
+import { fonts } from "@/constants";
+import { extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
   base: "0em",
@@ -13,6 +13,27 @@ const breakpoints = {
 const theme = extendTheme({
   styles: {
     global: {
+      h1: {
+        fontSize: "3rem",
+        fontWeight: "bold",
+      },
+      h2: {
+        fontSize: "2rem",
+        fontWeight: "bold",
+      },
+      h3: {
+        fontSize: "1rem",
+        fontWeight: "bold",
+      },
+      ul: {
+        marginLeft: "30px",
+      },
+      ol: {
+        marginLeft: "30px",
+      },
+      img: {
+        maxWidth: "800px",
+      },
       // "input[type='date']": {
       //   position: "relative",
       //   backgroundColor: "transparent",
