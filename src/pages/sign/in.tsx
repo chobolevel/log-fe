@@ -119,10 +119,10 @@ const SignInPage = () => {
             </Button>
             <Button
               onClick={() => {
-                push(toUrl(PageRoutes.SignUp));
+                push(toUrl(PageRoutes.Home));
               }}
             >
-              회원가입
+              홈으로
             </Button>
           </Flex>
         </Flex>

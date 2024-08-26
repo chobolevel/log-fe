@@ -1,16 +1,16 @@
-import {ApiError, ApiResponse, ServerErrorCodes} from "@/apis";
-import {modalStore} from "@/stores";
-import {createStandaloneToast} from "@chakra-ui/react";
+import { ApiError, ApiResponse, ServerErrorCodes } from "@/apis";
+import { modalStore } from "@/stores";
+import { createStandaloneToast } from "@chakra-ui/react";
 import {
   MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
-import {isAxiosError} from "axios";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { isAxiosError } from "axios";
 
-const {toast} = createStandaloneToast();
+const { toast } = createStandaloneToast();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,10 +61,10 @@ interface ReactQueryProviderProps {
   children: React.ReactNode;
 }
 
-const ReactQueryProvider = ({children}: ReactQueryProviderProps) => {
+const ReactQueryProvider = ({ children }: ReactQueryProviderProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools/>
+      <ReactQueryDevtools />
       {children}
     </QueryClientProvider>
   );
