@@ -16,14 +16,17 @@ const theme = extendTheme({
       h1: {
         fontSize: "3rem",
         fontWeight: "bold",
+        marginTop: "20px",
       },
       h2: {
         fontSize: "2rem",
         fontWeight: "bold",
+        marginTop: "20px",
       },
       h3: {
         fontSize: "1rem",
         fontWeight: "bold",
+        marginTop: "20px",
       },
       ul: {
         marginLeft: "30px",
@@ -33,6 +36,16 @@ const theme = extendTheme({
       },
       img: {
         maxWidth: "800px",
+      },
+      "a:hover": {
+        fontWeight: "bold",
+      },
+      ".toastui-editor-ww-code-block": {
+        overflowX: "auto",
+        borderRadius: "10px",
+        padding: "20px",
+        backgroundColor: "#eee",
+        textWrap: "wrap",
       },
       // "input[type='date']": {
       //   position: "relative",
