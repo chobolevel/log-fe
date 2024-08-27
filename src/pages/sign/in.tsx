@@ -64,7 +64,8 @@ const SignInPage = () => {
       >
         <Flex
           as={"form"}
-          w={400}
+          w={"90%"}
+          maxW={400}
           p={4}
           direction={"column"}
           onSubmit={handleSubmit(
