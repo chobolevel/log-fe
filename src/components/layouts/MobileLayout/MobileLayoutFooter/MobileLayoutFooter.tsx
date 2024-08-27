@@ -1,8 +1,8 @@
-import {Flex, Link, Text} from "@chakra-ui/react";
-import {IoIosMail} from "react-icons/io";
-import {AiFillInstagram} from "react-icons/ai";
-import {FaGithub} from "react-icons/fa";
-import {CSSProperties} from "react";
+import { Flex, Link, Text } from "@chakra-ui/react";
+import { IoIosMail } from "react-icons/io";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaGithub } from "react-icons/fa";
+import { CSSProperties } from "react";
 
 const iconBoxStyle: CSSProperties = {
   width: 30,
@@ -35,11 +35,13 @@ const MobileLayoutFooter = () => {
           <FaGithub size={28} />
         </Link>
       </Flex>
-      <Flex gap={4}>
-        <Text fontWeight={"bold"}>Copyright 2024 chobolevel All rights reserved.</Text>
+      <Flex gap={4} justify={"center"} align={"center"}>
+        <Text fontWeight={"bold"} textAlign={"center"}>
+          Copyright 2024 chobolevel All rights reserved.
+        </Text>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default MobileLayoutFooter
+export default MobileLayoutFooter;
