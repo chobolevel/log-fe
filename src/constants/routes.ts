@@ -45,7 +45,12 @@ export enum PageRoutes {
 }
 
 // 로그인 없이 접근 불가능한 페이지
-export const restrictedRoutes = [PageRoutes.Profile, PageRoutes.ChangePassword];
+export const restrictedRoutes = [
+  PageRoutes.Profile,
+  PageRoutes.ChangePassword,
+  PageRoutes.WritePost,
+  PageRoutes.EditPost,
+];
 
 export const onlyAdminAllowedRoutes = [];
 
