@@ -39,15 +39,12 @@ const queryClient = new QueryClient({
     },
     onError: (error, variables, context, mutation) => {
       if (!isAxiosError<ApiError>(error) || mutation.meta?.ignoreError) return;
-      if (
-        error.response?.data.errors.errorCode === ServerErrorCodes.ACCESS_DENIED
-      ) {
+      if (error.response?.data.error_code === ServerErrorCodes.ACCESS_DENIED) {
         modalStore.getState().closeAllModal();
         // modalStore.getState().openModal(UnauthorizedModal, {});
       } else {
         toast({
-          description:
-            error.response?.data.errors.errorMessage || error.message,
+          description: error.response?.data.error_message || error.message,
           status: "error",
           duration: 3000,
           isClosable: true,

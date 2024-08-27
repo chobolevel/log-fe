@@ -1,10 +1,10 @@
-import {Optional} from "@/types";
+import { Optional } from "@/types";
 import {
   UseInfiniteQueryOptions,
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import {AxiosError} from "axios";
+import { AxiosError } from "axios";
 
 export type ID = number;
 
@@ -18,7 +18,7 @@ export type UserType = "USER" | "ADMIN";
 
 export type LoginType = "GOOGLE" | "KAKAO" | "NAVER" | "GENERAL";
 
-export type ImageType = "PROFILE"
+export type ImageType = "PROFILE";
 
 export interface ImageScheme extends Scheme {
   key: string;
@@ -40,17 +40,14 @@ export interface Presigned {
   presigend_url: string;
 }
 
-
 export interface ApiResponse<T> {
   data: T;
   message: string;
 }
 
 export interface ApiError extends Error {
-  errors: {
-    errorCode: string;
-    errorMessage: string;
-  };
+  error_code: string;
+  error_message: string;
 }
 
 export enum ServerErrorCodes {
