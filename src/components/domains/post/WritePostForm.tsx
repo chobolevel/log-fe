@@ -70,6 +70,7 @@ const WritePostForm = () => {
       <Flex direction={"column"} gap={6}>
         <Flex direction={"column"} gap={2}>
           <Select
+            w={{ base: "100%", lg: 200 }}
             placeholder={"TAG"}
             value={""}
             onChange={(e) => {
@@ -124,6 +125,7 @@ const WritePostForm = () => {
         </Flex>
         <Flex direction={"column"} gap={2}>
           <Input
+            w={{ base: "100%", lg: 500 }}
             type={"text"}
             placeholder={"TITLE"}
             {...register("title", {
@@ -138,6 +140,7 @@ const WritePostForm = () => {
         </Flex>
         <Flex direction={"column"} gap={2}>
           <Input
+            w={{ base: "100%", lg: 500 }}
             type={"text"}
             placeholder={"SUB_TITLE"}
             {...register("sub_title", {
