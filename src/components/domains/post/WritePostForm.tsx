@@ -97,7 +97,7 @@ const WritePostForm = () => {
               );
             })}
           </Select>
-          <Flex gap={2}>
+          <Flex gap={2} flexWrap={"wrap"}>
             {selectedTags.map((tag, idx) => {
               return (
                 <ChakraTag

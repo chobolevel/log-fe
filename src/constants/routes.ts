@@ -19,6 +19,8 @@ export enum ApiRoutes {
   // post
   CreatePost = "/api/v1/posts",
   Posts = "/api/v1/posts/:id?",
+  UpdatePost = "/api/v1/posts/:id?",
+  DeletePost = "/api/v1/posts/:id?",
   // presigned-url
   CreatePresignedUrl = "/api/v1/upload/presigned-url",
 }
@@ -37,6 +39,7 @@ export enum PageRoutes {
   WritePost = "/posts/write",
   Posts = "/posts",
   PostDetailById = "/posts/:id?",
+  EditPost = "/posts/:id?/edit",
   // tag
   Tags = "/tags",
 }

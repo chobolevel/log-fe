@@ -3,9 +3,10 @@
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { useCreatePresignedUrl } from "@/apis";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 
 interface WysiwygEditorProps {
+  value?: string;
   onChange: (content: string) => void;
 }
 
@@ -19,9 +20,15 @@ const toolbarItems = [
   ["scrollSync"],
 ];
 
-const WysiwygEditor = ({ onChange }: WysiwygEditorProps) => {
+const WysiwygEditor = ({ value, onChange }: WysiwygEditorProps) => {
   const editorRef = useRef<Editor>(null);
+
   const { mutate: createPresignedUrl } = useCreatePresignedUrl();
+
+  const defaultValue = useMemo(
+    () => value ?? "게시글 내용을 입력하세요.",
+    [value],
+  );
   return (
     <Editor
       ref={editorRef}
@@ -31,7 +38,7 @@ const WysiwygEditor = ({ onChange }: WysiwygEditorProps) => {
           onChange(content);
         }
       }}
-      initialValue={"게시글 내용을 입력하세요."}
+      initialValue={defaultValue}
       initialEditType={"wysiwyg"}
       previewStyle={"vertical"}
       hideModeSwitch={true}

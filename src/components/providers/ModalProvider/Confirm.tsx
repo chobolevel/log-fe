@@ -1,4 +1,4 @@
-import {useModalStore} from "@/stores";
+import { useModalStore } from "@/stores";
 import {
   Button,
   Flex,
@@ -11,10 +11,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import {useCallback} from "react";
+import { useCallback } from "react";
 
 const Confirm = () => {
-  const {confirm, closeConfirm} = useModalStore(["confirm", "closeConfirm"]);
+  const { confirm, closeConfirm } = useModalStore(["confirm", "closeConfirm"]);
 
   const handleConfirm = useCallback(() => {
     confirm?.onConfirm && confirm.onConfirm();
@@ -23,10 +23,10 @@ const Confirm = () => {
 
   return (
     <Modal isOpen={!!confirm} onClose={closeConfirm}>
-      <ModalOverlay/>
+      <ModalOverlay />
       <ModalContent>
-        <ModalHeader/>
-        <ModalCloseButton/>
+        <ModalHeader />
+        <ModalCloseButton />
         <ModalBody>
           <Flex direction={"column"} align={"center"} gap={"4"}>
             <Heading size={"md"}>{confirm?.title}</Heading>
@@ -39,11 +39,7 @@ const Confirm = () => {
           <Button minW={"24"} onClick={closeConfirm}>
             닫기
           </Button>
-          <Button
-            variant={"outline"}
-            minW={"24"}
-            onClick={handleConfirm}
-          >
+          <Button colorScheme={"green"} minW={"24"} onClick={handleConfirm}>
             확인
           </Button>
         </ModalFooter>
