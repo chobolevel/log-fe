@@ -32,6 +32,7 @@ export enum PageRoutes {
   Profile = "/profile",
   ChangePassword = "/change-password",
   // post
+  WritePost = "/posts/write",
   Posts = "/posts",
   PostDetailById = "/posts/:id?",
   // tag

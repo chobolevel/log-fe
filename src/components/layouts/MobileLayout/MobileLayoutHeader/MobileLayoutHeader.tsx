@@ -62,6 +62,14 @@ const MobileLayoutHeader = () => {
                 <MenuItem
                   fontWeight={"bold"}
                   onClick={() => {
+                    push(toUrl(PageRoutes.WritePost));
+                  }}
+                >
+                  POSTING
+                </MenuItem>
+                <MenuItem
+                  fontWeight={"bold"}
+                  onClick={() => {
                     logout();
                   }}
                 >

@@ -48,6 +48,14 @@ const DefaultLayoutHeader = () => {
             <Text
               style={linkStyle}
               onClick={() => {
+                push(toUrl(PageRoutes.WritePost));
+              }}
+            >
+              POSTING
+            </Text>
+            <Text
+              style={linkStyle}
+              onClick={() => {
                 logout();
               }}
             >
