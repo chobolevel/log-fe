@@ -73,6 +73,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
             src={profileImage}
             alt={"회원 프로필 이미지"}
             w={200}
+            h={200}
             borderRadius={"50%"}
           />
           <Button
@@ -91,7 +92,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
               input.setAttribute("type", "file");
               input.setAttribute("accept", "image/*");
               input.click();
-              input.addEventListener("change", (e) => {
+              input.addEventListener("change", () => {
                 if (input.files && input.files.length > 0) {
                   const file = input.files[0];
                   const filename = file.name.split(".")[0];
@@ -123,6 +124,9 @@ const UserProfile = ({ user }: UserProfileProps) => {
           >
             프로필 이미지 변경
           </Button>
+          <Text fontSize={"sm"} color={"#333"}>
+            정사각형 이미지가 아닌 경우 깨질 수 있습니다.
+          </Text>
         </Flex>
         <Flex direction={"column"} p={10} gap={4}>
           <Flex direction={"column"} gap={2}>
