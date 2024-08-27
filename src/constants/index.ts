@@ -1,2 +1,3 @@
-export * from "./fonts"
-export * from "./routes"
+export * from "./fonts";
+export * from "./resources";
+export * from "./routes";

@@ -11,7 +11,9 @@ export enum ApiRoutes {
   Users = "/api/v1/users",
   Me = "/api/v1/users/me",
   UpdateUser = "/api/v1/users/:id?",
+  UpdateUserImage = "/api/v1/users/images",
   ChangeUserPassword = "/api/v1/users/change-password",
+  DeleteUserImage = "/api/v1/users/images/:id?",
   // tag
   Tags = "/api/v1/tags/:id?",
   // post

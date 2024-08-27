@@ -1,8 +1,8 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
-import { PageRoutes } from "@/constants";
-import { CSSProperties } from "react";
+import { images, PageRoutes } from "@/constants";
+import { CSSProperties, useMemo } from "react";
 import { useGetMe, useLogout } from "@/apis";
 
 const linkStyle: CSSProperties = {
@@ -16,6 +16,14 @@ const DefaultLayoutHeader = () => {
   const logout = useLogout();
 
   const { data: me } = useGetMe();
+
+  const profileImage = useMemo(() => {
+    if (me && me.profile_image) {
+      return me.profile_image.origin_url;
+    } else {
+      return images.unknown.src;
+    }
+  }, [me]);
   return (
     <Flex
       as={"header"}
@@ -40,7 +48,7 @@ const DefaultLayoutHeader = () => {
             <Avatar
               size={"sm"}
               cursor={"pointer"}
-              src={me.profile_image?.origin_url}
+              src={profileImage}
               onClick={() => {
                 push(toUrl(PageRoutes.Profile));
               }}

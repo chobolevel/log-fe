@@ -4,6 +4,7 @@ import {
   ID,
   ImageScheme,
   Scheme,
+  useDelete,
   useInvalidate,
   usePost,
   useUpdate,
@@ -16,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 export type UserLoginType = "GENERAL" | "KAKAO" | "NAVER" | "GOOGLE";
 export type UserRoleType = "ROLE_USER" | "ROLE_ADMIN";
 export type UserUpdateMask = "NICKNAME" | "PHONE";
+export type UserImageType = "PROFILE";
 
 export interface User extends Scheme {
   email: string;
@@ -48,6 +50,12 @@ export interface ChangeUserPasswordRequest {
   check_new_password: string;
 }
 
+export interface UpdateUserImageRequest {
+  type: UserImageType;
+  origin_url: string;
+  name: string;
+}
+
 export const useGetMe = () => {
   return useQuery({
     queryKey: [toUrl(ApiRoutes.Me), null],
@@ -77,4 +85,18 @@ export const useChangeUserPassword = () => {
   return useUpdate<User, ChangeUserPasswordRequest>(
     toUrl(ApiRoutes.UpdateUser),
   );
+};
+
+export const useCreateUserImage = () => {
+  return usePost<User, UpdateUserImageRequest>(
+    toUrl(ApiRoutes.UpdateUserImage),
+    undefined,
+    { onSettled: useInvalidate(toUrl(ApiRoutes.Me)) },
+  );
+};
+
+export const useDeleteUserImage = () => {
+  return useDelete(toUrl(ApiRoutes.DeleteUserImage), undefined, {
+    onSettled: useInvalidate(toUrl(ApiRoutes.Me)),
+  });
 };
