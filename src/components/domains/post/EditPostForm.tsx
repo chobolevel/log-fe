@@ -59,29 +59,32 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
       direction={"column"}
       gap={4}
       onSubmit={handleSubmit(
-        useCallback((data) => {
-          if (selectedTags.length < 1) {
-            openAlert({
-              title: "태그 필수 선택",
-              content: "태그는 최소 1개 이상 선택되어야 합니다.",
+        useCallback(
+          (data) => {
+            if (selectedTags.length < 1) {
+              openAlert({
+                title: "태그 필수 선택",
+                content: "태그는 최소 1개 이상 선택되어야 합니다.",
+              });
+              return;
+            } else {
+              data.tag_ids = selectedTags.map((t) => t.id);
+            }
+            updatePost(data, {
+              onSuccess: () => {
+                push(toUrl(PageRoutes.PostDetailById, { id: post.id }))?.then(
+                  () => {
+                    openAlert({
+                      title: "게시글 수정",
+                      content: "게시글 수정이 완료되었습니다.",
+                    });
+                  },
+                );
+              },
             });
-            return;
-          } else {
-            data.tag_ids = selectedTags.map((t) => t.id);
-          }
-          updatePost(data, {
-            onSuccess: () => {
-              push(toUrl(PageRoutes.PostDetailById, { id: post.id }))?.then(
-                () => {
-                  openAlert({
-                    title: "게시글 수정",
-                    content: "게시글 수정이 완료되었습니다.",
-                  });
-                },
-              );
-            },
-          });
-        }, []),
+          },
+          [selectedTags],
+        ),
       )}
     >
       <Text>게시글 수정</Text>
