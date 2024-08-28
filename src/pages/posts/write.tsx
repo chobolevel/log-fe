@@ -17,22 +17,22 @@ const WritePostPage = () => {
         {/*meta*/}
         <meta name="title" content={HOME_TITLE} />
         <meta name="description" content={HOME_DESC} />
-        {/*<meta property="image" content="/images/swiper/slide5.jpeg" />*/}
+        <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
-        <meta name="author" content={"초로"} />
+        <meta name="author" content={"chobolevel"} />
         <meta name="classification" content={DIVING_CATEGORIES.join(", ")} />
         <meta name="subject" content={DIVING_CATEGORIES.join(", ")} />
 
         {/*링크*/}
-        {/*<link rel="canonical" href="https://hankkang.com" />*/}
-        {/*<link rel="icon" href="https://hankkang.com/hankkang-logo.png" />*/}
+        <link rel="canonical" href="https://chobolevel.site" />
+        <link rel="icon" href="https://chobolevel.site/main-logo.png" />
 
         {/*공유하기*/}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={HOME_TITLE} />
         <meta property="og:description" content={HOME_DESC} />
-        {/*<meta property="og:image" content="/images/swiper/slide5.jpeg" />*/}
-        {/*<meta property="og:url" content={"https://hankkang.com"} />*/}
+        <meta property="og:image" content="/images/main-logo.png" />
+        <meta property="og:url" content={"https://chobolevel.site"} />
       </Head>
       <ResponsiveLayout>
         <WritePostForm />
