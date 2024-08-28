@@ -22,6 +22,7 @@ export default function HomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/*meta*/}
+        <link rel="icon" href="/favicon.ico" />
         <meta name="title" content={HOME_TITLE} />
         <meta name="description" content={HOME_DESC} />
         <meta property="image" content="/images/main-logo.png" />
