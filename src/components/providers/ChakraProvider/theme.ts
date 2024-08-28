@@ -16,23 +16,29 @@ const theme = extendTheme({
       h1: {
         fontSize: "3rem",
         fontWeight: "bold",
-        marginTop: "20px",
+        marginTop: "30px",
+        marginBottom: "10px",
       },
       h2: {
         fontSize: "2rem",
         fontWeight: "bold",
-        marginTop: "20px",
+        marginTop: "30px",
+        marginBottom: "10px",
       },
       h3: {
         fontSize: "1rem",
         fontWeight: "bold",
-        marginTop: "20px",
+        marginTop: "30px",
+        marginBottom: "10px",
       },
       ul: {
         marginLeft: "30px",
       },
       ol: {
         marginLeft: "30px",
+      },
+      li: {
+        margin: "10px 0",
       },
       img: {
         maxWidth: "800px",
