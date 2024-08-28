@@ -28,11 +28,14 @@ const PostDetail = ({ post }: PostDetailPops) => {
   const isWriter = useMemo(() => me?.id === post.writer.id, [post, me]);
   return (
     <Flex direction={"column"} gap={10}>
-      <Flex justify={"space-between"} align={"center"}>
-        <Text fontSize={"xl"} fontWeight={"bold"}>
-          {post.title}
-        </Text>
-        <Text>{writtenAt}</Text>
+      <Flex direction={"column"} gap={2}>
+        <Flex justify={"space-between"} align={"center"}>
+          <Text fontSize={"xl"} fontWeight={"bold"}>
+            {post.title}
+          </Text>
+          <Text>{writtenAt}</Text>
+        </Flex>
+        <Text>{post.sub_title}</Text>
       </Flex>
       <Divider />
       <Flex direction={"column"}>
