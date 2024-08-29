@@ -67,7 +67,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
         }, []),
       )}
     >
-      <Flex>
+      <Flex direction={{ base: "column", lg: "row" }}>
         <Flex direction={"column"} p={10} align={"center"} gap={4}>
           <Image
             src={profileImage}
@@ -128,10 +128,10 @@ const UserProfile = ({ user }: UserProfileProps) => {
             정사각형 이미지가 아닌 경우 깨질 수 있습니다.
           </Text>
         </Flex>
-        <Flex direction={"column"} p={10} gap={4}>
+        <Flex direction={"column"} p={{ base: 2, lg: 10 }} gap={4}>
           <Flex direction={"column"} gap={2}>
             <Text fontWeight={"bold"}>이메일</Text>
-            <Text>{user.email}</Text>
+            <Text textIndent={"6px"}>{user.email}</Text>
           </Flex>
           <Flex direction={"column"} gap={2}>
             <Text fontWeight={"bold"}>닉네임</Text>
