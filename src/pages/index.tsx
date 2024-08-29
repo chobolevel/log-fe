@@ -1,4 +1,4 @@
-import { PostList, ResponsiveLayout } from "@/components";
+import { ListSkeleton, PostList, ResponsiveLayout } from "@/components";
 import Head from "next/head";
 import { useGetPosts } from "@/apis";
 import { Flex, Text } from "@chakra-ui/react";
@@ -8,7 +8,11 @@ const HOME_DESC = "초보 개발자의 블로그";
 const DIVING_CATEGORIES = ["개발", "블로그"];
 
 export default function HomePage() {
-  const { data: posts } = useGetPosts({
+  const {
+    data: posts,
+    isError,
+    error,
+  } = useGetPosts({
     skipCount: 0,
     limitCount: 10,
     orderTypes: ["CREATED_AT_DESC"],
@@ -47,8 +51,10 @@ export default function HomePage() {
           <Text>최신글</Text>
           {posts ? (
             <PostList posts={posts.data} />
+          ) : isError ? (
+            <Text>{error?.response?.data.error_message}</Text>
           ) : (
-            <Flex>게시글이 없습니다.</Flex>
+            <ListSkeleton />
           )}
         </Flex>
       </ResponsiveLayout>

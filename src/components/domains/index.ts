@@ -4,6 +4,7 @@ export {
   PostDetail,
   PostList,
   PostListItem,
+  PostSearchBox,
   WritePostForm,
 } from "./post";
 export { TagList, TagListItem } from "./tag";
