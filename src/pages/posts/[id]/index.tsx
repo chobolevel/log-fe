@@ -1,8 +1,8 @@
 import { useSafePush } from "@/hooks";
 import { useGetPost } from "@/apis";
 import Head from "next/head";
-import { PostDetail, ResponsiveLayout } from "@/components";
-import { Flex } from "@chakra-ui/react";
+import { DetailSkeleton, PostDetail, ResponsiveLayout } from "@/components";
+import { Flex, Text } from "@chakra-ui/react";
 
 const HOME_TITLE = "초로 - 초보 개발자의 블로그";
 const HOME_DESC = "초보 개발자의 블로그 목록";
@@ -11,7 +11,11 @@ const DIVING_CATEGORIES = ["개발", "블로그"];
 const PostDetailPage = () => {
   const { push, router } = useSafePush();
 
-  const { data: post } = useGetPost({
+  const {
+    data: post,
+    isError,
+    error,
+  } = useGetPost({
     id: Number(router.query.id ?? 0),
   });
   return (
@@ -47,8 +51,10 @@ const PostDetailPage = () => {
         <Flex p={4} direction={"column"} gap={4}>
           {post ? (
             <PostDetail post={post} />
+          ) : isError ? (
+            <Text>{error?.response?.data.error_message}</Text>
           ) : (
-            <Flex>게시글을 찾을 수 없습니다.</Flex>
+            <DetailSkeleton />
           )}
         </Flex>
       </ResponsiveLayout>

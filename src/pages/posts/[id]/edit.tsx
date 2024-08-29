@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { EditPostForm, ResponsiveLayout } from "@/components";
+import { DetailSkeleton, EditPostForm, ResponsiveLayout } from "@/components";
 import { useSafePush } from "@/hooks";
 import { Flex, Text } from "@chakra-ui/react";
 import { useGetPost } from "@/apis";
@@ -9,9 +9,13 @@ const HOME_DESC = "초보 개발자의 블로그 목록";
 const DIVING_CATEGORIES = ["개발", "블로그"];
 
 const EditPostPage = () => {
-  const { push, router } = useSafePush();
+  const { router } = useSafePush();
 
-  const { data: post } = useGetPost({
+  const {
+    data: post,
+    isError,
+    error,
+  } = useGetPost({
     id: Number(router.query.id ?? 0),
   });
   return (
@@ -46,7 +50,13 @@ const EditPostPage = () => {
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
           <Text>게시글 수정</Text>
-          {post ? <EditPostForm post={post} /> : <Flex>Not Found</Flex>}
+          {post ? (
+            <EditPostForm post={post} />
+          ) : isError ? (
+            <Text>{error?.response?.data.error_message}</Text>
+          ) : (
+            <DetailSkeleton />
+          )}
         </Flex>
       </ResponsiveLayout>
     </>
