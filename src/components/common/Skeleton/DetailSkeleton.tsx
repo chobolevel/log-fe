@@ -9,7 +9,7 @@ const DetailSkeleton = () => {
       </Flex>
       <Skeleton w={{ base: 200, lg: 400 }} height={4} />
       <Divider />
-      <SkeletonText noOfLines={10} />
+      <SkeletonText noOfLines={14} spacing={6} skeletonHeight={4} />
     </Flex>
   );
 };
