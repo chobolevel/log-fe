@@ -90,6 +90,14 @@ const MobileLayoutHeader = () => {
             <MenuItem
               fontWeight={"bold"}
               onClick={() => {
+                push(toUrl(PageRoutes.GuestBooks));
+              }}
+            >
+              GUEST BOOK
+            </MenuItem>
+            <MenuItem
+              fontWeight={"bold"}
+              onClick={() => {
                 push(toUrl(PageRoutes.Posts));
               }}
             >

@@ -44,6 +44,8 @@ export enum PageRoutes {
   Posts = "/posts",
   PostDetailById = "/posts/:id?",
   EditPost = "/posts/:id?/edit",
+  // guest book
+  GuestBooks = "/guest-books",
   // tag
   Tags = "/tags",
 }

@@ -15,7 +15,7 @@ export type GuestBookOrderType = "CREATED_AT_ASC" | "CREATED_AT_DESC";
 export type GuestBookUpdateMask = "CONTENT";
 
 export interface GuestBook extends Scheme {
-  guestName: string;
+  guest_name: string;
   content: string;
 }
 
