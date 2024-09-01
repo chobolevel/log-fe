@@ -21,6 +21,10 @@ export enum ApiRoutes {
   Posts = "/api/v1/posts/:id?",
   UpdatePost = "/api/v1/posts/:id?",
   DeletePost = "/api/v1/posts/:id?",
+  // guest book
+  CreateGuestBook = "/api/v1/guest-books",
+  GuestBooks = "/api/v1/guest-books/:id?",
+  UpdateGuestBook = "/api/v1/guest-books/:id?",
   // presigned-url
   CreatePresignedUrl = "/api/v1/upload/presigned-url",
 }
