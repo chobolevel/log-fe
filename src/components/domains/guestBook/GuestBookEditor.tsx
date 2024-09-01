@@ -57,6 +57,7 @@ const GuestBookEditor = ({ onClose, guestBook }: GuestBookEditorProps) => {
               useCallback((data) => {
                 updateGuestBook(data, {
                   onSuccess: () => {
+                    onClose();
                     openAlert({
                       title: "방명록 수정",
                       content: "방멸록이 수정되었습니다.",

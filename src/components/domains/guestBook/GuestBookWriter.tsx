@@ -49,6 +49,7 @@ const GuestBookWriter = ({ onClose }: GuestBookWriterProps) => {
               useCallback((data) => {
                 createGuestBook(data, {
                   onSuccess: () => {
+                    onClose();
                     openAlert({
                       title: "방명록 등록",
                       content: "방명록이 등록되었습니다.",
