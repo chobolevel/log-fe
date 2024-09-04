@@ -40,6 +40,7 @@ const MobileLayoutHeader = () => {
           onClick={() => {
             push(toUrl(PageRoutes.Home));
           }}
+          fontSize={"xl"}
         >
           CHOLO
         </Text>
