@@ -29,14 +29,16 @@ const DefaultLayoutFooter = () => {
         </Link>
         <Link
           style={iconBoxStyle}
-          href={"https://github.com/chobolevel"}
+          href={"https://github.com/chobolevel/log"}
           target={"_blank"}
         >
           <FaGithub size={28} />
         </Link>
       </Flex>
       <Flex gap={4}>
-        <Text fontWeight={"bold"}>Copyright 2024 chobolevel All rights reserved.</Text>
+        <Text fontWeight={"bold"}>
+          Copyright 2024 chobolevel All rights reserved.
+        </Text>
       </Flex>
     </Flex>
   );

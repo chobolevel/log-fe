@@ -29,7 +29,7 @@ const MobileLayoutFooter = () => {
         </Link>
         <Link
           style={iconBoxStyle}
-          href={"https://github.com/chobolevel"}
+          href={"https://github.com/chobolevel/log"}
           target={"_blank"}
         >
           <FaGithub size={28} />
