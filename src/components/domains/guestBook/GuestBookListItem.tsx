@@ -23,7 +23,7 @@ const GuestBookListItem = ({ guestBook }: GuestBookListItemProps) => {
       gap={2}
       p={4}
       borderRadius={10}
-      border={"2px solid"}
+      border={"3px solid"}
       borderColor={"lightGreen"}
     >
       <Flex justify={"space-between"} align={"center"}>

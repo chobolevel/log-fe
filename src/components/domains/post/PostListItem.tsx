@@ -21,7 +21,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
       direction={"column"}
       p={4}
       borderRadius={10}
-      border={"2px solid"}
+      border={"3px solid"}
       borderColor={"lightGreen"}
       cursor={"pointer"}
       onClick={() => {
