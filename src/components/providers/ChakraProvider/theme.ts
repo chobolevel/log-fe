@@ -84,6 +84,7 @@ const theme = extendTheme({
     body: fonts.oneMobile.style.fontFamily,
   },
   colors: {
+    lightGreen: "#38a16a",
     // hoverBg: "#f7f7f7",
     // darkOrange: "#de6412",
     // crimson: "#a30606",

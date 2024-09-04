@@ -19,10 +19,11 @@ const PostListItem = ({ post }: PostListItemProps) => {
   return (
     <Flex
       direction={"column"}
-      py={4}
-      borderY={"1px solid #eee"}
+      p={4}
+      borderRadius={10}
+      border={"2px solid"}
+      borderColor={"lightGreen"}
       cursor={"pointer"}
-      _hover={{ textDecoration: "underline" }}
       onClick={() => {
         push(toUrl(PageRoutes.PostDetailById, { id: post.id }));
       }}

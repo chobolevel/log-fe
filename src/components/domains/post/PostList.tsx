@@ -8,7 +8,7 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} gap={4}>
       {posts.map((post, idx) => {
         return <PostListItem key={idx} post={post} />;
       })}

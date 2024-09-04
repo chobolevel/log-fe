@@ -50,7 +50,9 @@ const PostSearchBox = () => {
             setKeyword(e.target.value);
           }}
         />
-        <Button onClick={handleSearch}>검색</Button>
+        <Button colorScheme={"green"} onClick={handleSearch}>
+          검색
+        </Button>
       </Flex>
     </Flex>
   );

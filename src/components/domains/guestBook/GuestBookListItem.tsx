@@ -18,7 +18,14 @@ const GuestBookListItem = ({ guestBook }: GuestBookListItemProps) => {
     [guestBook],
   );
   return (
-    <Flex direction={"column"} gap={2}>
+    <Flex
+      direction={"column"}
+      gap={2}
+      p={4}
+      borderRadius={10}
+      border={"2px solid"}
+      borderColor={"lightGreen"}
+    >
       <Flex justify={"space-between"} align={"center"}>
         <Text
           fontWeight={"bold"}
