@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import {
   GuestBook,
@@ -73,7 +74,7 @@ const GuestBookEditor = ({ onClose, guestBook }: GuestBookEditorProps) => {
             <Flex direction={"column"} gap={2}>
               <Input
                 type={"password"}
-                placeholder={"PASSWORD"}
+                placeholder={"🔒비밀번호🔒"}
                 {...register("password", {
                   required: "비밀번호가 입력되지 않았습니다.",
                 })}
@@ -85,11 +86,10 @@ const GuestBookEditor = ({ onClose, guestBook }: GuestBookEditorProps) => {
               />
             </Flex>
             <Flex direction={"column"} gap={2}>
-              <Input
-                type={"text"}
-                placeholder={"CONTENT"}
+              <Textarea
+                placeholder={"방명록"}
                 {...register("content", {
-                  required: "내용이 입력되지 않았습니다.",
+                  required: "방명록 입력되지 않았습니다.",
                 })}
               />
               <ErrorMessage

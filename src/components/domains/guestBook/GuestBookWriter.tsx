@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import {
@@ -65,7 +66,7 @@ const GuestBookWriter = ({ onClose }: GuestBookWriterProps) => {
             <Flex direction={"column"} gap={2}>
               <Input
                 type={"text"}
-                placeholder={"GUEST NAME"}
+                placeholder={"방문자 이름"}
                 {...register("guest_name", {
                   required: "방문자 이름이 입력되지 않았습니다.",
                 })}
@@ -79,7 +80,7 @@ const GuestBookWriter = ({ onClose }: GuestBookWriterProps) => {
             <Flex direction={"column"} gap={2}>
               <Input
                 type={"password"}
-                placeholder={"PASSWORD"}
+                placeholder={"🔒비밀번호🔒"}
                 {...register("password", {
                   required: "비밀번호가 입력되지 않았습니다.",
                 })}
@@ -91,9 +92,8 @@ const GuestBookWriter = ({ onClose }: GuestBookWriterProps) => {
               />
             </Flex>
             <Flex direction={"column"} gap={2}>
-              <Input
-                type={"text"}
-                placeholder={"CONTENT"}
+              <Textarea
+                placeholder={"방명록"}
                 {...register("content", {
                   required: "방문록 내용이 입력되지 않았습니다.",
                 })}

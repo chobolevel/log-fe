@@ -8,7 +8,7 @@ interface GuestBookListProps {
 
 const GuestBookList = ({ guestBooks }: GuestBookListProps) => {
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} gap={4}>
       {guestBooks.map((guestBook, idx) => {
         return <GuestBookListItem key={idx} guestBook={guestBook} />;
       })}
