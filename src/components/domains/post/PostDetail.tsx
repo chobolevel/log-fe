@@ -53,37 +53,48 @@ const PostDetail = ({ post }: PostDetailPops) => {
         })}
       </Flex>
       {isWriter && (
-        <Flex justify={"end"} align={"center"} gap={2}>
-          <Button
-            onClick={() => {
-              push(toUrl(PageRoutes.EditPost, { id: post.id }));
-            }}
-          >
-            수정
-          </Button>
-          <Button
-            colorScheme={"green"}
-            onClick={() => {
-              openConfirm({
-                title: "게시글 삭제",
-                content: "정말 게시글을 삭제하시겠습니까?",
-                onConfirm: () => {
-                  deletePost(post.id, {
-                    onSuccess: () => {
-                      push(toUrl(PageRoutes.Posts))?.then(() => {
-                        openAlert({
-                          title: "게시글 삭제",
-                          content: "게시글을 삭제하였습니다.",
+        <Flex justify={"space-between"} align={"center"}>
+          <Flex>
+            <Button
+              onClick={() => {
+                push(toUrl(PageRoutes.Posts));
+              }}
+            >
+              목록으로
+            </Button>
+          </Flex>
+          <Flex gap={2}>
+            <Button
+              onClick={() => {
+                push(toUrl(PageRoutes.EditPost, { id: post.id }));
+              }}
+            >
+              수정
+            </Button>
+            <Button
+              colorScheme={"green"}
+              onClick={() => {
+                openConfirm({
+                  title: "게시글 삭제",
+                  content: "정말 게시글을 삭제하시겠습니까?",
+                  onConfirm: () => {
+                    deletePost(post.id, {
+                      onSuccess: () => {
+                        push(toUrl(PageRoutes.Posts))?.then(() => {
+                          openAlert({
+                            title: "게시글 삭제",
+                            content: "게시글을 삭제하였습니다.",
+                          });
                         });
-                      });
-                    },
-                  });
-                },
-              });
-            }}
-          >
-            삭제
-          </Button>
+                      },
+                    });
+                  },
+                });
+              }}
+            >
+              삭제
+            </Button>
+          </Flex>
         </Flex>
       )}
     </Flex>
