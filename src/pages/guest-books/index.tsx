@@ -1,18 +1,33 @@
 import Head from "next/head";
-import { GuestBookList, ListSkeleton, ResponsiveLayout } from "@/components";
+import {
+  GuestBookList,
+  ListSkeleton,
+  Pagination,
+  ResponsiveLayout,
+} from "@/components";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useGetGuestBooks } from "@/apis/domains/guestBook";
 import { useModalStore } from "@/stores";
 import GuestBookWriter from "@/components/domains/guestBook/GuestBookWriter";
+import { useState } from "react";
 
 const HOME_TITLE = "초로 - 방명록";
 const HOME_DESC = "초보 개발자의 블로그";
 const DIVING_CATEGORIES = ["개발", "블로그"];
+const LIMIT_COUNT = 10;
 
 const GuestBookListPage = () => {
+  const [page, setPage] = useState<number>(1);
   const { openModal } = useModalStore(["openModal"]);
-
-  const { data: guestBooks, isError, error } = useGetGuestBooks();
+  const {
+    data: guestBooks,
+    isError,
+    error,
+  } = useGetGuestBooks({
+    skipCount: (page - 1) * LIMIT_COUNT,
+    limitCount: LIMIT_COUNT,
+    orderTypes: ["CREATED_AT_DESC"],
+  });
   return (
     <>
       <Head>
@@ -56,7 +71,15 @@ const GuestBookListPage = () => {
             </Button>
           </Flex>
           {guestBooks ? (
-            <GuestBookList guestBooks={guestBooks.data} />
+            <>
+              <GuestBookList guestBooks={guestBooks.data} />
+              <Pagination
+                currentPage={page}
+                limit={LIMIT_COUNT}
+                total={guestBooks.total_count}
+                onChange={setPage}
+              />
+            </>
           ) : isError ? (
             <Text>{error?.response?.data.error_message}</Text>
           ) : (
