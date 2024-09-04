@@ -21,7 +21,7 @@ const EditPostPage = () => {
   return (
     <>
       <Head>
-        <title>{HOME_TITLE}</title>
+        <title>{post ? `초로 - ${post.title}` : HOME_TITLE}</title>
 
         {/*view port*/}
         <meta name="viewport" content="width=device-width, initial-scale=1" />

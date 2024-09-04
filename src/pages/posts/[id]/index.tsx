@@ -9,7 +9,7 @@ const HOME_DESC = "초보 개발자의 블로그 목록";
 const DIVING_CATEGORIES = ["개발", "블로그"];
 
 const PostDetailPage = () => {
-  const { push, router } = useSafePush();
+  const { router } = useSafePush();
 
   const {
     data: post,
@@ -21,7 +21,7 @@ const PostDetailPage = () => {
   return (
     <>
       <Head>
-        <title>{HOME_TITLE}</title>
+        <title>{post ? `초로 - ${post.title}` : HOME_TITLE}</title>
 
         {/*view port*/}
         <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { ResponsiveLayout, WritePostForm } from "@/components";
 
-const HOME_TITLE = "초로 - 초보 개발자의 블로그";
+const HOME_TITLE = "초로 - 게시글 작성";
 const HOME_DESC = "초보 개발자의 블로그 목록";
 const DIVING_CATEGORIES = ["개발", "블로그"];
 

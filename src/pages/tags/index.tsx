@@ -3,7 +3,7 @@ import { ResponsiveLayout, TagList } from "@/components";
 import { Flex, Text } from "@chakra-ui/react";
 import { useGetTags } from "@/apis";
 
-const HOME_TITLE = "초로 - 초보 개발자의 블로그";
+const HOME_TITLE = "초로 - 모든 태그";
 const HOME_DESC = "초보 개발자의 블로그 태그 목록";
 const DIVING_CATEGORIES = ["개발", "블로그", "태그"];
 
