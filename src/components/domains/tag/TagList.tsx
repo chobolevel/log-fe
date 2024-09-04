@@ -8,7 +8,7 @@ interface TagListProps {
 
 const TagList = ({ tags }: TagListProps) => {
   return (
-    <Flex direction={"column"} gap={2}>
+    <Flex direction={"column"} gap={4}>
       {tags.map((tag, idx) => {
         return <TagListItem key={idx} tag={tag} />;
       })}

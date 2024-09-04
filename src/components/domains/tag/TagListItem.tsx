@@ -10,19 +10,20 @@ interface TagListItemProps {
 const TagListItem = ({ tag }: TagListItemProps) => {
   const { push } = useSafePush();
   return (
-    <Flex
-      fontSize={"lg"}
-      cursor={"pointer"}
-      _hover={{ textDecoration: "underline" }}
-      onClick={() => {
-        push({
-          pathname: PageRoutes.Posts,
-          query: { tag: tag.id },
-        });
-      }}
-    >
-      <Text fontWeight={"bold"}>{tag.name}</Text>
-      <Text>{`(${tag.posts_count})`}</Text>
+    <Flex fontSize={"lg"}>
+      <Flex
+        cursor={"pointer"}
+        _hover={{ textDecoration: "underline" }}
+        onClick={() => {
+          push({
+            pathname: PageRoutes.Posts,
+            query: { tag: tag.id },
+          });
+        }}
+      >
+        <Text fontWeight={"bold"}>{tag.name}</Text>
+        <Text>{`(${tag.posts_count})`}</Text>
+      </Flex>
     </Flex>
   );
 };
