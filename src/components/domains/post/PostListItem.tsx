@@ -45,7 +45,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
             <Text>{post.sub_title}</Text>
           </Flex>
           <Flex justify={"end"} align={"center"}>
-            <Text>{`작성일 ${writtenAt}`}</Text>
+            <Text>{writtenAt}</Text>
           </Flex>
         </>
       )}
