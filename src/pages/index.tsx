@@ -14,7 +14,7 @@ export default function HomePage() {
     error,
   } = useGetPosts({
     skipCount: 0,
-    limitCount: 10,
+    limitCount: 5,
     orderTypes: ["CREATED_AT_DESC"],
   });
   return (
