@@ -43,10 +43,11 @@ const ChangeUserPasswordForm = () => {
     >
       <Text>비밀번호 변경</Text>
       <Flex direction={"column"} gap={2}>
+        <Text fontWeight={"bold"}>현재 비밀번호</Text>
         <Input
           w={{ base: "100%", lg: 400 }}
           type={"password"}
-          placeholder={"CUR_PASSWORD"}
+          placeholder={"현재 비밀번호"}
           {...register("cur_password", {
             required: "현재 비밀번호가 입력되지 않았습니다.",
           })}
@@ -58,10 +59,11 @@ const ChangeUserPasswordForm = () => {
         />
       </Flex>
       <Flex direction={"column"} gap={2}>
+        <Text fontWeight={"bold"}>변경할 비밀번호</Text>
         <Input
           w={{ base: "100%", lg: 400 }}
           type={"password"}
-          placeholder={"NEW_PASSWORD"}
+          placeholder={"변경할 비밀번호"}
           {...register("new_password", {
             required: "변경할 비밀번호가 입력되지 않았습니다.",
           })}
@@ -76,7 +78,7 @@ const ChangeUserPasswordForm = () => {
         <Input
           w={{ base: "100%", lg: 400 }}
           type={"password"}
-          placeholder={"CHECK_NEW_PASSWORD"}
+          placeholder={"변경할 비밀번호 재확인"}
           {...register("check_new_password", {
             required: "변경할 비밀번호(확인)가 입력되지 않았습니다.",
             validate: (val: string) => {
