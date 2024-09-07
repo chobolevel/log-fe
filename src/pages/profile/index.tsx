@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { ResponsiveLayout, UserProfile } from "@/components";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetMe } from "@/apis";
 
 const HOME_TITLE = "초로 - 나의 프로필";
@@ -41,7 +41,13 @@ const ProfilePage = () => {
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
           <Text>프로필</Text>
-          {me ? <UserProfile user={me} /> : <Flex>Not Found</Flex>}
+          {me ? (
+            <UserProfile user={me} />
+          ) : (
+            <Flex w={"100%"} h={300} justify={"center"} align={"center"}>
+              <Spinner />
+            </Flex>
+          )}
         </Flex>
       </ResponsiveLayout>
     </>
