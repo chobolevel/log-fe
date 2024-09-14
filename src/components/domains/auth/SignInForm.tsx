@@ -44,13 +44,13 @@ const SignInForm = () => {
     >
       <Flex justify={"center"} align={"center"} py={10}>
         <Text fontSize={"2xl"} fontWeight={"bold"}>
-          LOGIN
+          로그인
         </Text>
       </Flex>
       <Flex direction={"column"} gap={2}>
         <Input
           type={"text"}
-          placeholder={"ID"}
+          placeholder={"아이디(이메일 형식)"}
           {...register("email", {
             required: "아이디가 입력되지 않았습니다.",
           })}
@@ -64,7 +64,7 @@ const SignInForm = () => {
       <Flex direction={"column"} gap={2}>
         <Input
           type={"password"}
-          placeholder={"PASSWORD"}
+          placeholder={"비밀번호"}
           {...register("password", {
             required: "비밀번호가 입력되지 않았습니다.",
           })}
