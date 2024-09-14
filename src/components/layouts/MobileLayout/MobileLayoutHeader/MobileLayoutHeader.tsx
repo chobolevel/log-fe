@@ -32,7 +32,8 @@ const MobileLayoutHeader = () => {
       justify={"space-between"}
       align={"center"}
       px={4}
-      boxShadow={"0 4px 5px -2px rgba(0, 0, 0, 0.4)"}
+      borderBottom={"1px solid"}
+      borderColor={"#ccc"}
     >
       <Flex>
         <Text
