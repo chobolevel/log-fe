@@ -71,7 +71,7 @@ const WritePostForm = () => {
         <Flex direction={"column"} gap={2}>
           <Select
             w={{ base: "100%", lg: 200 }}
-            placeholder={"TAG"}
+            placeholder={"태그를 선택하세요."}
             value={""}
             onChange={(e) => {
               const tagId = Number(e.target.value);
@@ -127,7 +127,7 @@ const WritePostForm = () => {
           <Input
             w={{ base: "100%", lg: 500 }}
             type={"text"}
-            placeholder={"TITLE"}
+            placeholder={"제목을 입력하세요."}
             {...register("title", {
               required: "제목이 입력되지 않았습니다.",
             })}
@@ -142,7 +142,7 @@ const WritePostForm = () => {
           <Input
             w={{ base: "100%", lg: 500 }}
             type={"text"}
-            placeholder={"SUB_TITLE"}
+            placeholder={"부제목을 입력하세요."}
             {...register("sub_title", {
               required: "부제목이 입력되지 않았습니다.",
             })}
