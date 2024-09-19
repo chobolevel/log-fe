@@ -1,14 +1,15 @@
-import {fonts} from "@/constants";
-import {Head, Html, Main, NextScript} from "next/document";
+import { fonts } from "@/constants";
+import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
     <Html lang="ko" className={fonts.oneMobile.className}>
       <Head>
+        <link rel={"manifest"} href={"/manifest.json"} />
       </Head>
       <body>
-      <Main/>
-      <NextScript/>
+        <Main />
+        <NextScript />
       </body>
     </Html>
   );
