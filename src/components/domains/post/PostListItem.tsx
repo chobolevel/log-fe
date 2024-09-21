@@ -1,9 +1,10 @@
 import { Post } from "@/apis";
-import { Flex, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import { DateUtils, toUrl } from "@/utils";
 import { useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
+import { IoIosArrowForward } from "react-icons/io";
 
 interface PostListItemProps {
   post: Post;
@@ -25,11 +26,16 @@ const PostListItem = ({ post }: PostListItemProps) => {
       border={"3px solid"}
       borderColor={"lightGreen"}
       cursor={"pointer"}
+      position={"relative"}
       onClick={() => {
         setLoading(true);
         push(toUrl(PageRoutes.PostDetailById, { id: post.id }))?.then(() => {
           setLoading(false);
         });
+      }}
+      transition={"all 0.2s ease-in-out"}
+      _hover={{
+        filter: "blur(1px)",
       }}
     >
       {loading ? (
@@ -38,14 +44,29 @@ const PostListItem = ({ post }: PostListItemProps) => {
         </Flex>
       ) : (
         <>
-          <Flex direction={"column"} gap={2}>
-            <Text fontSize={"lg"} fontWeight={"bold"}>
-              {post.title}
-            </Text>
-            <Text>{post.sub_title}</Text>
-          </Flex>
-          <Flex justify={"end"} align={"center"}>
-            <Text>{writtenAt}</Text>
+          <Flex justify={"space-between"} align={"start"}>
+            <Flex direction={"column"} gap={2}>
+              <Text fontSize={"lg"} fontWeight={"bold"}>
+                {post.title}
+              </Text>
+              <Text>{post.sub_title}</Text>
+              <Text>{writtenAt}</Text>
+            </Flex>
+            <Flex>
+              {post.thumb_nail_image ? (
+                <Image
+                  w={"80px"}
+                  h={"80px"}
+                  borderRadius={10}
+                  src={post.thumb_nail_image.url}
+                  alt={post.thumb_nail_image.name}
+                />
+              ) : (
+                <Flex w={"80px"} h={"80px"} justify={"end"} align={"center"}>
+                  <IoIosArrowForward size={30} />
+                </Flex>
+              )}
+            </Flex>
           </Flex>
         </>
       )}

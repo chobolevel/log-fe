@@ -1,28 +1,32 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toUrl } from "@/utils";
 import { PageRoutes } from "@/constants";
 import {
   Button,
   Flex,
+  Image,
   Input,
   Select,
   Tag as ChakraTag,
   Text,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
-import { ClientEditor, ErrorText } from "@/components";
+import { ClientEditor, ErrorText, ImageUploader } from "@/components";
 import { useSafePush } from "@/hooks";
 import { useModalStore } from "@/stores";
 import { useForm } from "react-hook-form";
 import { CreatePostRequest, Tag, useCreatePost, useGetTags } from "@/apis";
+import { MdAddPhotoAlternate } from "react-icons/md";
 
 const WritePostForm = () => {
   const { push } = useSafePush();
   const { openAlert } = useModalStore(["openAlert"]);
+  const thumbNailInputRef = useRef<HTMLInputElement>(null);
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<CreatePostRequest>();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -123,35 +127,88 @@ const WritePostForm = () => {
             render={({ message }) => <ErrorText>{message}</ErrorText>}
           />
         </Flex>
-        <Flex direction={"column"} gap={2}>
-          <Input
-            w={{ base: "100%", lg: 500 }}
-            type={"text"}
-            placeholder={"제목을 입력하세요."}
-            {...register("title", {
-              required: "제목이 입력되지 않았습니다.",
-            })}
-          />
-          <ErrorMessage
-            name={"title"}
-            errors={errors}
-            render={({ message }) => <ErrorText>{message}</ErrorText>}
-          />
-        </Flex>
-        <Flex direction={"column"} gap={2}>
-          <Input
-            w={{ base: "100%", lg: 500 }}
-            type={"text"}
-            placeholder={"부제목을 입력하세요."}
-            {...register("sub_title", {
-              required: "부제목이 입력되지 않았습니다.",
-            })}
-          />
-          <ErrorMessage
-            name={"sub_title"}
-            errors={errors}
-            render={({ message }) => <ErrorText>{message}</ErrorText>}
-          />
+        <Flex justify={"space-between"} align={"center"}>
+          <Flex direction={"column"} gap={4}>
+            <Flex direction={"column"} gap={2}>
+              <Input
+                w={{ base: "100%", lg: 500 }}
+                type={"text"}
+                placeholder={"제목을 입력하세요."}
+                {...register("title", {
+                  required: "제목이 입력되지 않았습니다.",
+                })}
+              />
+              <ErrorMessage
+                name={"title"}
+                errors={errors}
+                render={({ message }) => <ErrorText>{message}</ErrorText>}
+              />
+            </Flex>
+            <Flex direction={"column"} gap={2}>
+              <Input
+                w={{ base: "100%", lg: 500 }}
+                type={"text"}
+                placeholder={"부제목을 입력하세요."}
+                {...register("sub_title", {
+                  required: "부제목이 입력되지 않았습니다.",
+                })}
+              />
+              <ErrorMessage
+                name={"sub_title"}
+                errors={errors}
+                render={({ message }) => <ErrorText>{message}</ErrorText>}
+              />
+            </Flex>
+          </Flex>
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align={"center"}
+            gap={2}
+          >
+            <Text fontSize={"sm"} fontWeight={"bold"}>
+              썸네일(100 x 100)
+            </Text>
+            <ImageUploader
+              inputRef={thumbNailInputRef}
+              onUpload={(url, filename) => {
+                setValue("thumb_nail_image", {
+                  type: "THUMB_NAIL",
+                  name: filename,
+                  url: url,
+                  width: 100,
+                  height: 100,
+                });
+              }}
+            />
+            {watch("thumb_nail_image") ? (
+              <Image
+                w={"100px"}
+                h={"100px"}
+                src={watch("thumb_nail_image.url")}
+                alt={watch("thumb_nail_image.name")}
+                border={"1px solid"}
+                borderColor={"lightGray"}
+                borderRadius={10}
+                cursor={"pointer"}
+                onClick={() => {
+                  thumbNailInputRef.current?.click();
+                }}
+              />
+            ) : (
+              <Button
+                w={"100px"}
+                h={"100px"}
+                borderRadius={10}
+                cursor={"pointer"}
+                onClick={() => {
+                  thumbNailInputRef.current?.click();
+                }}
+              >
+                <MdAddPhotoAlternate size={50} />
+              </Button>
+            )}
+          </Flex>
         </Flex>
         <Flex direction={"column"}>
           <ClientEditor

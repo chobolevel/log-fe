@@ -13,13 +13,19 @@ import {
 } from "@/apis";
 import { toUrl } from "@/utils";
 import { ApiRoutes } from "@/constants";
+import { CreatePostImageRequest, PostImage } from "@/apis/domains/postImage";
 
 export type PostOrderType =
   | "CREATED_AT_ASC"
   | "CREATED_AT_DESC"
   | "UPDATED_AT_ASC"
   | "UPDATED_AT_DESC";
-export type PostUpdateMask = "TAGS" | "TITLE" | "SUB_TITLE" | "CONTENT";
+export type PostUpdateMask =
+  | "TAGS"
+  | "TITLE"
+  | "SUB_TITLE"
+  | "CONTENT"
+  | "THUMB_NAIL_IMAGE";
 
 export interface Post extends Scheme {
   writer: User;
@@ -27,6 +33,7 @@ export interface Post extends Scheme {
   title: string;
   sub_title: string;
   content: string;
+  thumb_nail_image?: PostImage;
 }
 
 export interface GetPostsParams extends PageQueryParams {
@@ -45,6 +52,7 @@ export interface CreatePostRequest {
   title: string;
   sub_title: string;
   content: string;
+  thumb_nail_image?: CreatePostImageRequest;
 }
 
 export interface UpdatePostRequest {
@@ -53,6 +61,7 @@ export interface UpdatePostRequest {
   title?: string;
   sub_title?: string;
   content?: string;
+  thumb_nail_image?: CreatePostImageRequest;
   update_mask: PostUpdateMask[];
 }
 
