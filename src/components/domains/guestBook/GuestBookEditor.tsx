@@ -44,7 +44,7 @@ const GuestBookEditor = ({ onClose, guestBook }: GuestBookEditorProps) => {
     setValue("update_mask", ["CONTENT"]);
   }, [guestBook]);
   return (
-    <Modal isOpen={!!alert} onClose={onClose}>
+    <Modal isOpen={!!alert} onClose={onClose} size={{ base: "full", lg: "md" }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader />

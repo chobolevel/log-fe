@@ -35,7 +35,7 @@ const GuestBookWriter = ({ onClose }: GuestBookWriterProps) => {
 
   const { mutate: createGuestBook } = useCreateGuestBook();
   return (
-    <Modal isOpen={!!alert} onClose={onClose}>
+    <Modal isOpen={!!alert} onClose={onClose} size={{ base: "full", lg: "md" }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader />
