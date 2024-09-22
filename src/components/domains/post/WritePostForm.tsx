@@ -131,7 +131,7 @@ const WritePostForm = () => {
           <Flex direction={"column"} gap={4}>
             <Flex direction={"column"} gap={2}>
               <Input
-                w={{ base: "100%", lg: 500 }}
+                w={{ base: "100%", md: 400, lg: 500 }}
                 type={"text"}
                 placeholder={"제목을 입력하세요."}
                 {...register("title", {
@@ -146,7 +146,7 @@ const WritePostForm = () => {
             </Flex>
             <Flex direction={"column"} gap={2}>
               <Input
-                w={{ base: "100%", lg: 500 }}
+                w={{ base: "100%", md: 400, lg: 500 }}
                 type={"text"}
                 placeholder={"부제목을 입력하세요."}
                 {...register("sub_title", {
