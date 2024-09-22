@@ -15,7 +15,7 @@ const HOME_TITLE = "초로 - 초보 개발자의 블로그";
 const HOME_DESC = "초보 개발자의 블로그 목록";
 const DIVING_CATEGORIES = ["개발", "블로그"];
 
-const LIMIT_COUNT = 10;
+const LIMIT_COUNT = 5;
 
 const PostListPage = () => {
   const { push, router } = useSafePush();
