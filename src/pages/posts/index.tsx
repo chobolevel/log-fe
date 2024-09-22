@@ -18,7 +18,7 @@ const DIVING_CATEGORIES = ["개발", "블로그"];
 const LIMIT_COUNT = 5;
 
 const PostListPage = () => {
-  const { push, router } = useSafePush();
+  const { router } = useSafePush();
   const [page, setPage] = useState<number>(1);
 
   const {
