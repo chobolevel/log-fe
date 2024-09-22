@@ -3,6 +3,7 @@ import { PageRoutes } from "@/constants";
 import { useState } from "react";
 import { useSafePush } from "@/hooks";
 import { useGetTags } from "@/apis";
+import { GrPowerReset } from "react-icons/gr";
 
 type KeywordType = "title" | "content";
 
@@ -80,6 +81,17 @@ const PostSearchBox = () => {
             setKeyword(e.target.value);
           }}
         />
+        <Button
+          colorScheme={"green"}
+          variant={"outline"}
+          onClick={() => {
+            push({
+              pathname: PageRoutes.Posts,
+            });
+          }}
+        >
+          <GrPowerReset />
+        </Button>
         <Button colorScheme={"green"} onClick={handleSearch}>
           검색
         </Button>
