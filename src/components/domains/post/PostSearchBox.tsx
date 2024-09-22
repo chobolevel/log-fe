@@ -2,6 +2,7 @@ import { Button, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { PageRoutes } from "@/constants";
 import { useState } from "react";
 import { useSafePush } from "@/hooks";
+import { useGetTags } from "@/apis";
 
 type KeywordType = "title" | "content";
 
@@ -9,6 +10,8 @@ const PostSearchBox = () => {
   const { push, router } = useSafePush();
   const [keywordType, setKeywordType] = useState<KeywordType>("title");
   const [keyword, setKeyword] = useState<string>("");
+
+  const { data: tags } = useGetTags();
 
   const handleSearch = () => {
     delete router.query.title;
@@ -31,6 +34,33 @@ const PostSearchBox = () => {
         gap={2}
         direction={{ base: "column", lg: "row" }}
       >
+        <Select
+          w={{ base: "100%", lg: 200 }}
+          placeholder={"태그를 선택하세요."}
+          onChange={(e) => {
+            delete router.query.tag;
+            const id = Number(e.target.value);
+            if (id) {
+              push({
+                pathname: PageRoutes.Posts,
+                query: { ...router.query, tag: id },
+              });
+            } else {
+              push({
+                pathname: PageRoutes.Posts,
+                query: { ...router.query },
+              });
+            }
+          }}
+        >
+          {tags?.data.map((tag, idx) => {
+            return (
+              <option key={idx} value={tag.id}>
+                {tag.name}
+              </option>
+            );
+          })}
+        </Select>
         <Select
           w={{ base: "auto", lg: 100 }}
           value={keywordType}
