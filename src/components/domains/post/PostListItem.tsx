@@ -55,8 +55,8 @@ const PostListItem = ({ post }: PostListItemProps) => {
             <Flex>
               {post.thumb_nail_image ? (
                 <Image
-                  w={"80px"}
-                  h={"80px"}
+                  w={"90px"}
+                  h={"90px"}
                   borderRadius={10}
                   src={post.thumb_nail_image.url}
                   alt={post.thumb_nail_image.name}
