@@ -1,15 +1,15 @@
-import {Flex} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
-import {MobileLayoutHeader} from "./MobileLayoutHeader";
-import { MobileLayoutFooter } from "./MobileLayoutFooter"
+import { MobileLayoutHeader } from "./MobileLayoutHeader";
+import { MobileLayoutFooter } from "./MobileLayoutFooter";
 
 interface DefaultLayoutProps {
   children?: React.ReactNode;
 }
 
-const MobileLayout = ({children}: DefaultLayoutProps) => {
+const MobileLayout = ({ children }: DefaultLayoutProps) => {
   return (
-    <Flex w={"100%"} direction={"column"}>
+    <Flex w={"100%"} direction={"column"} position={"relative"}>
       <MobileLayoutHeader />
       {children}
       <MobileLayoutFooter />

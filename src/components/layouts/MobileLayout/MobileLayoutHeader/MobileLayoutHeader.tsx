@@ -34,6 +34,10 @@ const MobileLayoutHeader = () => {
       px={4}
       borderBottom={"1px solid"}
       borderColor={"#ccc"}
+      position={"sticky"}
+      top={0}
+      bgColor={"#fff"}
+      zIndex={10}
     >
       <Flex>
         <Text

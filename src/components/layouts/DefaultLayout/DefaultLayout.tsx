@@ -9,7 +9,13 @@ interface DefaultLayoutProps {
 
 const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
-    <Flex w={"100%"} maxW={"1000px"} margin={"auto"} direction={"column"}>
+    <Flex
+      w={"100%"}
+      maxW={"1000px"}
+      margin={"auto"}
+      direction={"column"}
+      position={"relative"}
+    >
       <DefaultLayoutHeader />
       {children}
       <DefaultLayoutFooter />

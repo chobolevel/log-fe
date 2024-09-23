@@ -31,6 +31,10 @@ const DefaultLayoutHeader = () => {
       justify={"space-between"}
       align={"center"}
       px={2}
+      position={"sticky"}
+      top={0}
+      bgColor={"#fff"}
+      zIndex={10}
     >
       <Flex>
         <Text
