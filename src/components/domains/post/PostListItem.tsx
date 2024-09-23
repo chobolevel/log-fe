@@ -50,7 +50,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
                 {post.title}
               </Text>
               <Text>{post.sub_title}</Text>
-              <Text>{writtenAt}</Text>
+              <Text fontSize={"sm"}>{`✏️ ${writtenAt}`}</Text>
             </Flex>
             <Flex>
               {post.thumb_nail_image ? (

@@ -35,7 +35,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
           </Text>
           <Text>{post.sub_title}</Text>
           <Text fontSize={"sm"} mt={2}>
-            {writtenAt}
+            {`✏️ ${writtenAt}`}
           </Text>
         </Flex>
         <Flex>
