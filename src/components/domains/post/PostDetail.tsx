@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Tag, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex, Image, Tag, Text } from "@chakra-ui/react";
 import { Post, useDeletePost, useGetMe } from "@/apis";
 import { useMemo } from "react";
 import { DateUtils, toUrl } from "@/utils";
@@ -27,15 +27,28 @@ const PostDetail = ({ post }: PostDetailPops) => {
   );
   const isWriter = useMemo(() => me?.id === post.writer.id, [post, me]);
   return (
-    <Flex direction={"column"} gap={10}>
-      <Flex direction={"column"} gap={2}>
-        <Flex justify={"space-between"} align={"center"}>
+    <Flex direction={"column"} gap={6}>
+      <Flex justify={"space-between"}>
+        <Flex direction={"column"} gap={2}>
           <Text fontSize={"xl"} fontWeight={"bold"}>
             {post.title}
           </Text>
-          <Text>{writtenAt}</Text>
+          <Text>{post.sub_title}</Text>
+          <Text fontSize={"sm"} mt={2}>
+            {writtenAt}
+          </Text>
         </Flex>
-        <Text>{post.sub_title}</Text>
+        <Flex>
+          {post.thumb_nail_image && (
+            <Image
+              w={100}
+              h={100}
+              borderRadius={10}
+              src={post.thumb_nail_image.url}
+              alt={post.thumb_nail_image.name}
+            />
+          )}
+        </Flex>
       </Flex>
       <Divider />
       <Flex direction={"column"}>
