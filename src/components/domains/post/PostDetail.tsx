@@ -59,8 +59,18 @@ const PostDetail = ({ post }: PostDetailPops) => {
           return (
             <Tag
               key={idx}
+              size={"lg"}
               fontWeight={"bold"}
               colorScheme={"green"}
+              cursor={"pointer"}
+              onClick={() => {
+                push({
+                  pathname: PageRoutes.Posts,
+                  query: {
+                    tag: tag.id,
+                  },
+                });
+              }}
             >{`# ${tag.name}`}</Tag>
           );
         })}
