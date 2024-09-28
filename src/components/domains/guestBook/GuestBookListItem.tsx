@@ -40,7 +40,7 @@ const GuestBookListItem = ({ guestBook }: GuestBookListItemProps) => {
       </Flex>
       <Text>{guestBook.content}</Text>
       <Flex justify={"end"} align={"center"}>
-        <Text>{writtenAt}</Text>
+        <Text fontSize={"sm"}>{`✏️ ${writtenAt}`}</Text>
       </Flex>
     </Flex>
   );
