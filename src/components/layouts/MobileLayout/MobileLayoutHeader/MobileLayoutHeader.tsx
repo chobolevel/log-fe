@@ -12,6 +12,7 @@ import { toUrl } from "@/utils";
 import { PageRoutes } from "@/constants";
 import { TiThMenu } from "react-icons/ti";
 import { useGetMe, useLogout } from "@/apis";
+import { IoIosArrowBack } from "react-icons/io";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -39,7 +40,14 @@ const MobileLayoutHeader = () => {
       bgColor={"#fff"}
       zIndex={10}
     >
-      <Flex>
+      <Flex gap={2} align={"center"}>
+        <IoIosArrowBack
+          size={30}
+          cursor={"pointer"}
+          onClick={() => {
+            history.back();
+          }}
+        />
         <Text
           style={linkStyle}
           onClick={() => {

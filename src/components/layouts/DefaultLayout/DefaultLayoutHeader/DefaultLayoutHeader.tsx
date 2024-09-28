@@ -4,6 +4,7 @@ import { toUrl } from "@/utils";
 import { images, PageRoutes } from "@/constants";
 import { CSSProperties, useMemo } from "react";
 import { useGetMe, useLogout } from "@/apis";
+import { IoIosArrowBack } from "react-icons/io";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -36,7 +37,14 @@ const DefaultLayoutHeader = () => {
       bgColor={"#fff"}
       zIndex={10}
     >
-      <Flex>
+      <Flex gap={4} align={"center"}>
+        <IoIosArrowBack
+          size={30}
+          cursor={"pointer"}
+          onClick={() => {
+            history.back();
+          }}
+        />
         <Text
           style={linkStyle}
           onClick={() => {
