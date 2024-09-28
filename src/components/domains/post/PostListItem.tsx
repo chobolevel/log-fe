@@ -2,7 +2,7 @@ import { Post } from "@/apis";
 import { Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import { DateUtils, toUrl } from "@/utils";
-import { useSafePush } from "@/hooks";
+import { useIsMobile, useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -18,6 +18,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
     () => DateUtils.format(new Date(post.created_at), "YYYY-MM-DD"),
     [post],
   );
+  const isMobile = useIsMobile();
   return (
     <Flex
       direction={"column"}
@@ -35,6 +36,9 @@ const PostListItem = ({ post }: PostListItemProps) => {
       }}
       transition={"all 0.2s ease-in-out"}
       _hover={{
+        filter: !isMobile && "blur(1px)",
+      }}
+      _active={{
         filter: "blur(1px)",
       }}
     >
