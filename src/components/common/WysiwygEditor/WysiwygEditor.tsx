@@ -49,8 +49,9 @@ const WysiwygEditor = ({ value, onChange }: WysiwygEditorProps) => {
       hooks={{
         addImageBlobHook: (file: File | Blob, callback) => {
           const uploadedFile = file as File;
-          const filename = uploadedFile.name.split(".")[0];
-          const extension = uploadedFile.name.split(".")[1];
+          const lastDotIdx = uploadedFile.name.lastIndexOf(".");
+          const filename = uploadedFile.name.substring(0, lastDotIdx);
+          const extension = uploadedFile.name.substring(lastDotIdx + 1);
           createPresignedUrl(
             {
               prefix: "image",
