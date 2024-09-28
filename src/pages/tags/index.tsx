@@ -40,7 +40,9 @@ const TagListPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          <Text>태그</Text>
+          <Text color={"lightGreen"} fontWeight={"bold"}>
+            태그
+          </Text>
           <Flex direction={"column"}>
             {tags ? (
               <TagList tags={tags.data} />

@@ -48,7 +48,9 @@ export default function HomePage() {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          <Text>최신글</Text>
+          <Text color={"lightGreen"} fontWeight={"bold"}>
+            최신글
+          </Text>
           {posts ? (
             <PostList posts={posts.data} />
           ) : isError ? (

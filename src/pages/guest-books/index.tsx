@@ -60,7 +60,9 @@ const GuestBookListPage = () => {
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
           <Flex justify={"space-between"} align={"center"}>
-            <Text>최신 방명록</Text>
+            <Text color={"lightGreen"} fontWeight={"bold"}>
+              최신 방명록
+            </Text>
             <Button
               colorScheme={"green"}
               onClick={() => {

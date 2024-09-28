@@ -40,7 +40,9 @@ const ProfilePage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          <Text>프로필</Text>
+          <Text color={"lightGreen"} fontWeight={"bold"}>
+            프로필
+          </Text>
           {me ? (
             <UserProfile user={me} />
           ) : (

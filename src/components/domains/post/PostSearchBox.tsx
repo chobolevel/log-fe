@@ -29,7 +29,13 @@ const PostSearchBox = () => {
       align={{ base: "start", lg: "center" }}
       gap={2}
     >
-      <Text display={{ base: "none", lg: "block" }}>전체 게시글</Text>
+      <Text
+        display={{ base: "none", lg: "block" }}
+        color={"lightGreen"}
+        fontWeight={"bold"}
+      >
+        전체 게시글
+      </Text>
       <Flex
         w={{ base: "100%", lg: "auto" }}
         gap={2}
