@@ -51,7 +51,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
         </Flex>
       </Flex>
       <Divider />
-      <Flex direction={"column"}>
+      <Flex direction={"column"} overflowX={"scroll"}>
         <SanitizeText htmlString={post.content} />
       </Flex>
       <Flex gap={2} flexWrap={"wrap"}>
