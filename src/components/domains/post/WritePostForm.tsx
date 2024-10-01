@@ -127,7 +127,7 @@ const WritePostForm = () => {
             render={({ message }) => <ErrorText>{message}</ErrorText>}
           />
         </Flex>
-        <Flex justify={"space-between"} align={"center"}>
+        <Flex justify={"space-between"} align={"center"} gap={4}>
           <Flex direction={"column"} gap={4}>
             <Flex direction={"column"} gap={2}>
               <Input
