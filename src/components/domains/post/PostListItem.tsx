@@ -49,7 +49,15 @@ const PostListItem = ({ post }: PostListItemProps) => {
       ) : (
         <>
           <Flex justify={"space-between"} align={"start"}>
-            <Flex direction={"column"} gap={2} w={"calc(100% - 100px)"}>
+            <Flex
+              direction={"column"}
+              gap={2}
+              w={
+                post.thumb_nail_image
+                  ? "calc(100% - 100px)"
+                  : "calc(100% - 50px)"
+              }
+            >
               <Text
                 fontSize={"lg"}
                 fontWeight={"bold"}
@@ -80,7 +88,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
                   alt={post.thumb_nail_image.name}
                 />
               ) : (
-                <Flex w={"90px"} h={"90px"} justify={"end"} align={"center"}>
+                <Flex w={"30px"} h={"90px"} justify={"end"} align={"center"}>
                   <IoIosArrowForward size={30} />
                 </Flex>
               )}
