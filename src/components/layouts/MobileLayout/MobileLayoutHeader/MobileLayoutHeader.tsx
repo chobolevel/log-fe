@@ -38,7 +38,7 @@ const MobileLayoutHeader = () => {
       position={"sticky"}
       top={0}
       bgColor={"#fff"}
-      zIndex={10}
+      zIndex={100}
     >
       <Flex gap={2} align={"center"}>
         <IoIosArrowBack

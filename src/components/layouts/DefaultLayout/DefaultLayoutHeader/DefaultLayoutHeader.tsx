@@ -35,7 +35,7 @@ const DefaultLayoutHeader = () => {
       position={"sticky"}
       top={0}
       bgColor={"#fff"}
-      zIndex={10}
+      zIndex={100}
     >
       <Flex gap={4} align={"center"}>
         <IoIosArrowBack
