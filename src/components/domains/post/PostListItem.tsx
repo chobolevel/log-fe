@@ -49,11 +49,25 @@ const PostListItem = ({ post }: PostListItemProps) => {
       ) : (
         <>
           <Flex justify={"space-between"} align={"start"}>
-            <Flex direction={"column"} gap={2}>
-              <Text fontSize={"lg"} fontWeight={"bold"}>
+            <Flex direction={"column"} gap={2} w={"calc(100% - 100px)"}>
+              <Text
+                fontSize={"lg"}
+                fontWeight={"bold"}
+                w={"100%"}
+                textOverflow={"ellipsis"}
+                whiteSpace={"nowrap"}
+                overflow={"hidden"}
+              >
                 {post.title}
               </Text>
-              <Text>{post.sub_title}</Text>
+              <Text
+                w={"100%"}
+                textOverflow={"ellipsis"}
+                whiteSpace={"nowrap"}
+                overflow={"hidden"}
+              >
+                {post.sub_title}
+              </Text>
               <Text fontSize={"sm"}>{`✏️ ${writtenAt}`}</Text>
             </Flex>
             <Flex>
@@ -66,7 +80,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
                   alt={post.thumb_nail_image.name}
                 />
               ) : (
-                <Flex w={"80px"} h={"80px"} justify={"end"} align={"center"}>
+                <Flex w={"90px"} h={"90px"} justify={"end"} align={"center"}>
                   <IoIosArrowForward size={30} />
                 </Flex>
               )}
