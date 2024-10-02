@@ -1,3 +1,9 @@
+export {
+  PostCommentEditorModal,
+  PostCommentList,
+  PostCommentListItem,
+  PostCommentWriter,
+} from "./comment";
 export { default as EditPostForm } from "./EditPostForm";
 export { default as PostDetail } from "./PostDetail";
 export { default as PostList } from "./PostList";

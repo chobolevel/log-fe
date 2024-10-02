@@ -1,6 +1,10 @@
 export { SignInForm } from "./auth";
 export { GuestBookEditor, GuestBookList, GuestBookListItem } from "./guestBook";
 export {
+  PostCommentEditorModal,
+  PostCommentList,
+  PostCommentListItem,
+  PostCommentWriter,
   EditPostForm,
   PostDetail,
   PostList,

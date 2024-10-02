@@ -21,6 +21,8 @@ export enum ApiRoutes {
   Posts = "/api/v1/posts/:id?",
   UpdatePost = "/api/v1/posts/:id?",
   DeletePost = "/api/v1/posts/:id?",
+  // post comment
+  PostComments = "/api/v1/posts/comments/:id?",
   // guest book
   CreateGuestBook = "/api/v1/guest-books",
   GuestBooks = "/api/v1/guest-books/:id?",
