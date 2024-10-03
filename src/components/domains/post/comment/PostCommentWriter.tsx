@@ -28,6 +28,7 @@ const PostCommentWriter = ({ post }: PostCommentWriterProps) => {
   const { mutate: createPostComment } = useCreatePostComment();
   return (
     <Flex
+      w={"100%"}
       as={"form"}
       direction={"column"}
       gap={4}
