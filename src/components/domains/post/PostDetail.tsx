@@ -108,15 +108,11 @@ const PostDetail = ({ post }: PostDetailPops) => {
         ) : (
           <Flex
             w={"100%"}
-            h={100}
             direction={"column"}
             justify={"center"}
             align={"center"}
           >
-            <Text
-              whiteSpace={"break-spaces"}
-              textAlign={"center"}
-            >{`댓글이 없습니다.\n새로운 댓글을 작성해보세요!`}</Text>
+            <PostCommentWriter post={post} />
           </Flex>
         )}
       </Flex>
