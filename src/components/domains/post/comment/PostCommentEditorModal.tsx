@@ -37,12 +37,13 @@ const PostCommentEditorModal = ({
     defaultValues: {
       id: postComment.id,
       content: postComment.content,
+      update_mask: ["CONTENT"],
     },
   });
 
   const { mutate: updatePostComment } = useUpdatePostComment();
   return (
-    <Modal isOpen={!!alert} onClose={onClose} size={"full"}>
+    <Modal isOpen={!!alert} onClose={onClose} size={{ base: "full", lg: "md" }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>댓글 수정</ModalHeader>
