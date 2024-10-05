@@ -96,14 +96,6 @@ const DefaultLayoutHeader = () => {
         <Text
           style={linkStyle}
           onClick={() => {
-            push(toUrl(PageRoutes.GuestBooks));
-          }}
-        >
-          GUEST BOOK
-        </Text>
-        <Text
-          style={linkStyle}
-          onClick={() => {
             push(toUrl(PageRoutes.Posts));
           }}
         >
@@ -116,6 +108,14 @@ const DefaultLayoutHeader = () => {
           }}
         >
           TAGS
+        </Text>
+        <Text
+          style={linkStyle}
+          onClick={() => {
+            push(toUrl(PageRoutes.GuestBooks));
+          }}
+        >
+          GUEST BOOK
         </Text>
       </Flex>
     </Flex>
