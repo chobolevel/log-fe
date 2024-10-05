@@ -5,9 +5,13 @@ import { useSafePush } from "@/hooks";
 import { useGetTags } from "@/apis";
 import { GrPowerReset } from "react-icons/gr";
 
+interface PostSearchBoxProps {
+  totalCount: number;
+}
+
 type KeywordType = "title" | "content";
 
-const PostSearchBox = () => {
+const PostSearchBox = ({ totalCount }: PostSearchBoxProps) => {
   const { push, router } = useSafePush();
   const [keywordType, setKeywordType] = useState<KeywordType>("title");
   const [keyword, setKeyword] = useState<string>("");
@@ -34,7 +38,7 @@ const PostSearchBox = () => {
         color={"lightGreen"}
         fontWeight={"bold"}
       >
-        전체 게시글
+        {`전체 게시글(${totalCount})`}
       </Text>
       <Flex
         w={{ base: "100%", lg: "auto" }}

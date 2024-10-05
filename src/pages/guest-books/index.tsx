@@ -69,7 +69,7 @@ const GuestBookListPage = () => {
         <Flex p={4} direction={"column"} gap={4}>
           <Flex justify={"space-between"} align={"center"}>
             <Text color={"lightGreen"} fontWeight={"bold"}>
-              최신 방명록
+              {`최신 방명록(${guestBooks?.total_count ?? 0})`}
             </Text>
             <Button
               colorScheme={"green"}

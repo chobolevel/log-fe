@@ -69,7 +69,7 @@ const PostListPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={6}>
-          <PostSearchBox />
+          <PostSearchBox totalCount={posts?.total_count ?? 0} />
           {posts ? (
             <Flex direction={"column"} gap={6}>
               <PostList posts={posts.data} />
