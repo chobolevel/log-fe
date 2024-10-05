@@ -12,6 +12,7 @@ import { useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
 import { useModalStore } from "@/stores";
 import { useGetPostComments } from "@/apis/domains/postComment";
+import { IoMdShare } from "react-icons/io";
 
 const LIMIT_COUNT = 5;
 
@@ -20,7 +21,7 @@ interface PostDetailPops {
 }
 
 const PostDetail = ({ post }: PostDetailPops) => {
-  const { push } = useSafePush();
+  const { push, router } = useSafePush();
   const { openConfirm, openAlert } = useModalStore([
     "openConfirm",
     "openAlert",
@@ -47,9 +48,29 @@ const PostDetail = ({ post }: PostDetailPops) => {
             {post.title}
           </Text>
           <Text>{post.sub_title}</Text>
-          <Text fontSize={"sm"} mt={2}>
-            {`✏️ ${writtenAt}`}
-          </Text>
+          <Flex gap={4} align={"center"}>
+            <Text fontSize={"sm"} mt={2}>
+              {`✏️ ${writtenAt}`}
+            </Text>
+            <IoMdShare
+              size={24}
+              cursor={"pointer"}
+              onClick={() => {
+                if (!navigator.share) {
+                  openAlert({
+                    title: "공유 기능 제한",
+                    content: "현재 환경에서는 공유기능을 제고하지 않습니다.",
+                  });
+                  return;
+                }
+                navigator.share({
+                  url: location.href,
+                  title: post.title,
+                  text: post.sub_title,
+                });
+              }}
+            />
+          </Flex>
         </Flex>
         <Flex>
           {post.thumb_nail_image && (
