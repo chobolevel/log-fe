@@ -9,7 +9,9 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { useGetGuestBooks } from "@/apis/domains/guestBook";
 import { useModalStore } from "@/stores";
 import GuestBookWriter from "@/components/domains/guestBook/GuestBookWriter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSafePush } from "@/hooks";
+import { PageRoutes } from "@/constants";
 
 const HOME_TITLE = "초로 - 방명록";
 const HOME_DESC = "초보 개발자의 블로그";
@@ -17,8 +19,10 @@ const DIVING_CATEGORIES = ["개발", "블로그"];
 const LIMIT_COUNT = 10;
 
 const GuestBookListPage = () => {
-  const [page, setPage] = useState<number>(1);
+  const { push, router } = useSafePush();
   const { openModal } = useModalStore(["openModal"]);
+  const [page, setPage] = useState<number>(Number(router.query.page ?? 1));
+
   const {
     data: guestBooks,
     isError,
@@ -28,6 +32,10 @@ const GuestBookListPage = () => {
     limitCount: LIMIT_COUNT,
     orderTypes: ["CREATED_AT_DESC"],
   });
+
+  useEffect(() => {
+    setPage(Number(router.query.page ?? 1));
+  }, [router.query]);
   return (
     <>
       <Head>
@@ -79,7 +87,12 @@ const GuestBookListPage = () => {
                 currentPage={page}
                 limit={LIMIT_COUNT}
                 total={guestBooks.total_count}
-                onChange={setPage}
+                onChange={(page) => {
+                  push({
+                    pathname: PageRoutes.GuestBooks,
+                    query: { ...router.query, page },
+                  });
+                }}
               />
             </>
           ) : isError ? (

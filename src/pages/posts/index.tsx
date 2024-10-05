@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetPosts } from "@/apis";
 import {
   ListSkeleton,
@@ -10,6 +10,7 @@ import {
 } from "@/components";
 import { Flex, Text } from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
+import { PageRoutes } from "@/constants";
 
 const HOME_TITLE = "초로 - 초보 개발자의 블로그";
 const HOME_DESC = "초보 개발자의 블로그 목록";
@@ -18,8 +19,8 @@ const DIVING_CATEGORIES = ["개발", "블로그"];
 const LIMIT_COUNT = 5;
 
 const PostListPage = () => {
-  const { router } = useSafePush();
-  const [page, setPage] = useState<number>(1);
+  const { push, router } = useSafePush();
+  const [page, setPage] = useState<number>(Number(router.query.page ?? 1));
 
   const {
     data: posts,
@@ -33,6 +34,10 @@ const PostListPage = () => {
     content: (router.query.content as string) ?? undefined,
     orderTypes: ["CREATED_AT_DESC"],
   });
+
+  useEffect(() => {
+    setPage(Number(router.query.page ?? 1));
+  }, [router.query]);
   return (
     <>
       <Head>
@@ -72,7 +77,12 @@ const PostListPage = () => {
                 currentPage={page}
                 limit={LIMIT_COUNT}
                 total={posts.total_count}
-                onChange={setPage}
+                onChange={(page) => {
+                  push({
+                    pathname: PageRoutes.Posts,
+                    query: { ...router.query, page },
+                  });
+                }}
               />
             </Flex>
           ) : isError ? (
