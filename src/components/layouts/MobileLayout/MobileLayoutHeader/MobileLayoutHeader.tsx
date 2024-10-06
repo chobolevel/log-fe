@@ -5,6 +5,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { CSSProperties } from "react";
 import { useSafePush } from "@/hooks";
@@ -22,6 +23,7 @@ const linkStyle: CSSProperties = {
 
 const MobileLayoutHeader = () => {
   const { push } = useSafePush();
+  const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
 
   const { data: me } = useGetMe();
   const logout = useLogout();
@@ -37,7 +39,7 @@ const MobileLayoutHeader = () => {
       borderColor={"#ccc"}
       position={"sticky"}
       top={0}
-      bgColor={"#fff"}
+      bgColor={bgColor}
       zIndex={100}
     >
       <Flex gap={2} align={"center"}>

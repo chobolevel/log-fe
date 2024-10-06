@@ -1,10 +1,18 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  Flex,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
 import { images, PageRoutes } from "@/constants";
 import { CSSProperties, useMemo } from "react";
 import { useGetMe, useLogout } from "@/apis";
 import { IoIosArrowBack } from "react-icons/io";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -15,6 +23,12 @@ const linkStyle: CSSProperties = {
 const DefaultLayoutHeader = () => {
   const { push } = useSafePush();
   const logout = useLogout();
+  const { toggleColorMode } = useColorMode();
+  const colorModeToggleIcon = useColorModeValue(
+    <MdDarkMode size={20} />,
+    <MdLightMode size={20} />,
+  );
+  const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
 
   const { data: me } = useGetMe();
 
@@ -34,7 +48,7 @@ const DefaultLayoutHeader = () => {
       px={2}
       position={"sticky"}
       top={0}
-      bgColor={"#fff"}
+      bgColor={bgColor}
       zIndex={100}
     >
       <Flex gap={4} align={"center"}>
@@ -54,6 +68,7 @@ const DefaultLayoutHeader = () => {
         >
           CHOLO
         </Text>
+        <Button onClick={toggleColorMode}>{colorModeToggleIcon}</Button>
       </Flex>
       <Flex align={"center"} gap={4}>
         {me ? (

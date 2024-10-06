@@ -11,6 +11,10 @@ const breakpoints = {
 };
 
 const theme = extendTheme({
+  config: {
+    initialColorMode: "system",
+    useSystemColorMode: false,
+  },
   styles: {
     global: {
       h1: {
@@ -61,6 +65,8 @@ const theme = extendTheme({
   },
   colors: {
     lightGreen: "#38a16a",
+    lightModeBack: "#fff",
+    darkModeBack: "#1B202B",
   },
   breakpoints,
 });
