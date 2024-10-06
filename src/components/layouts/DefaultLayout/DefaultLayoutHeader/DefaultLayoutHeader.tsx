@@ -68,7 +68,9 @@ const DefaultLayoutHeader = () => {
         >
           CHOLO
         </Text>
-        <Button onClick={toggleColorMode}>{colorModeToggleIcon}</Button>
+        <Button size={"sm"} onClick={toggleColorMode}>
+          {colorModeToggleIcon}
+        </Button>
       </Flex>
       <Flex align={"center"} gap={4}>
         {me ? (
