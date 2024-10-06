@@ -1,10 +1,12 @@
 import {
+  Button,
   Flex,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { CSSProperties } from "react";
@@ -14,6 +16,7 @@ import { PageRoutes } from "@/constants";
 import { TiThMenu } from "react-icons/ti";
 import { useGetMe, useLogout } from "@/apis";
 import { IoIosArrowBack } from "react-icons/io";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -23,6 +26,11 @@ const linkStyle: CSSProperties = {
 
 const MobileLayoutHeader = () => {
   const { push } = useSafePush();
+  const { toggleColorMode } = useColorMode();
+  const colorModeToggleIcon = useColorModeValue(
+    <MdDarkMode size={20} />,
+    <MdLightMode size={20} />,
+  );
   const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
 
   const { data: me } = useGetMe();
@@ -59,6 +67,9 @@ const MobileLayoutHeader = () => {
         >
           CHOLO
         </Text>
+        <Button size={"sm"} onClick={toggleColorMode}>
+          {colorModeToggleIcon}
+        </Button>
       </Flex>
       <Flex gap={2}>
         <Menu>
