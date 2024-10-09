@@ -1,4 +1,5 @@
 export {
+  PostCommentDeleterModal,
   PostCommentEditorModal,
   PostCommentList,
   PostCommentListItem,

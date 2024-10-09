@@ -7,7 +7,7 @@ const withPwa = next_pwa({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 개발 환경에서만 활성화 사용
-  reactStrictMode: true,
+  // reactStrictMode: true,
   images: {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

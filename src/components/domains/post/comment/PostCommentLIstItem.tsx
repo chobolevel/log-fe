@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import { DateUtils } from "@/utils";
 import { HiPencilAlt } from "react-icons/hi";
 import { useModalStore } from "@/stores";
-import { PostCommentEditorModal } from "@/components";
+import { PostCommentDeleterModal, PostCommentEditorModal } from "@/components";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 interface PostCommentListItemProps {
   postComment: PostComment;
@@ -28,12 +29,19 @@ const PostCommentListItem = ({ postComment }: PostCommentListItemProps) => {
     >
       <Flex justify={"space-between"} align={"center"}>
         <Text fontWeight={"bold"}>{postComment.writer_name}</Text>
-        <Flex>
+        <Flex gap={4} align={"center"}>
           <HiPencilAlt
-            size={24}
+            size={20}
             cursor={"pointer"}
             onClick={() => {
               openModal(PostCommentEditorModal, { postComment });
+            }}
+          />
+          <RiDeleteBin5Fill
+            size={20}
+            cursor={"pointer"}
+            onClick={() => {
+              openModal(PostCommentDeleterModal, { postComment });
             }}
           />
         </Flex>

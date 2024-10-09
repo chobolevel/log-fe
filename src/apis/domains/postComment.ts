@@ -37,6 +37,11 @@ export interface UpdatePostCommentRequest {
   update_mask: PostCommentUpdateMask[];
 }
 
+export interface DeletePostCommentRequest {
+  id: ID;
+  password: string;
+}
+
 export const useCreatePostComment = () => {
   return usePost<PostComment, CreatePostCommentRequest, ID>(
     toUrl(ApiRoutes.PostComments),
@@ -52,6 +57,14 @@ export const useGetPostComments = (params?: GetPostCommentsParams) => {
 export const useUpdatePostComment = () => {
   return useUpdate<PostComment, UpdatePostCommentRequest, ID>(
     (data) => toUrl(ApiRoutes.PostComments, { id: data.id }),
+    undefined,
+    { onSettled: useInvalidate(toUrl(ApiRoutes.PostComments)) },
+  );
+};
+
+export const useDeletePostComment = () => {
+  return useUpdate<PostComment, DeletePostCommentRequest, ID>(
+    (data) => toUrl(ApiRoutes.DeletePostComment, { id: data.id }),
     undefined,
     { onSettled: useInvalidate(toUrl(ApiRoutes.PostComments)) },
   );
