@@ -4,6 +4,8 @@ import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { useCreatePresignedUrl } from "@/apis";
 import { useMemo, useRef } from "react";
+import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
+import { useColorModeValue } from "@chakra-ui/react";
 
 interface WysiwygEditorProps {
   value?: string;
@@ -22,6 +24,7 @@ const toolbarItems = [
 
 const WysiwygEditor = ({ value, onChange }: WysiwygEditorProps) => {
   const editorRef = useRef<Editor>(null);
+  const editorTheme = useColorModeValue("white", "dark");
 
   const { mutate: createPresignedUrl } = useCreatePresignedUrl();
 
@@ -38,6 +41,7 @@ const WysiwygEditor = ({ value, onChange }: WysiwygEditorProps) => {
           onChange(content);
         }
       }}
+      theme={editorTheme}
       initialValue={defaultValue}
       initialEditType={"wysiwyg"}
       previewStyle={"vertical"}
