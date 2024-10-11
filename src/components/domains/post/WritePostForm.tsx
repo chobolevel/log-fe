@@ -128,7 +128,7 @@ const WritePostForm = () => {
           />
         </Flex>
         <Flex justify={"space-between"} align={"center"} gap={4}>
-          <Flex direction={"column"} gap={4}>
+          <Flex direction={"column"} gap={4} flex={1}>
             <Flex direction={"column"} gap={2}>
               <Input
                 w={{ base: "100%", md: 400, lg: 500 }}
@@ -146,7 +146,7 @@ const WritePostForm = () => {
             </Flex>
             <Flex direction={"column"} gap={2}>
               <Input
-                w={{ base: "100%", md: 400, lg: 500 }}
+                w={{ base: "100%", md: 500, lg: 700 }}
                 type={"text"}
                 placeholder={"부제목을 입력하세요."}
                 {...register("sub_title", {
