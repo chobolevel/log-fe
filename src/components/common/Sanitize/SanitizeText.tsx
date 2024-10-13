@@ -9,6 +9,7 @@ const SanitizeText = ({ htmlString }: SanitizeTextProps) => {
   return (
     <Box
       whiteSpace={"break-spaces"}
+      className={"sanitize-text-area"}
       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(htmlString) }}
     />
   );

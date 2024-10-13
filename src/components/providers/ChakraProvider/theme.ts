@@ -17,19 +17,37 @@ const theme = extendTheme({
   },
   styles: {
     global: {
-      h1: {
+      "div.sanitize-text-area h1": {
+        fontSize: "3.5rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+      },
+      "div.sanitize-text-area h2": {
         fontSize: "3rem",
         fontWeight: "bold",
         marginTop: "30px",
         marginBottom: "10px",
       },
-      h2: {
+      "div.sanitize-text-area h3": {
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+      },
+      "div.sanitize-text-area h4": {
         fontSize: "2rem",
         fontWeight: "bold",
         marginTop: "30px",
         marginBottom: "10px",
       },
-      h3: {
+      "div.sanitize-text-area h5": {
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+      },
+      "div.sanitize-text-area h6": {
         fontSize: "1rem",
         fontWeight: "bold",
         marginTop: "30px",
@@ -38,16 +56,18 @@ const theme = extendTheme({
       ul: {
         marginLeft: "30px",
       },
-      ol: {
+      "div.sanitize-text-area ol": {
         marginLeft: "30px",
       },
-      li: {
+      "div.sanitize-text-area li": {
         margin: "10px 0",
       },
-      img: {
+      "div.sanitize-text-area img": {
+        marginTop: "20px",
         maxWidth: "800px",
+        borderRadius: "10px",
       },
-      "a:hover": {
+      "div.sanitize-text-area a:hover": {
         fontWeight: "bold",
       },
       ".toastui-editor-ww-code-block": {
