@@ -17,53 +17,59 @@ const theme = extendTheme({
   },
   styles: {
     global: {
+      "div.toastui-editor-contents": {
+        fontSize: "1rem",
+      },
       // heading
-      "div.sanitize-text-area h1": {
-        fontSize: "3.5rem",
-        fontWeight: "bold",
-        marginTop: "30px",
-        marginBottom: "10px",
-      },
-      "div.sanitize-text-area h2": {
-        fontSize: "3rem",
-        fontWeight: "bold",
-        marginTop: "30px",
-        marginBottom: "10px",
-      },
-      "div.sanitize-text-area h3": {
-        fontSize: "2.5rem",
-        fontWeight: "bold",
-        marginTop: "30px",
-        marginBottom: "10px",
-      },
-      "div.sanitize-text-area h4": {
+      "div.sanitize-text-area h1, div.toastui-editor-contents h1": {
         fontSize: "2rem",
         fontWeight: "bold",
         marginTop: "30px",
         marginBottom: "10px",
+        border: "none",
       },
-      "div.sanitize-text-area h5": {
-        fontSize: "1.5rem",
+      "div.sanitize-text-area h2, div.toastui-editor-contents h2": {
+        fontSize: "1.8rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+        border: "none",
+      },
+      "div.sanitize-text-area h3, div.toastui-editor-contents h3": {
+        fontSize: "1.6rem",
         fontWeight: "bold",
         marginTop: "30px",
         marginBottom: "10px",
       },
-      "div.sanitize-text-area h6": {
+      "div.sanitize-text-area h4, div.toastui-editor-contents h4": {
+        fontSize: "1.4rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+      },
+      "div.sanitize-text-area h5, div.toastui-editor-contents h5": {
+        fontSize: "1.2rem",
+        fontWeight: "bold",
+        marginTop: "30px",
+        marginBottom: "10px",
+      },
+      "div.sanitize-text-area h6, div.toastui-editor-contents h6": {
         fontSize: "1rem",
         fontWeight: "bold",
         marginTop: "30px",
         marginBottom: "10px",
       },
-      "div.sanitize-text-area del": {
+      "div.sanitize-text-area del, div.toastui-editor-contents del": {
         color: "#777980",
       },
       // quote
-      "div.sanitize-text-area blockquote": {
-        borderLeft: "6px solid gray",
-        paddingLeft: "10px",
-        marginY: "10px",
-        fontWeight: "bold",
-      },
+      "div.sanitize-text-area blockquote, div.toastui-editor-contents blockquote":
+        {
+          borderLeft: "6px solid gray",
+          paddingLeft: "10px",
+          marginY: "10px",
+          fontWeight: "bold",
+        },
       // list(ol, ul)
       "div.sanitize-text-area ul": {
         marginLeft: "20px",
@@ -75,12 +81,13 @@ const theme = extendTheme({
         margin: "10px 0",
       },
       // check list
-      "div.sanitize-text-area ul li.task-list-item": {
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        listStyle: "none",
-      },
+      "div.sanitize-text-area ul li.task-list-item, div.toastui-editor-contents ul li.task-list-item":
+        {
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          listStyle: "none",
+        },
       "div.sanitize-text-area ul li.task-list-item::before": {
         content: `"✅"`,
       },
@@ -95,6 +102,14 @@ const theme = extendTheme({
           padding: "10px",
           border: "1px solid #38a16a",
         },
+      "div.toastui-editor-contents th": {
+        backgroundColor: "#38a16a !important",
+        border: "1px solid #38a16a !important",
+      },
+      "div.toastui-editor-contents table, div.toastui-editor-contents td": {
+        padding: "10px",
+        border: "1px solid #38a16a !important",
+      },
       // img
       "div.sanitize-text-area img": {
         marginTop: "20px",
@@ -102,32 +117,34 @@ const theme = extendTheme({
         borderRadius: "10px",
       },
       // a
-      "div.sanitize-text-area a:hover": {
+      "div.sanitize-text-area a:hover, div.toastui-editor-contents a:hover": {
         fontWeight: "bold",
         color: "#38a16a",
       },
       // code block
-      "div.sanitize-text-area code": {
+      "div.sanitize-text-area code, div.toastui-editor-contents code": {
         padding: "6px",
         color: "#EB5757",
         backgroundColor: "rgba(135, 131, 120, .15)",
         borderRadius: "10px",
       },
-      "div.sanitize-text-area .toastui-editor-ww-code-block": {
-        marginY: "20px",
-        overflowX: "auto",
-        borderRadius: "10px",
-        padding: "20px",
-        backgroundColor: "rgba(135, 131, 120, .15)",
-        textWrap: "wrap",
-      },
-      "div.sanitize-text-area .toastui-editor-ww-code-block code": {
-        padding: "unset",
-        border: "none",
-        color: "var(--chakra-colors-chakra-body-text)",
-        backgroundColor: "transparent",
-        borderRadius: "unset",
-      },
+      "div.sanitize-text-area .toastui-editor-ww-code-block, div.toastui-editor-contents .toastui-editor-ww-code-block":
+        {
+          marginY: "20px",
+          overflowX: "auto",
+          borderRadius: "10px",
+          padding: "20px",
+          backgroundColor: "rgba(135, 131, 120, .15)",
+          textWrap: "wrap",
+        },
+      "div.sanitize-text-area .toastui-editor-ww-code-block code, div.toastui-editor-contents .toastui-editor-ww-code-block code":
+        {
+          padding: "unset",
+          border: "none",
+          color: "var(--chakra-colors-chakra-body-text)",
+          backgroundColor: "transparent",
+          borderRadius: "unset",
+        },
     },
   },
   fonts: {
