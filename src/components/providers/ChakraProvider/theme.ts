@@ -71,13 +71,13 @@ const theme = extendTheme({
           fontWeight: "bold",
         },
       // list(ol, ul)
-      "div.sanitize-text-area ul": {
+      "div.sanitize-text-area ul, div.toastui-editor-contents ul": {
         marginLeft: "20px",
       },
-      "div.sanitize-text-area ol": {
+      "div.sanitize-text-area ol, div.toastui-editor-contents ol": {
         marginLeft: "20px",
       },
-      "div.sanitize-text-area li": {
+      "div.sanitize-text-area li, div.toastui-editor-contents li": {
         margin: "10px 0",
       },
       // check list
@@ -111,21 +111,25 @@ const theme = extendTheme({
         border: "1px solid #38a16a !important",
       },
       // img
-      "div.sanitize-text-area img": {
+      "div.sanitize-text-area img, div.toastui-editor-contents img": {
         marginTop: "20px",
         maxWidth: "800px",
         borderRadius: "10px",
       },
       // a
+      "div.sanitize-text-area a, div.toastui-editor-contents a": {
+        cursor: "pointer",
+        textDecoration: "none",
+        color: "#38a16a !important",
+      },
       "div.sanitize-text-area a:hover, div.toastui-editor-contents a:hover": {
         fontWeight: "bold",
-        color: "#38a16a",
       },
       // code block
       "div.sanitize-text-area code, div.toastui-editor-contents code": {
         padding: "6px",
-        color: "#EB5757",
-        backgroundColor: "rgba(135, 131, 120, .15)",
+        color: "#EB5757 !important",
+        backgroundColor: "rgba(135, 131, 120, .15) !important",
         borderRadius: "10px",
       },
       "div.sanitize-text-area .toastui-editor-ww-code-block, div.toastui-editor-contents .toastui-editor-ww-code-block":
