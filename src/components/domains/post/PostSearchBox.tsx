@@ -23,7 +23,7 @@ const PostSearchBox = ({ totalCount }: PostSearchBoxProps) => {
     delete router.query.content;
     push({
       pathname: PageRoutes.Posts,
-      query: { ...router.query, [keywordType]: keyword },
+      query: { ...router.query, page: 1, [keywordType]: keyword },
     });
   };
   return (
