@@ -54,12 +54,12 @@ const PostSearchBox = ({ totalCount }: PostSearchBoxProps) => {
             if (id) {
               push({
                 pathname: PageRoutes.Posts,
-                query: { ...router.query, tag: id },
+                query: { ...router.query, page: 1, tag: id },
               });
             } else {
               push({
                 pathname: PageRoutes.Posts,
-                query: { ...router.query },
+                query: { ...router.query, page: 1 },
               });
             }
           }}
