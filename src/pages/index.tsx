@@ -37,7 +37,17 @@ export default function HomePage() {
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />
-        <link rel="icon" href="https://chobolevel.site/main-logo.png" />
+        <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
+
+        {/*웹 마스터 도구*/}
+        <meta
+          name="naver-site-verification"
+          content="feeafc253d837182ad237200dd12ac55bbc3da5c"
+        />
+        <meta
+          name="google-site-verification"
+          content="obf1F82VgJTwj1comoY_Yc8KQU_hH3UnoZ1gDD6zYIc"
+        />
 
         {/*공유하기*/}
         <meta property="og:type" content="website" />

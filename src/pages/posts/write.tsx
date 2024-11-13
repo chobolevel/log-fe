@@ -26,7 +26,7 @@ const WritePostPage = () => {
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />
-        <link rel="icon" href="https://chobolevel.site/main-logo.png" />
+        <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
 
         {/*공유하기*/}
         <meta property="og:type" content="website" />

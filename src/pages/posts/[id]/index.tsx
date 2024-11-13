@@ -28,8 +28,14 @@ const PostDetailPage = () => {
 
         {/*meta*/}
         <link rel="icon" href="/favicon.ico" />
-        <meta name="title" content={HOME_TITLE} />
-        <meta name="description" content={HOME_DESC} />
+        <meta
+          name="title"
+          content={post ? post.title : "초보 개발자의 블로그"}
+        />
+        <meta
+          name="description"
+          content={post ? post.sub_title : "초보 개발자의 블로그"}
+        />
         <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
         <meta name="author" content={"chobolevel"} />
@@ -38,12 +44,18 @@ const PostDetailPage = () => {
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />
-        <link rel="icon" href="https://chobolevel.site/main-logo.png" />
+        <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
 
         {/*공유하기*/}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={HOME_TITLE} />
-        <meta property="og:description" content={HOME_DESC} />
+        <meta
+          property="og:title"
+          content={post ? `초로 - ${post.title}` : HOME_TITLE}
+        />
+        <meta
+          property="og:description"
+          content={post ? post.sub_title : "초보 개발자의 블로그"}
+        />
         <meta property="og:image" content="/images/main-logo.png" />
         <meta property="og:url" content={"https://chobolevel.site"} />
       </Head>
