@@ -86,6 +86,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
                   borderRadius={10}
                   src={post.thumb_nail_image.url}
                   alt={post.thumb_nail_image.name}
+                  objectFit={"cover"}
                 />
               ) : (
                 <Flex w={"30px"} h={"90px"} justify={"end"} align={"center"}>
