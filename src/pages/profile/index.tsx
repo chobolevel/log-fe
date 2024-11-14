@@ -5,7 +5,15 @@ import { useGetMe } from "@/apis";
 
 const HOME_TITLE = "초로 - 나의 프로필";
 const HOME_DESC = "초보 개발자의 블로그";
-const DIVING_CATEGORIES = ["개발", "블로그"];
+const CATEGORIES = [
+  "개발",
+  "블로그",
+  "초로",
+  "초보 개발자의 블로그",
+  "cholo",
+  "chobolevel",
+  "프로필",
+];
 
 const ProfilePage = () => {
   const { data: me } = useGetMe();
@@ -24,8 +32,8 @@ const ProfilePage = () => {
         <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
         <meta name="author" content={"chobolevel"} />
-        <meta name="classification" content={DIVING_CATEGORIES.join(", ")} />
-        <meta name="subject" content={DIVING_CATEGORIES.join(", ")} />
+        <meta name="classification" content={CATEGORIES.join(", ")} />
+        <meta name="subject" content={CATEGORIES.join(", ")} />
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />

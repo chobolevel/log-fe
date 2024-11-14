@@ -4,7 +4,15 @@ import { SignInForm } from "@/components";
 
 const HOME_TITLE = "초로 - 로그인";
 const HOME_DESC = "초보 개발자의 블로그";
-const DIVING_CATEGORIES = ["개발", "블로그"];
+const CATEGORIES = [
+  "개발",
+  "블로그",
+  "초로",
+  "초보 개발자의 블로그",
+  "cholo",
+  "chobolevel",
+  "로그인",
+];
 
 const SignInPage = () => {
   return (
@@ -22,8 +30,8 @@ const SignInPage = () => {
         <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
         <meta name="author" content={"chobolevel"} />
-        <meta name="classification" content={DIVING_CATEGORIES.join(", ")} />
-        <meta name="subject" content={DIVING_CATEGORIES.join(", ")} />
+        <meta name="classification" content={CATEGORIES.join(", ")} />
+        <meta name="subject" content={CATEGORIES.join(", ")} />
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />
