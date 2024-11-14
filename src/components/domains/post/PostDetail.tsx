@@ -80,6 +80,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
               borderRadius={10}
               src={post.thumb_nail_image.url}
               alt={post.thumb_nail_image.name}
+              objectFit={"cover"}
             />
           )}
         </Flex>

@@ -191,6 +191,7 @@ const WritePostForm = () => {
                 borderColor={"lightGray"}
                 borderRadius={10}
                 cursor={"pointer"}
+                objectFit={"cover"}
                 onClick={() => {
                   thumbNailInputRef.current?.click();
                 }}
