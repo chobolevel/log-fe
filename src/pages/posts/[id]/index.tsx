@@ -5,8 +5,16 @@ import { DetailSkeleton, PostDetail, ResponsiveLayout } from "@/components";
 import { Flex, Text } from "@chakra-ui/react";
 
 const HOME_TITLE = "초로 - 초보 개발자의 블로그";
-const HOME_DESC = "초보 개발자의 블로그 목록";
-const DIVING_CATEGORIES = ["개발", "블로그"];
+const HOME_DESC = "초보 개발자의 블로그";
+const CATEGORIES = [
+  "개발",
+  "블로그",
+  "초로",
+  "초보 개발자의 블로그",
+  "cholo",
+  "chobolevel",
+  "게시글",
+];
 
 const PostDetailPage = () => {
   const { router } = useSafePush();
@@ -28,19 +36,13 @@ const PostDetailPage = () => {
 
         {/*meta*/}
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="title"
-          content={post ? post.title : "초보 개발자의 블로그"}
-        />
-        <meta
-          name="description"
-          content={post ? post.sub_title : "초보 개발자의 블로그"}
-        />
+        <meta name="title" content={post ? post.title : HOME_TITLE} />
+        <meta name="description" content={post ? post.sub_title : HOME_DESC} />
         <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
         <meta name="author" content={"chobolevel"} />
-        <meta name="classification" content={DIVING_CATEGORIES.join(", ")} />
-        <meta name="subject" content={DIVING_CATEGORIES.join(", ")} />
+        <meta name="classification" content={CATEGORIES.join(", ")} />
+        <meta name="subject" content={CATEGORIES.join(", ")} />
 
         {/*링크*/}
         <link rel="canonical" href="https://chobolevel.site" />
