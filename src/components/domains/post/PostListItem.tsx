@@ -44,7 +44,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
     >
       {loading ? (
         <Flex direction={"column"} h={100} justify={"center"} align={"center"}>
-          <Spinner />
+          <Spinner size={"lg"} />
         </Flex>
       ) : (
         <>
