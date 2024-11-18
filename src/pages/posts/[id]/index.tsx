@@ -9,56 +9,45 @@ import { Nullable } from "@/types";
 import { Suspense } from "react";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 초보 개발자의 블로그";
-const HOME_DESC = "초보 개발자의 블로그";
-const CATEGORIES = [
-  "개발",
-  "블로그",
-  "초로",
-  "초보 개발자의 블로그",
-  "cholo",
-  "chobolevel",
-  "게시글",
-];
-
 const PostDetailPage = ({
   post,
+  metadata,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { push } = useSafePush();
+  const { push, router } = useSafePush();
   return (
     <>
       <Head>
-        <title>{post ? `초로 - ${post.title}` : HOME_TITLE}</title>
+        <title>{metadata.title}</title>
 
         {/*view port*/}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/*meta*/}
         <link rel="icon" href="/favicon.ico" />
-        <meta name="title" content={post ? post.title : HOME_TITLE} />
-        <meta name="description" content={post ? post.sub_title : HOME_DESC} />
+        <meta name="title" content={metadata.title} />
+        <meta name="description" content={metadata.description} />
         <meta property="image" content="/images/main-logo.png" />
         <meta name="publisher" content={"chobolevel"} />
         <meta name="author" content={"chobolevel"} />
-        <meta name="classification" content={CATEGORIES.join(", ")} />
-        <meta name="subject" content={CATEGORIES.join(", ")} />
+        <meta name="classification" content={metadata.categories.join(", ")} />
+        <meta name="subject" content={metadata.categories.join(", ")} />
 
         {/*링크*/}
-        <link rel="canonical" href="https://chobolevel.site" />
+        <link
+          rel="canonical"
+          href={`https://chobolevel.site${router.asPath}`}
+        />
         <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
 
         {/*공유하기*/}
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={post ? `초로 - ${post.title}` : HOME_TITLE}
-        />
-        <meta
-          property="og:description"
-          content={post ? post.sub_title : "초보 개발자의 블로그"}
-        />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
         <meta property="og:image" content="/images/main-logo.png" />
-        <meta property="og:url" content={"https://chobolevel.site"} />
+        <meta
+          property="og:url"
+          content={`https://chobolevel.site${router.asPath}`}
+        />
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
@@ -94,12 +83,26 @@ export default PostDetailPage;
 
 export const getServerSideProps: GetServerSideProps<{
   post: Nullable<Post>;
+  metadata: { title: string; description: string; categories: string[] };
 }> = async (context) => {
   const id = QueryParser.toNumber(context.query.id, undefined);
+  const metadata = {
+    title: "초로 - 초보 개발자의 블로그",
+    description: "초보 개발자의 블로그",
+    categories: [
+      "개발",
+      "블로그",
+      "초로",
+      "초보 개발자의 블로그",
+      "cholo",
+      "chobolevel",
+      "게시글",
+    ],
+  };
 
   if (id === undefined) {
     return {
-      props: { post: null },
+      props: { post: null, metadata },
     };
   }
 
@@ -111,6 +114,15 @@ export const getServerSideProps: GetServerSideProps<{
     .catch(() => null);
 
   return {
-    props: { post },
+    props: {
+      post,
+      metadata: post
+        ? {
+            ...metadata,
+            title: `초로 - ${post.title}`,
+            description: post.sub_title,
+          }
+        : metadata,
+    },
   };
 };
