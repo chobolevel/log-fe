@@ -1,8 +1,13 @@
-import { useSafePush } from "@/hooks";
-import { useGetPost } from "@/apis";
+import { Api, ApiResponse, Post } from "@/apis";
 import Head from "next/head";
 import { DetailSkeleton, PostDetail, ResponsiveLayout } from "@/components";
-import { Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { QueryParser, toUrl } from "@/utils";
+import { ApiRoutes, PageRoutes } from "@/constants";
+import { Nullable } from "@/types";
+import { Suspense } from "react";
+import { useSafePush } from "@/hooks";
 
 const HOME_TITLE = "초로 - 초보 개발자의 블로그";
 const HOME_DESC = "초보 개발자의 블로그";
@@ -16,16 +21,10 @@ const CATEGORIES = [
   "게시글",
 ];
 
-const PostDetailPage = () => {
-  const { router } = useSafePush();
-
-  const {
-    data: post,
-    isError,
-    error,
-  } = useGetPost({
-    id: Number(router.query.id ?? 0),
-  });
+const PostDetailPage = ({
+  post,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { push } = useSafePush();
   return (
     <>
       <Head>
@@ -63,13 +62,28 @@ const PostDetailPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          {post ? (
-            <PostDetail post={post} />
-          ) : isError ? (
-            <Text>{error?.response?.data.error_message}</Text>
-          ) : (
-            <DetailSkeleton />
-          )}
+          <Suspense fallback={<DetailSkeleton />}>
+            {post ? (
+              <PostDetail post={post} />
+            ) : (
+              <Flex
+                direction={"column"}
+                h={{ base: 300, lg: 600 }}
+                justify={"center"}
+                align={"center"}
+                gap={6}
+              >
+                <Text>게시글을 찾을 수 없습니다.</Text>
+                <Button
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Posts));
+                  }}
+                >
+                  게시글 목록
+                </Button>
+              </Flex>
+            )}
+          </Suspense>
         </Flex>
       </ResponsiveLayout>
     </>
@@ -77,3 +91,26 @@ const PostDetailPage = () => {
 };
 
 export default PostDetailPage;
+
+export const getServerSideProps: GetServerSideProps<{
+  post: Nullable<Post>;
+}> = async (context) => {
+  const id = QueryParser.toNumber(context.query.id, undefined);
+
+  if (id === undefined) {
+    return {
+      props: { post: null },
+    };
+  }
+
+  const post = await Api.get<ApiResponse<Post>>(
+    toUrl(ApiRoutes.Posts, { id }),
+    undefined,
+  )
+    .then((res) => res.data)
+    .catch(() => null);
+
+  return {
+    props: { post },
+  };
+};
