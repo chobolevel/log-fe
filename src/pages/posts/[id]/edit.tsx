@@ -46,15 +46,23 @@ const EditPostPage = () => {
         <meta name="subject" content={CATEGORIES.join(", ")} />
 
         {/*링크*/}
-        <link rel="canonical" href="https://chobolevel.site" />
+        <link
+          rel="canonical"
+          href={`https://chobolevel.site${router.asPath}`}
+        />
         <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
 
         {/*공유하기*/}
-        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ko_KR" />
+        <meta property="og:site_name" content={"초로"} />
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={HOME_TITLE} />
         <meta property="og:description" content={HOME_DESC} />
         <meta property="og:image" content="/images/main-logo.png" />
-        <meta property="og:url" content={"https://chobolevel.site"} />
+        <meta
+          property="og:url"
+          content={`https://chobolevel.site${router.asPath}}`}
+        />
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>

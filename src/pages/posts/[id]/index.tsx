@@ -40,6 +40,8 @@ const PostDetailPage = ({
         <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
 
         {/*공유하기*/}
+        <meta property="og:locale" content="ko_KR" />
+        <meta property="og:site_name" content={"초로"} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
