@@ -57,7 +57,9 @@ export default function HomePage() {
         />
 
         {/*공유하기*/}
-        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ko_KR" />
+        <meta property="og:site_name" content={"초로"} />
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={HOME_TITLE} />
         <meta property="og:description" content={HOME_DESC} />
         <meta property="og:image" content="/images/main-logo.png" />
