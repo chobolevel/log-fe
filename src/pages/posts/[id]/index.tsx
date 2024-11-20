@@ -6,7 +6,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { QueryParser, toUrl } from "@/utils";
 import { ApiRoutes, PageRoutes } from "@/constants";
 import { Nullable } from "@/types";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useSafePush } from "@/hooks";
 
 const PostDetailPage = ({
@@ -14,6 +14,11 @@ const PostDetailPage = ({
   metadata,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { push, router } = useSafePush();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
   return (
     <>
       <Head>
@@ -53,28 +58,28 @@ const PostDetailPage = ({
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          <Suspense fallback={<DetailSkeleton />}>
-            {post ? (
-              <PostDetail post={post} />
-            ) : (
-              <Flex
-                direction={"column"}
-                h={{ base: 300, lg: 600 }}
-                justify={"center"}
-                align={"center"}
-                gap={6}
+          {loading ? (
+            <DetailSkeleton />
+          ) : post ? (
+            <PostDetail post={post} />
+          ) : (
+            <Flex
+              direction={"column"}
+              h={{ base: 300, lg: 600 }}
+              justify={"center"}
+              align={"center"}
+              gap={6}
+            >
+              <Text>게시글을 찾을 수 없습니다.</Text>
+              <Button
+                onClick={() => {
+                  push(toUrl(PageRoutes.Posts));
+                }}
               >
-                <Text>게시글을 찾을 수 없습니다.</Text>
-                <Button
-                  onClick={() => {
-                    push(toUrl(PageRoutes.Posts));
-                  }}
-                >
-                  게시글 목록
-                </Button>
-              </Flex>
-            )}
-          </Suspense>
+                게시글 목록
+              </Button>
+            </Flex>
+          )}
         </Flex>
       </ResponsiveLayout>
     </>
@@ -108,23 +113,31 @@ export const getServerSideProps: GetServerSideProps<{
     };
   }
 
-  const post = await Api.get<ApiResponse<Post>>(
+  return await Api.get<ApiResponse<Post>>(
     toUrl(ApiRoutes.Posts, { id }),
     undefined,
   )
-    .then((res) => res.data)
-    .catch(() => null);
-
-  return {
-    props: {
-      post,
-      metadata: post
-        ? {
-            ...metadata,
-            title: `초로 - ${post.title}`,
-            description: post.sub_title,
-          }
-        : metadata,
-    },
-  };
+    .then((res) => {
+      return {
+        props: {
+          post: res.data,
+          metadata: {
+            title: `초로 - ${res.data.title}`,
+            description: res.data.sub_title,
+            categories: [
+              ...metadata.categories,
+              ...res.data.tags.map((t) => t.name),
+            ],
+          },
+        },
+      };
+    })
+    .catch(() => {
+      return {
+        props: {
+          post: null,
+          metadata,
+        },
+      };
+    });
 };
