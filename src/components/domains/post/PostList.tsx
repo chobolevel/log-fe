@@ -1,5 +1,5 @@
 import { Post } from "@/apis";
-import { Flex } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { PostListItem } from "@/components";
 
 interface PostListProps {
@@ -8,11 +8,23 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   return (
-    <Flex direction={"column"} gap={4}>
+    <Grid
+      templateColumns={{
+        base: "repeat(1, 1fr)",
+        sm: "repeat(2, 1fr)",
+        md: "repeat(3, 1fr)",
+        lg: "repeat(4, 1fr)",
+      }}
+      gap={10}
+    >
       {posts.map((post, idx) => {
-        return <PostListItem key={idx} post={post} />;
+        return (
+          <GridItem key={idx}>
+            <PostListItem post={post} />
+          </GridItem>
+        );
       })}
-    </Flex>
+    </Grid>
   );
 };
 
