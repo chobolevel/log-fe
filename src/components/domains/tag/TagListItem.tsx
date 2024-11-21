@@ -13,7 +13,7 @@ const TagListItem = ({ tag }: TagListItemProps) => {
     <Flex fontSize={"lg"}>
       <Flex
         cursor={"pointer"}
-        _hover={{ textDecoration: "underline" }}
+        _hover={{ textDecoration: "underline", color: "lightGreen" }}
         onClick={() => {
           push({
             pathname: PageRoutes.Posts,

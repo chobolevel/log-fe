@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { ResponsiveLayout, TagList } from "@/components";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetTags } from "@/apis";
 import { useSafePush } from "@/hooks";
 
@@ -19,7 +19,7 @@ const CATEGORIES = [
 const TagListPage = () => {
   const { router } = useSafePush();
 
-  const { data: tags } = useGetTags();
+  const { data: tags, isFetching } = useGetTags();
   return (
     <>
       <Head>
@@ -74,7 +74,19 @@ const TagListPage = () => {
           </Text>
           <Flex direction={"column"}>
             {tags ? (
-              <TagList tags={tags.data} />
+              isFetching ? (
+                <Flex
+                  w={"100%"}
+                  h={{ base: 200, lg: 300 }}
+                  direction={"column"}
+                  justify={"center"}
+                  align={"center"}
+                >
+                  <Spinner size={"lg"} />
+                </Flex>
+              ) : (
+                <TagList tags={tags.data} />
+              )
             ) : (
               <Flex>태그 목록이 존재하지 않습니다.</Flex>
             )}
