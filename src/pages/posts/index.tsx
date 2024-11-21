@@ -24,7 +24,7 @@ const CATEGORIES = [
   "게시글",
 ];
 
-const LIMIT_COUNT = 5;
+const LIMIT_COUNT = 8;
 
 const PostListPage = () => {
   const { push, router } = useSafePush();
