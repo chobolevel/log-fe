@@ -33,7 +33,7 @@ const PostListPage = () => {
   const {
     data: posts,
     isError,
-    error,
+    isFetching,
   } = useGetPosts({
     skipCount: (page - 1) * LIMIT_COUNT,
     limitCount: LIMIT_COUNT,
@@ -87,22 +87,54 @@ const PostListPage = () => {
         <Flex p={4} direction={"column"} gap={6}>
           <PostSearchBox totalCount={posts?.total_count ?? 0} />
           {posts ? (
-            <Flex direction={"column"} gap={6}>
-              <PostList posts={posts.data} />
-              <Pagination
-                currentPage={page}
-                limit={LIMIT_COUNT}
-                total={posts.total_count}
-                onChange={(page) => {
-                  push({
-                    pathname: PageRoutes.Posts,
-                    query: { ...router.query, page },
-                  });
-                }}
-              />
-            </Flex>
+            isFetching ? (
+              <ListSkeleton />
+            ) : posts.total_count > 0 ? (
+              <Flex direction={"column"} gap={6}>
+                <PostList posts={posts.data} />
+                <Pagination
+                  currentPage={page}
+                  limit={LIMIT_COUNT}
+                  total={posts.total_count}
+                  onChange={(page) => {
+                    push({
+                      pathname: PageRoutes.Posts,
+                      query: { ...router.query, page },
+                    });
+                  }}
+                />
+              </Flex>
+            ) : (
+              <Flex
+                h={{ base: 150, lg: 300 }}
+                direction={"column"}
+                justify={"center"}
+                align={"center"}
+              >
+                <Text
+                  whiteSpace={"break-spaces"}
+                  textAlign={"center"}
+                  fontWeight={"bold"}
+                >
+                  {"️🥹검색 조건에 맞는 게시글이 없습니다.🥹"}
+                </Text>
+              </Flex>
+            )
           ) : isError ? (
-            <Text>{error?.response?.data.error_message}</Text>
+            <Flex
+              h={{ base: 150, lg: 300 }}
+              direction={"column"}
+              justify={"center"}
+              align={"center"}
+            >
+              <Text
+                whiteSpace={"break-spaces"}
+                textAlign={"center"}
+                fontWeight={"bold"}
+              >
+                {"️🙅게시글을 찾을 수 없습니다.🙅\n다시 시도해 주세요!"}
+              </Text>
+            </Flex>
           ) : (
             <ListSkeleton />
           )}
