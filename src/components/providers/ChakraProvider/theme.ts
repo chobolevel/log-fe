@@ -113,6 +113,7 @@ const theme = extendTheme({
       // img
       "div.sanitize-text-area img, div.toastui-editor-contents img": {
         marginTop: "20px",
+        marginBottom: "10px",
         maxWidth: "800px",
         borderRadius: "10px",
       },
