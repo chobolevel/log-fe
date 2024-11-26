@@ -3,7 +3,12 @@ import { useCreatePresignedUrl } from "@/apis";
 
 interface ImageUploaderProps {
   inputRef: React.RefObject<HTMLInputElement>;
-  onUpload: (url: string, filename: string) => void;
+  onUpload: (
+    url: string,
+    filename: string,
+    width: number,
+    height: number,
+  ) => void;
 }
 
 const ImageUploader = ({ inputRef, onUpload }: ImageUploaderProps) => {
@@ -38,7 +43,16 @@ const ImageUploader = ({ inputRef, onUpload }: ImageUploaderProps) => {
                   "Content-Type": extension,
                 },
               }).then(() => {
-                onUpload(res.data.url, res.data.filename_with_extension);
+                const img = new Image();
+                img.onload = () => {
+                  onUpload(
+                    res.data.url,
+                    res.data.filename_with_extension,
+                    img.width,
+                    img.height,
+                  );
+                };
+                img.src = res.data.url;
               });
             },
           },

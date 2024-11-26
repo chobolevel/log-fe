@@ -13,6 +13,7 @@ import {
   Select,
   Tag as ChakraTag,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { ClientEditor, ErrorText, ImageUploader } from "@/components";
 import { useForm } from "react-hook-form";
@@ -32,6 +33,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
   const { push } = useSafePush();
   const { openAlert } = useModalStore(["openAlert"]);
   const thumbNailInputRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const {
     register,
@@ -81,10 +83,12 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             } else {
               data.tag_ids = selectedTags.map((t) => t.id);
             }
+            setLoading(true);
             updatePost(data, {
               onSuccess: () => {
                 push(toUrl(PageRoutes.PostDetailById, { id: post.id }))?.then(
                   () => {
+                    setLoading(false);
                     openAlert({
                       title: "게시글 수정",
                       content: "게시글 수정이 완료되었습니다.",
@@ -147,11 +151,21 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
           })}
         </Flex>
       </Flex>
-      <Flex justify={"space-between"} align={"center"} gap={4}>
-        <Flex direction={"column"} gap={4} flex={1}>
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        justify={"space-between"}
+        gap={4}
+        align={{ base: "none", lg: "end" }}
+      >
+        <Flex
+          direction={"column"}
+          w={{ base: "auto", lg: "100%" }}
+          h={"100%"}
+          gap={6}
+        >
           <Flex direction={"column"} gap={2}>
             <Input
-              w={{ base: "100%", md: 400, lg: 500 }}
+              w={{ base: "100%", lg: 500 }}
               type={"text"}
               placeholder={"제목을 입력하세요."}
               {...register("title", {
@@ -165,9 +179,9 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             />
           </Flex>
           <Flex direction={"column"} gap={2}>
-            <Input
-              w={{ base: "100%", md: 500, lg: 700 }}
-              type={"text"}
+            <Textarea
+              w={{ base: "100%", lg: 500 }}
+              minH={140}
               placeholder={"부제목을 입력하세요."}
               {...register("sub_title", {
                 required: "부제목이 입력되지 않았습니다.",
@@ -180,26 +194,33 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             />
           </Flex>
         </Flex>
-        <Flex direction={"column"} justify={"center"} align={"center"} gap={2}>
+        <Flex
+          w={{ base: "auto", lg: "100%" }}
+          maxW={{ base: "none", lg: "300px" }}
+          direction={"column"}
+          justify={"center"}
+          align={"center"}
+          gap={2}
+        >
           <Text fontSize={"sm"} fontWeight={"bold"}>
-            썸네일(100 x 100)
+            썸네일
           </Text>
           <ImageUploader
             inputRef={thumbNailInputRef}
-            onUpload={(url, filename) => {
+            onUpload={(url, filename, width, height) => {
               setValue("thumb_nail_image", {
                 type: "THUMB_NAIL",
                 name: filename,
                 url: url,
-                width: 100,
-                height: 100,
+                width: width,
+                height: height,
               });
             }}
           />
           {watch("thumb_nail_image") ? (
             <Image
-              w={"100px"}
-              h={"100px"}
+              w={{ base: "100%", lg: "300px" }}
+              h={"200px"}
               src={watch("thumb_nail_image.url")}
               alt={watch("thumb_nail_image.name")}
               border={"1px solid"}
@@ -213,8 +234,8 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             />
           ) : (
             <Button
-              w={"100px"}
-              h={"100px"}
+              w={{ base: "100%", lg: "300px" }}
+              h={"200px"}
               borderRadius={10}
               cursor={"pointer"}
               onClick={() => {
@@ -242,7 +263,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
         >
           취소
         </Button>
-        <Button colorScheme={"green"} type={"submit"}>
+        <Button colorScheme={"green"} type={"submit"} isLoading={isLoading}>
           수정
         </Button>
       </Flex>
