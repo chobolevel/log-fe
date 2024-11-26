@@ -9,6 +9,7 @@ import {
   Select,
   Tag as ChakraTag,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { ErrorMessage } from "@hookform/error-message";
 import { ClientEditor, ErrorText, ImageUploader } from "@/components";
@@ -70,7 +71,9 @@ const WritePostForm = () => {
         ),
       )}
     >
-      <Text>게시글 작성</Text>
+      <Text color={"lightGreen"} fontWeight={"bold"}>
+        게시글 작성
+      </Text>
       <Flex direction={"column"} gap={6}>
         <Flex direction={"column"} gap={2}>
           <Select
@@ -127,11 +130,21 @@ const WritePostForm = () => {
             render={({ message }) => <ErrorText>{message}</ErrorText>}
           />
         </Flex>
-        <Flex justify={"space-between"} align={"center"} gap={4}>
-          <Flex direction={"column"} gap={4} flex={1}>
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          justify={"space-between"}
+          gap={4}
+          align={{ base: "none", lg: "end" }}
+        >
+          <Flex
+            direction={"column"}
+            w={{ base: "auto", lg: "100%" }}
+            h={"100%"}
+            gap={6}
+          >
             <Flex direction={"column"} gap={2}>
               <Input
-                w={{ base: "100%", md: 400, lg: 500 }}
+                w={{ base: "100%", lg: 500 }}
                 type={"text"}
                 placeholder={"제목을 입력하세요."}
                 {...register("title", {
@@ -145,9 +158,9 @@ const WritePostForm = () => {
               />
             </Flex>
             <Flex direction={"column"} gap={2}>
-              <Input
-                w={{ base: "100%", md: 500, lg: 700 }}
-                type={"text"}
+              <Textarea
+                w={{ base: "100%", lg: 500 }}
+                minH={140}
                 placeholder={"부제목을 입력하세요."}
                 {...register("sub_title", {
                   required: "부제목이 입력되지 않았습니다.",
@@ -161,30 +174,32 @@ const WritePostForm = () => {
             </Flex>
           </Flex>
           <Flex
+            w={{ base: "auto", lg: "100%" }}
+            maxW={{ base: "none", lg: "300px" }}
             direction={"column"}
             justify={"center"}
             align={"center"}
             gap={2}
           >
             <Text fontSize={"sm"} fontWeight={"bold"}>
-              썸네일(100 x 100)
+              썸네일
             </Text>
             <ImageUploader
               inputRef={thumbNailInputRef}
-              onUpload={(url, filename) => {
+              onUpload={(url, filename, width, height) => {
                 setValue("thumb_nail_image", {
                   type: "THUMB_NAIL",
                   name: filename,
                   url: url,
-                  width: 100,
-                  height: 100,
+                  width: width,
+                  height: height,
                 });
               }}
             />
             {watch("thumb_nail_image") ? (
               <Image
-                w={"100px"}
-                h={"100px"}
+                w={{ base: "100%", lg: "300px" }}
+                h={"200px"}
                 src={watch("thumb_nail_image.url")}
                 alt={watch("thumb_nail_image.name")}
                 border={"1px solid"}
@@ -198,8 +213,8 @@ const WritePostForm = () => {
               />
             ) : (
               <Button
-                w={"100px"}
-                h={"100px"}
+                w={{ base: "100%", lg: "300px" }}
+                h={"200px"}
                 borderRadius={10}
                 cursor={"pointer"}
                 onClick={() => {
