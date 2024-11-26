@@ -43,7 +43,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
   return (
     <Flex direction={"column"} gap={6}>
       <Flex justify={"space-between"}>
-        <Flex direction={"column"} gap={2}>
+        <Flex direction={"column"} gap={2} justify={"end"}>
           <Text fontSize={"xl"} fontWeight={"bold"}>
             {post.title}
           </Text>
@@ -75,8 +75,8 @@ const PostDetail = ({ post }: PostDetailPops) => {
         <Flex>
           {post.thumb_nail_image && (
             <Image
-              w={100}
-              h={100}
+              w={300}
+              h={200}
               borderRadius={10}
               src={post.thumb_nail_image.url}
               alt={post.thumb_nail_image.name}
