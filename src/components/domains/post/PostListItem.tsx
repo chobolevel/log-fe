@@ -95,7 +95,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
                 >
                   {post.title}
                 </Text>
-                <Text fontSize={"sm"} noOfLines={2} color={"#707277"}>
+                <Text fontSize={"sm"} noOfLines={2}>
                   {post.sub_title}
                 </Text>
               </Flex>
