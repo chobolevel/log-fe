@@ -62,7 +62,11 @@ const PostListItem = ({ post }: PostListItemProps) => {
         <Flex position={"absolute"} top={2} left={2} gap={2} flexWrap={"wrap"}>
           {post.tags.map((tag, idx) => {
             return (
-              <Badge colorScheme={"green"} key={idx}>{`#${tag.name}`}</Badge>
+              <Badge
+                variant={"solid"}
+                colorScheme={"green"}
+                key={idx}
+              >{`#${tag.name}`}</Badge>
             );
           })}
         </Flex>
