@@ -42,8 +42,17 @@ const PostDetail = ({ post }: PostDetailPops) => {
   const isWriter = useMemo(() => me?.id === post.writer.id, [post, me]);
   return (
     <Flex direction={"column"} gap={6}>
-      <Flex justify={"space-between"}>
-        <Flex direction={"column"} gap={2} justify={"end"}>
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        justify={"space-between"}
+        gap={6}
+      >
+        <Flex
+          w={{ base: "100%", lg: 500 }}
+          direction={"column"}
+          gap={2}
+          justify={"end"}
+        >
           <Text fontSize={"xl"} fontWeight={"bold"}>
             {post.title}
           </Text>
@@ -75,7 +84,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
         <Flex>
           {post.thumb_nail_image && (
             <Image
-              w={300}
+              w={{ base: "100%", lg: 300 }}
               h={200}
               borderRadius={10}
               src={post.thumb_nail_image.url}
