@@ -27,11 +27,15 @@ const PostListItem = ({ post }: PostListItemProps) => {
         <Flex direction={"column"} gap={2} p={2}>
           <Flex gap={2} flexWrap={"wrap"}>
             {post.tags.map((tag, idx) => {
-              return <Badge key={idx}>{`#${tag.name}`}</Badge>;
+              return (
+                <Badge key={idx} variant={"solid"}>{`#${tag.name}`}</Badge>
+              );
             })}
           </Flex>
-          <Text>{post.title}</Text>
-          <Text>{post.sub_title}</Text>
+          <Text fontWeight={"bold"}>{post.title}</Text>
+          <Text fontSize={"sm"} color={"gray"}>
+            {post.sub_title}
+          </Text>
         </Flex>
       }
     >
