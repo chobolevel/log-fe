@@ -257,8 +257,14 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
       </Flex>
       <Flex justify={"end"} align={"center"} gap={2}>
         <Button
+          isLoading={isLoading}
           onClick={() => {
-            push(toUrl(PageRoutes.PostDetailById, { id: post.id }));
+            setLoading(true);
+            push(toUrl(PageRoutes.PostDetailById, { id: post.id }))?.then(
+              () => {
+                setLoading(false);
+              },
+            );
           }}
         >
           취소
