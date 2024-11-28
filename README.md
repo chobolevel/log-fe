@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+## 개인 블로그 프로젝트(2024.08.08 ~)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 목차
 
-## Available Scripts
+> + [프로젝트 사용기술](#프로젝트-사용기술)
+> + [배포 환경](#배포-환경)
+> + [프로젝트를 진행한 이유](#프로젝트를-진행한-이유)
+> + [초기 화면](#초기-화면)
 
-In the project directory, you can run:
+## 프로젝트 사용기술
 
-### `npm start`
+> <img src="https://img.shields.io/badge/next-000000?style=for-the-badge&logo=next.js&logoColor=white">
+> <img src="https://img.shields.io/badge/chakra ui-319795?style=for-the-badge&logo=chakra ui&logoColor=white">
+> <img src="https://img.shields.io/badge/react query-ff4154?style=for-the-badge&logo=react query&logoColor=white">
+> <img src="https://img.shields.io/badge/axios-5a29e4?style=for-the-badge&logo=axios&logoColor=white">
+> <img src="https://img.shields.io/badge/lodash-3492ff?style=for-the-badge&logo=lodash&logoColor=white">
+> <img src="https://img.shields.io/badge/pwa-5a0fc8?style=for-the-badge&logo=pwa&logoColor=white">
+> <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 배포 환경
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> ![image](https://github.com/user-attachments/assets/3457e4e3-9b4f-40d1-8792-1a812aa1404d)
+> + **vercel의 hobby 플랜**을 이용하여 배포하였습니다.
 
-### `npm test`
+## 프로젝트를 진행한 이유
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> + 여러 블로그를 참고하면서 능력있는 개발자들의 블로그는 보통 직접 개발한 경우가 많다고 보아서 따라해보게 되었습니다.
+> + 이전까지 배운 내용들을 활용해보고 중간중간 알게된 새로운 기술도 익히기 위해 진행하였습니다.
 
-### `npm run build`
+## 초기 화면
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> ![www chobolevel site_ (4)](https://github.com/user-attachments/assets/57851fd1-089b-49c8-b6cd-44bb6358e381)
