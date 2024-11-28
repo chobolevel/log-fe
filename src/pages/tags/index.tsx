@@ -4,8 +4,9 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetTags } from "@/apis";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 모든 태그";
-const HOME_DESC = "초보 개발자의 블로그 태그 목록";
+const HOME_TITLE = "모든 태그 - ";
+const HOME_DESC =
+  "초보 개발자 강인재(chobolevel)의 블로그의 모든 태그(카테고리) 목록";
 const CATEGORIES = [
   "개발",
   "블로그",

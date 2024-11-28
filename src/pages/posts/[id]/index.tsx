@@ -94,8 +94,8 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const id = QueryParser.toNumber(context.query.id, undefined);
   const metadata = {
-    title: "초로 - 초보 개발자의 블로그",
-    description: "초보 개발자의 블로그",
+    title: "게시글 상세 - 초로",
+    description: "초보 개발자 강인재(chobolevel)의 블로그 게시글",
     categories: [
       "개발",
       "블로그",

@@ -12,8 +12,8 @@ import { Flex, Text } from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
 
-const HOME_TITLE = "초로 - 모든 게시글";
-const HOME_DESC = "초보 개발자의 블로그 목록";
+const HOME_TITLE = "모든 게시글 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그 게시글 목록";
 const CATEGORIES = [
   "개발",
   "블로그",
