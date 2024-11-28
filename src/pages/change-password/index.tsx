@@ -2,8 +2,8 @@ import Head from "next/head";
 import { ChangeUserPasswordForm, ResponsiveLayout } from "@/components";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 비밀번호 변경";
-const HOME_DESC = "초보 개발자의 블로그";
+const HOME_TITLE = "비밀번호 변경 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그 비밀번호 변경";
 const CATEGORIES = [
   "개발",
   "블로그",

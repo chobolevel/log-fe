@@ -4,8 +4,8 @@ import { useSafePush } from "@/hooks";
 import { Flex, Text } from "@chakra-ui/react";
 import { useGetPost } from "@/apis";
 
-const HOME_TITLE = "초로 - 게시글 수정";
-const HOME_DESC = "초보 개발자의 게시글 수정";
+const HOME_TITLE = "게시글 수정 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그 게시글 수정";
 const CATEGORIES = [
   "개발",
   "블로그",

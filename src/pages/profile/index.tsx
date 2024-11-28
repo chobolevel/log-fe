@@ -4,8 +4,8 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetMe } from "@/apis";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 나의 프로필";
-const HOME_DESC = "초보 개발자의 블로그";
+const HOME_TITLE = "나의 프로필 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그";
 const CATEGORIES = [
   "개발",
   "블로그",

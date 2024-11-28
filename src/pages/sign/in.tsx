@@ -3,8 +3,8 @@ import { Flex } from "@chakra-ui/react";
 import { SignInForm } from "@/components";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 로그인";
-const HOME_DESC = "초보 개발자의 블로그";
+const HOME_TITLE = "로그인 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그에 로그인";
 const CATEGORIES = [
   "개발",
   "블로그",
