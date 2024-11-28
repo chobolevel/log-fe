@@ -13,8 +13,9 @@ import { useEffect, useState } from "react";
 import { useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
 
-const HOME_TITLE = "초로 - 방명록";
-const HOME_DESC = "초보 개발자의 블로그 방명록";
+const HOME_TITLE = "방명록 - 초로";
+const HOME_DESC =
+  "초보 개발자 강인재(chobolevel)의 블로그에 오신 여러분 방명록을 등록해주세요!";
 const CATEGORIES = [
   "개발",
   "블로그",

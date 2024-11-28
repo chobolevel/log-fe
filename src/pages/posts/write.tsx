@@ -2,8 +2,8 @@ import Head from "next/head";
 import { ResponsiveLayout, WritePostForm } from "@/components";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "초로 - 게시글 작성";
-const HOME_DESC = "초보 개발자의 블로그 목록";
+const HOME_TITLE = "게시글 작성 - 초로";
+const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그의 게시글 등록";
 const CATEGORIES = [
   "개발",
   "블로그",
