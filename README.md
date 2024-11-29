@@ -1,4 +1,6 @@
-## 개인 블로그 프로젝트(2024.08.08 ~)
+## [✍개인 블로그 프로젝트✍](https://www.chobolevel.site/)(2024.08.08 ~)
+
+## [백엔드 프로젝트 레포로 이동](https://github.com/chobolevel/log)
 
 ## 목차
 
