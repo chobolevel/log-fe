@@ -1,4 +1,6 @@
-## 개인 블로그 프로젝트(2024.08.08 ~)
+## [✍개인 블로그 프로젝트✍](https://www.chobolevel.site/)(2024.08.08 ~)
+
+## [백엔드 프로젝트 레포로 이동](https://github.com/chobolevel/log)
 
 ## 목차
 
@@ -20,7 +22,7 @@
 ## 배포 환경
 
 > ![image](https://github.com/user-attachments/assets/3457e4e3-9b4f-40d1-8792-1a812aa1404d)
-> + **vercel의 hobby 플랜**을 이용하여 배포하였습니다.
+> + **vercel의 hobby 플랜**을 이용하여 배포하였으며 **PWA**로 제공하여 웹 앱처럼 사용할수 있도록 하였습니다.
 
 ## 프로젝트를 진행한 이유
 
