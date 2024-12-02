@@ -99,6 +99,14 @@ const DefaultLayoutHeader = () => {
             >
               LOGOUT
             </Text>
+            <Text
+              style={linkStyle}
+              onClick={() => {
+                push(toUrl(PageRoutes.Channels));
+              }}
+            >
+              CHANNELS
+            </Text>
           </>
         ) : (
           <Text

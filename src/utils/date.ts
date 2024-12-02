@@ -1,11 +1,12 @@
-import {fillZero} from "./string";
+import { fillZero } from "./string";
 
 type DateFormat =
   | "YYYY-MM-DD"
   | "YYYY년 MM월"
   | "MM-DD"
   | "YY-MM-DD [HH:MM]"
-  | "YYYY년 MM월 DD일";
+  | "YYYY년 MM월 DD일"
+  | "YYYY-MM-DD HH:mm:ss";
 
 export class DateUtils {
   static MINUTE = 60 * 1000;
@@ -63,8 +64,10 @@ export class DateUtils {
       case "YY-MM-DD [HH:MM]":
         return `${String(year).slice(2)}-${fillZero(month, 2)}-${fillZero(
           day,
-          2
+          2,
         )} [${fillZero(date.getHours(), 2)}:${fillZero(date.getMinutes(), 2)}]`;
+      case "YYYY-MM-DD HH:mm:ss":
+        return `${year}-${fillZero(month, 2)}-${fillZero(day, 2)} ${fillZero(date.getHours(), 2)}:${fillZero(date.getMinutes(), 2)}:${fillZero(date.getSeconds(), 2)}`;
       default:
         throw new Error("Invalid date format");
     }

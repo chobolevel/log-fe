@@ -3,8 +3,10 @@ import {
   ApiResponse,
   ID,
   ImageScheme,
+  PageQueryParams,
   Scheme,
   useDelete,
+  useGetPage,
   useInvalidate,
   usePost,
   useUpdate,
@@ -18,6 +20,13 @@ export type UserLoginType = "GENERAL" | "KAKAO" | "NAVER" | "GOOGLE";
 export type UserRoleType = "ROLE_USER" | "ROLE_ADMIN";
 export type UserUpdateMask = "NICKNAME" | "PHONE";
 export type UserImageType = "PROFILE";
+export type UserOrderType =
+  | "CREATED_AT_ASC"
+  | "CREATED_AT_DESC"
+  | "EMAIL_ASC"
+  | "EMAIL_DESC"
+  | "NICKNAME_ASC"
+  | "NICKNAME_DESC";
 
 export interface User extends Scheme {
   email: string;
@@ -35,6 +44,17 @@ export interface CreateUserRequest {
   login_type: UserLoginType;
   nickname: string;
   phone: string;
+}
+
+export interface GetUsersParams extends PageQueryParams {
+  email?: string;
+  loginType?: UserLoginType;
+  nickname?: string;
+  phone?: string;
+  role?: UserRoleType;
+  resigned?: boolean;
+  excludeUserIds?: ID[];
+  orderTypes?: UserOrderType[];
 }
 
 export interface UpdateUserRequest {
@@ -71,6 +91,10 @@ export const useGetMe = () => {
 
 export const useCreateUser = () => {
   return usePost<User, CreateUserRequest, ID>(toUrl(ApiRoutes.CreateUser));
+};
+
+export const useGetUsers = (params?: GetUsersParams, enabled = true) => {
+  return useGetPage<User[]>(toUrl(ApiRoutes.Users), params, { enabled });
 };
 
 export const useUpdateUser = () => {

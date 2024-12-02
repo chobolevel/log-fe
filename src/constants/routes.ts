@@ -30,6 +30,12 @@ export enum ApiRoutes {
   UpdateGuestBook = "/api/v1/guest-books/:id?",
   // presigned-url
   CreatePresignedUrl = "/api/v1/upload/presigned-url",
+  // channels
+  Channels = "/api/v1/channels/:id?",
+  InviteChannel = "/api/v1/channels/:id?/invite",
+  ExitChannel = "/api/v1/channels/:id?/exit",
+  // channel messages
+  ChannelMessages = "/api/v1/channels/:channelId?/messages/:channelMessageId?",
 }
 
 // 페이지 주소 정의
@@ -51,6 +57,10 @@ export enum PageRoutes {
   GuestBooks = "/guest-books",
   // tag
   Tags = "/tags",
+  // channels
+  Channels = "/channels",
+  WriteChannel = "/channels/write",
+  DetailChannelById = "/channels/:id?",
 }
 
 // 로그인 없이 접근 불가능한 페이지
