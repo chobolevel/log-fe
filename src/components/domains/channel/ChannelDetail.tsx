@@ -23,6 +23,7 @@ interface ChannelDetailProps {
 
 const ChannelDetail = ({ channel }: ChannelDetailProps) => {
   const { push } = useSafePush();
+  const [limitCount, setLimitCount] = useState<number>(10);
   const { openConfirm, openModal } = useModalStore([
     "openConfirm",
     "openModal",
@@ -32,6 +33,7 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
   const { data: channelMessages } = useGetChannelMessages(
     {
       channel_id: channel.id,
+      limitCount,
     },
     !!channel.id,
   );
@@ -117,7 +119,14 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
           </Button>
         </Flex>
       </Flex>
-      <ChannelMessageList channel={channel} channelMessages={messages} />
+      <ChannelMessageList
+        onLoad={() => {
+          setLimitCount((cur) => cur + 10);
+        }}
+        channel={channel}
+        channelMessages={messages}
+        channelMessagesTotalCount={channelMessages?.total_count ?? 0}
+      />
       <WriteChannelMessageForm channelId={channel.id} />
     </Flex>
   );
