@@ -1,10 +1,9 @@
 import Head from "next/head";
-import { ChannelDetail, ResponsiveLayout } from "@/components";
 import { useSafePush } from "@/hooks";
-import { Flex } from "@chakra-ui/react";
-import { useGetChannel } from "@/apis";
+import { CreateChannelForm, ResponsiveLayout } from "@/components";
+import { Flex, Text } from "@chakra-ui/react";
 
-const HOME_TITLE = "채널 - 초로";
+const HOME_TITLE = "채널 생성 - 초로";
 const HOME_DESC =
   "초보 개발자 강인재(chobolevel)의 블로그에서 다양한 채널에서 사용자와 소통해보세요!";
 const CATEGORIES = [
@@ -16,15 +15,8 @@ const CATEGORIES = [
   "chobolevel",
 ];
 
-const ChannelDetailPage = () => {
+const WriteChannelPage = () => {
   const { router } = useSafePush();
-
-  const { data: channel } = useGetChannel(
-    {
-      id: Number(router.query.id ?? 0),
-    },
-    !!router.query.id,
-  );
   return (
     <>
       <Head>
@@ -64,11 +56,14 @@ const ChannelDetailPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          {channel && <ChannelDetail channel={channel} />}
+          <Text color={"lightGreen"} fontWeight={"bold"}>
+            채널 생성
+          </Text>
+          <CreateChannelForm />
         </Flex>
       </ResponsiveLayout>
     </>
   );
 };
 
-export default ChannelDetailPage;
+export default WriteChannelPage;
