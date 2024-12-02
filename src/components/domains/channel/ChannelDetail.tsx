@@ -45,7 +45,7 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
   const connect = (channelId: number) => {
     console.log("connecting...");
     client.current = new StompJs.Client({
-      brokerURL: `ws://${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/ws`,
+      brokerURL: `${process.env.NODE_ENV === "development" ? "http" : "https"}://${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/ws`,
       connectHeaders: {},
       reconnectDelay: 5000,
       onConnect: () => {
