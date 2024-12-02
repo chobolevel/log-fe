@@ -52,7 +52,6 @@ export const ChannelMessageList = ({
       >
         더보기
       </Button>
-      ;
       {channelMessages.map((channelMessage, idx) => {
         return (
           <ChannelMessageListItem
