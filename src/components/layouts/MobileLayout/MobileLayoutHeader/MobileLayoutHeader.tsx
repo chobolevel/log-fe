@@ -98,6 +98,14 @@ const MobileLayoutHeader = () => {
                 <MenuItem
                   fontWeight={"bold"}
                   onClick={() => {
+                    push(toUrl(PageRoutes.Channels));
+                  }}
+                >
+                  CHANNELS
+                </MenuItem>
+                <MenuItem
+                  fontWeight={"bold"}
+                  onClick={() => {
                     push(toUrl(PageRoutes.WritePost));
                   }}
                 >

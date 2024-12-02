@@ -2,8 +2,10 @@ import Head from "next/head";
 import { useSafePush } from "@/hooks";
 import { ChannelList, ResponsiveLayout } from "@/components";
 
-import { Flex, Spinner, Text } from "@chakra-ui/react";
+import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetChannels, useGetMe } from "@/apis";
+import { toUrl } from "@/utils";
+import { PageRoutes } from "@/constants";
 
 const HOME_TITLE = "채널 목록 - 초로";
 const HOME_DESC =
@@ -18,7 +20,7 @@ const CATEGORIES = [
 ];
 
 const ChannelsPage = () => {
-  const { router } = useSafePush();
+  const { push, router } = useSafePush();
 
   const { data: me } = useGetMe();
   const { data: channels, isFetching } = useGetChannels(
@@ -69,6 +71,16 @@ const ChannelsPage = () => {
           <Text color={"lightGreen"} fontWeight={"bold"}>
             참여중인 채널
           </Text>
+          <Flex justify={"end"}>
+            <Button
+              colorScheme={"green"}
+              onClick={() => {
+                push(toUrl(PageRoutes.WriteChannel));
+              }}
+            >
+              채널 생성
+            </Button>
+          </Flex>
           {channels &&
             (isFetching ? (
               <Flex

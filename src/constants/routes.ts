@@ -32,6 +32,8 @@ export enum ApiRoutes {
   CreatePresignedUrl = "/api/v1/upload/presigned-url",
   // channels
   Channels = "/api/v1/channels/:id?",
+  InviteChannel = "/api/v1/channels/:id?/invite",
+  ExitChannel = "/api/v1/channels/:id?/exit",
   // channel messages
   ChannelMessages = "/api/v1/channels/:channelId?/messages/:channelMessageId?",
 }

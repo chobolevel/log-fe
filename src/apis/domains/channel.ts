@@ -7,6 +7,7 @@ import {
   useGetPage,
   useInvalidate,
   usePost,
+  User,
   useUpdate,
 } from "@/apis";
 import { toUrl } from "@/utils";
@@ -17,7 +18,7 @@ export type ChannelUpdateMask = "NAME" | "USERS";
 
 export interface Channel extends Scheme {
   name: string;
-  participants_count: number;
+  participants: User[];
 }
 
 export interface CreateChannelRequest {
@@ -38,6 +39,15 @@ export interface UpdateChannelRequest {
   name?: string;
   user_ids: number[];
   update_mask: ChannelUpdateMask[];
+}
+
+export interface InviteChannelRequest {
+  channel_id: ID;
+  user_ids: ID[];
+}
+
+export interface ExitChannelRequest {
+  channel_id: ID;
 }
 
 export const useCreateChannel = () => {
@@ -65,6 +75,18 @@ export const useUpdateChannel = () => {
     toUrl(ApiRoutes.Channels),
     undefined,
     { onSettled: useInvalidate(toUrl(ApiRoutes.Channels)) },
+  );
+};
+
+export const useInviteChannel = () => {
+  return useUpdate<Channel, InviteChannelRequest, ID>((data) =>
+    toUrl(ApiRoutes.InviteChannel, { id: data.channel_id }),
+  );
+};
+
+export const useExitChannel = () => {
+  return useUpdate<Channel, ExitChannelRequest, ID>((data) =>
+    toUrl(ApiRoutes.ExitChannel, { id: data.channel_id }),
   );
 };
 
