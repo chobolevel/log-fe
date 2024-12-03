@@ -1,7 +1,9 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import {
+  Api,
   Channel,
   ChannelMessage,
+  ID,
   useExitChannel,
   useGetChannelMessages,
 } from "@/apis";
@@ -29,6 +31,8 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
     "openModal",
   ]);
   const [messages, setMessages] = useState<ChannelMessage[]>([]);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const { data: channelMessages } = useGetChannelMessages(
     {
@@ -42,31 +46,67 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
   // stomp 기능 로직
   const client = useRef<StompJs.Client>();
 
-  const connect = (channelId: number) => {
-    console.log("connecting...");
+  const connect = (channelId: ID) => {
+    setIsConnected(false);
+    const accessToken = Api.instance.defaults.headers.common[
+      "Authorization"
+    ] as string;
+    if (!accessToken) return;
     client.current = new StompJs.Client({
       brokerURL: `${process.env.NODE_ENV === "development" ? "http" : "https"}://${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/ws`,
-      connectHeaders: {},
+      connectHeaders: {
+        Authorization: accessToken,
+      },
       reconnectDelay: 5000,
       onConnect: () => {
-        console.log("connected!!!");
-        client.current?.subscribe(`/sub/channels/${channelId}`, (message) => {
-          const res = JSON.parse(message.body) as ChannelMessage;
-          setMessages((cur) => [...cur, res]);
-        });
+        setIsConnected(true);
+        subscribeMessage(accessToken, channelId);
       },
       onWebSocketError: (error) => {
+        disconnect();
+        setIsError(true);
         console.log("error occurred with: ", error);
       },
       onStompError: (frame) => {
-        console.dir(`Broker reported error: ${frame.headers.message}`);
-        console.dir(`Additional details: ${frame}`);
+        disconnect();
+        setIsError(true);
+        console.log(`Broker reported error: ${frame.headers.message}`);
+        console.log(`Additional details: ${frame}`);
       },
     });
     client.current.activate();
   };
   const disconnect = () => {
+    setIsConnected(false);
     client.current?.deactivate();
+  };
+  const subscribeMessage = (accessToken: string, channelId: ID) => {
+    client.current?.subscribe(
+      `/sub/channels/${channelId}`,
+      (message) => {
+        const res = JSON.parse(message.body) as ChannelMessage;
+        setMessages((cur) => [...cur, res]);
+      },
+      {
+        Authorization: accessToken,
+      },
+    );
+  };
+  const publishMessage = (content: string) => {
+    const accessToken = Api.instance.defaults.headers.common[
+      "Authorization"
+    ] as string;
+    if (!accessToken) {
+      setIsConnected(false);
+      return;
+    }
+    client.current?.publish({
+      destination: `/pub/channels/${channel.id}/messages`,
+      headers: {
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({ type: "TALK", content }),
+    });
   };
 
   useEffect(() => {
@@ -82,52 +122,83 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
   }, [channelMessages]);
   return (
     <Flex direction={"column"} gap={6}>
-      <Flex align={"center"} justify={"space-between"}>
-        <Text color={"lightGreen"} fontWeight={"bold"}>
-          {`${channel.name} 채널 (${channel.participants.length})`}
-        </Text>
-        <Flex align={"center"} gap={2}>
-          <Button
-            colorScheme={"green"}
-            onClick={() => {
-              openModal(InviteChannelModal, { channel });
-            }}
-          >
-            초대
-          </Button>
-          <Button
-            colorScheme={"red"}
-            variant={"outline"}
-            onClick={() => {
-              openConfirm({
-                title: "채널 나가기",
-                content: "정말 채널을 나가시겠습니까?",
-                onConfirm: () => {
-                  exitChannel(
-                    { channel_id: channel.id },
-                    {
-                      onSuccess: () => {
-                        push(toUrl(PageRoutes.Channels));
-                      },
+      {isConnected ? (
+        <>
+          <Flex align={"center"} justify={"space-between"}>
+            <Text color={"lightGreen"} fontWeight={"bold"}>
+              {`${channel.name} (${channel.participants.length})`}
+            </Text>
+            <Flex align={"center"} gap={2}>
+              <Button
+                colorScheme={"green"}
+                onClick={() => {
+                  openModal(InviteChannelModal, { channel });
+                }}
+              >
+                초대
+              </Button>
+              <Button
+                colorScheme={"red"}
+                variant={"outline"}
+                onClick={() => {
+                  openConfirm({
+                    title: "채널 나가기",
+                    content: "정말 채널을 나가시겠습니까?",
+                    onConfirm: () => {
+                      disconnect();
+                      exitChannel(
+                        { channel_id: channel.id },
+                        {
+                          onSuccess: () => {
+                            push(toUrl(PageRoutes.Channels));
+                          },
+                        },
+                      );
                     },
-                  );
-                },
-              });
+                  });
+                }}
+              >
+                나가기
+              </Button>
+            </Flex>
+          </Flex>
+          <ChannelMessageList
+            onLoad={() => {
+              setLimitCount((cur) => cur + 10);
             }}
-          >
-            나가기
-          </Button>
+            channel={channel}
+            channelMessages={messages}
+            channelMessagesTotalCount={channelMessages?.total_count ?? 0}
+          />
+          <WriteChannelMessageForm
+            channelId={channel.id}
+            onSend={(content) => {
+              publishMessage(content);
+            }}
+          />
+        </>
+      ) : (
+        <Flex
+          direction={"column"}
+          justify={"center"}
+          align={"center"}
+          h={500}
+          gap={4}
+          fontWeight={"bold"}
+        >
+          {isError ? (
+            <>
+              <Text>채널에 연결할 수 없습니다.</Text>
+              <Text>관리자에게 문의해 주시기 바랍니다.</Text>
+            </>
+          ) : (
+            <>
+              <Spinner size={"lg"} />
+              <Text>채널에 연결중...</Text>
+            </>
+          )}
         </Flex>
-      </Flex>
-      <ChannelMessageList
-        onLoad={() => {
-          setLimitCount((cur) => cur + 10);
-        }}
-        channel={channel}
-        channelMessages={messages}
-        channelMessagesTotalCount={channelMessages?.total_count ?? 0}
-      />
-      <WriteChannelMessageForm channelId={channel.id} />
+      )}
     </Flex>
   );
 };

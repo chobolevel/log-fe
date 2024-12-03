@@ -6,6 +6,7 @@ import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetChannels, useGetMe } from "@/apis";
 import { toUrl } from "@/utils";
 import { PageRoutes } from "@/constants";
+import { LuRefreshCcw } from "react-icons/lu";
 
 const HOME_TITLE = "채널 목록 - 초로";
 const HOME_DESC =
@@ -23,7 +24,11 @@ const ChannelsPage = () => {
   const { push, router } = useSafePush();
 
   const { data: me } = useGetMe();
-  const { data: channels, isFetching } = useGetChannels(
+  const {
+    data: channels,
+    isFetching,
+    refetch,
+  } = useGetChannels(
     {
       orderTypes: ["CREATED_AT_DESC"],
     },
@@ -71,7 +76,14 @@ const ChannelsPage = () => {
           <Text color={"lightGreen"} fontWeight={"bold"}>
             참여중인 채널
           </Text>
-          <Flex justify={"end"}>
+          <Flex justify={"end"} gap={2}>
+            <Button
+              onClick={() => {
+                refetch();
+              }}
+            >
+              <LuRefreshCcw size={20} />
+            </Button>
             <Button
               colorScheme={"green"}
               onClick={() => {

@@ -69,6 +69,9 @@ export const restrictedRoutes = [
   PageRoutes.ChangePassword,
   PageRoutes.WritePost,
   PageRoutes.EditPost,
+  PageRoutes.Channels,
+  PageRoutes.WriteChannel,
+  PageRoutes.DetailChannelById,
 ];
 
 export const onlyAdminAllowedRoutes = [];

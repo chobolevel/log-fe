@@ -2,7 +2,7 @@ import Head from "next/head";
 import { ChannelDetail, ResponsiveLayout } from "@/components";
 import { useSafePush } from "@/hooks";
 import { Flex } from "@chakra-ui/react";
-import { useGetChannel } from "@/apis";
+import { useGetChannel, useGetMe } from "@/apis";
 
 const HOME_TITLE = "채널 - 초로";
 const HOME_DESC =
@@ -19,6 +19,7 @@ const CATEGORIES = [
 const ChannelDetailPage = () => {
   const { router } = useSafePush();
 
+  const { data: me } = useGetMe();
   const { data: channel } = useGetChannel(
     {
       id: Number(router.query.id ?? 0),
@@ -64,7 +65,7 @@ const ChannelDetailPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          {channel && <ChannelDetail channel={channel} />}
+          {me && channel && <ChannelDetail channel={channel} />}
         </Flex>
       </ResponsiveLayout>
     </>
