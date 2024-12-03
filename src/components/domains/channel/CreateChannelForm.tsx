@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   CreateChannelRequest,
   useCreateChannel,
+  useGetMe,
   useGetUsers,
   User,
 } from "@/apis";
@@ -24,13 +25,18 @@ const CreateChannelForm = () => {
     formState: { errors },
   } = useForm<CreateChannelRequest>();
 
-  const { data: users } = useGetUsers({
-    role: "ROLE_USER",
-    resigned: false,
-    skipCount: 0,
-    limitCount: 999,
-    orderTypes: ["NICKNAME_ASC"],
-  });
+  const { data: me } = useGetMe();
+  const { data: users } = useGetUsers(
+    {
+      role: "ROLE_USER",
+      resigned: false,
+      excludeUserIds: [me?.id ?? 0],
+      skipCount: 0,
+      limitCount: 999,
+      orderTypes: ["NICKNAME_ASC"],
+    },
+    !!me,
+  );
   const { mutate: createChannel } = useCreateChannel();
   return (
     <Flex
