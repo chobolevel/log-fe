@@ -30,7 +30,7 @@ const CreateChannelForm = () => {
     {
       role: "ROLE_USER",
       resigned: false,
-      excludeUserIds: [me!.id],
+      excludeUserIds: [me?.id ?? 0],
       skipCount: 0,
       limitCount: 999,
       orderTypes: ["NICKNAME_ASC"],
