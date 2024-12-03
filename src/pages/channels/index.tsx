@@ -1,12 +1,13 @@
 import Head from "next/head";
 import { useSafePush } from "@/hooks";
-import { ChannelList, ResponsiveLayout } from "@/components";
+import { ChannelList, Pagination, ResponsiveLayout } from "@/components";
 
 import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetChannels, useGetMe } from "@/apis";
 import { toUrl } from "@/utils";
 import { PageRoutes } from "@/constants";
 import { LuRefreshCcw } from "react-icons/lu";
+import { useState } from "react";
 
 const HOME_TITLE = "채널 목록 - 초로";
 const HOME_DESC =
@@ -19,9 +20,11 @@ const CATEGORIES = [
   "cholo",
   "chobolevel",
 ];
+const LIMIT_COUNT = 5;
 
 const ChannelsPage = () => {
   const { push, router } = useSafePush();
+  const [page, setPage] = useState<number>(1);
 
   const { data: me } = useGetMe();
   const {
@@ -30,6 +33,8 @@ const ChannelsPage = () => {
     refetch,
   } = useGetChannels(
     {
+      skipCount: (page - 1) * LIMIT_COUNT,
+      limitCount: LIMIT_COUNT,
       orderTypes: ["CREATED_AT_DESC"],
     },
     !!me,
@@ -73,26 +78,29 @@ const ChannelsPage = () => {
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
-          <Text color={"lightGreen"} fontWeight={"bold"}>
-            참여중인 채널
-          </Text>
-          <Flex justify={"end"} gap={2}>
-            <Button
-              onClick={() => {
-                refetch();
-              }}
-            >
-              <LuRefreshCcw size={20} />
-            </Button>
-            <Button
-              colorScheme={"green"}
-              onClick={() => {
-                push(toUrl(PageRoutes.WriteChannel));
-              }}
-            >
-              채널 생성
-            </Button>
+          <Flex align={"center"} justify={"space-between"}>
+            <Text color={"lightGreen"} fontWeight={"bold"}>
+              참여중인 채널
+            </Text>
+            <Flex gap={2}>
+              <Button
+                onClick={() => {
+                  refetch();
+                }}
+              >
+                <LuRefreshCcw size={20} />
+              </Button>
+              <Button
+                colorScheme={"green"}
+                onClick={() => {
+                  push(toUrl(PageRoutes.WriteChannel));
+                }}
+              >
+                채널 생성
+              </Button>
+            </Flex>
           </Flex>
+
           {channels &&
             (isFetching ? (
               <Flex
@@ -104,7 +112,17 @@ const ChannelsPage = () => {
                 <Spinner size={"lg"} />
               </Flex>
             ) : (
-              <ChannelList channels={channels.data} />
+              <>
+                <ChannelList channels={channels.data} />
+                <Flex direction={"column"}>
+                  <Pagination
+                    currentPage={page}
+                    limit={LIMIT_COUNT}
+                    total={channels.total_count}
+                    onChange={setPage}
+                  />
+                </Flex>
+              </>
             ))}
         </Flex>
       </ResponsiveLayout>
