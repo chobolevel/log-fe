@@ -101,8 +101,8 @@ const ChannelsPage = () => {
             </Flex>
           </Flex>
 
-          {channels &&
-            (isFetching ? (
+          {channels ? (
+            isFetching ? (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -123,7 +123,17 @@ const ChannelsPage = () => {
                   />
                 </Flex>
               </>
-            ))}
+            )
+          ) : (
+            <Flex
+              direction={"column"}
+              justify={"center"}
+              align={"center"}
+              h={200}
+            >
+              <Spinner size={"lg"} />
+            </Flex>
+          )}
         </Flex>
       </ResponsiveLayout>
     </>
