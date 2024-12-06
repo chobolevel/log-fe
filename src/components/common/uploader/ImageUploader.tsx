@@ -36,7 +36,7 @@ const ImageUploader = ({ inputRef, onUpload }: ImageUploaderProps) => {
           },
           {
             onSuccess: (res) => {
-              fetch(res.data.url, {
+              fetch(res.data.presigned_url, {
                 method: "PUT",
                 body: file,
                 headers: {

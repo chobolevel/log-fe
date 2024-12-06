@@ -64,7 +64,7 @@ const WysiwygEditor = ({ value, onChange }: WysiwygEditorProps) => {
             },
             {
               onSuccess: (res) => {
-                fetch(res.data.url, {
+                fetch(res.data.presigned_url, {
                   method: "PUT",
                   body: uploadedFile,
                   headers: {
