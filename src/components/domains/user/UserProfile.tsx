@@ -8,9 +8,9 @@ import {
 } from "@/apis";
 import { Button, Flex, Image, Input, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
-import { ErrorText } from "@/components";
+import { ErrorText, ImageUploader } from "@/components";
 import { useSafePush } from "@/hooks";
 import { useModalStore } from "@/stores";
 import { toUrl } from "@/utils";
@@ -21,6 +21,8 @@ interface UserProfileProps {
 }
 
 const UserProfile = ({ user }: UserProfileProps) => {
+  const profileImgRef = useRef<HTMLInputElement>(null);
+
   const { push } = useSafePush();
   const { openAlert } = useModalStore(["openAlert"]);
   const {
@@ -88,42 +90,21 @@ const UserProfile = ({ user }: UserProfileProps) => {
           <Button
             colorScheme={"green"}
             onClick={() => {
-              const input = document.createElement("input");
-              input.setAttribute("type", "file");
-              input.setAttribute("accept", "image/*");
-              input.click();
-              input.addEventListener("change", () => {
-                if (input.files && input.files.length > 0) {
-                  const file = input.files[0];
-                  const filename = file.name.split(".")[0];
-                  const extension = file.name.split(".")[1];
-                  createPresignedUrl(
-                    {
-                      prefix: "image",
-                      filename,
-                      extension,
-                    },
-                    {
-                      onSuccess: (res) => {
-                        fetch(res.data.presigned_url, {
-                          method: "PUT",
-                          body: file,
-                        })?.then(() => {
-                          createUserImage({
-                            type: "PROFILE",
-                            origin_url: res.data.url,
-                            name: res.data.filename_with_extension,
-                          });
-                        });
-                      },
-                    },
-                  );
-                }
-              });
+              profileImgRef.current?.click();
             }}
           >
             프로필 이미지 변경
           </Button>
+          <ImageUploader
+            inputRef={profileImgRef}
+            onUpload={(url, filename, width, height) => {
+              createUserImage({
+                type: "PROFILE",
+                origin_url: url,
+                name: filename,
+              });
+            }}
+          />
           <Text fontSize={"sm"} color={"#333"}>
             정사각형 이미지가 아닌 경우 깨질 수 있습니다.
           </Text>
