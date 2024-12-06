@@ -3,6 +3,7 @@ import { toUrl } from "@/utils";
 import { ApiRoutes } from "@/constants";
 
 export interface PresignedUrl {
+  presigned_url: string;
   url: string;
   filename_with_extension: string;
 }
