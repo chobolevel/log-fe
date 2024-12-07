@@ -21,7 +21,7 @@ interface PostDetailPops {
 }
 
 const PostDetail = ({ post }: PostDetailPops) => {
-  const { push, router } = useSafePush();
+  const { push } = useSafePush();
   const { openConfirm, openAlert } = useModalStore([
     "openConfirm",
     "openAlert",
@@ -90,6 +90,10 @@ const PostDetail = ({ post }: PostDetailPops) => {
               src={post.thumb_nail_image.url}
               alt={post.thumb_nail_image.name}
               objectFit={"cover"}
+              cursor={"pointer"}
+              onClick={() => {
+                window.open(post.thumb_nail_image!.url);
+              }}
             />
           )}
         </Flex>
