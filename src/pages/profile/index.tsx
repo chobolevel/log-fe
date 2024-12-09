@@ -5,12 +5,13 @@ import { useGetMe } from "@/apis";
 import { useSafePush } from "@/hooks";
 
 const HOME_TITLE = "나의 프로필 - 초로";
-const HOME_DESC = "초보 개발자 강인재(chobolevel)의 블로그";
+const HOME_DESC =
+  "초보 개발자 강인재(chobolevel)가 운영하는 개인 블로그 초로에서 프로필을 꾸며보세요!";
 const CATEGORIES = [
   "개발",
   "블로그",
   "초로",
-  "초보 개발자의 블로그",
+  "초보 개발자의 로그",
   "cholo",
   "chobolevel",
   "프로필",

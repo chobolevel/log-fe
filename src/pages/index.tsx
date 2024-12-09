@@ -3,16 +3,15 @@ import Head from "next/head";
 import { useGetPosts } from "@/apis";
 import { Flex, Text } from "@chakra-ui/react";
 
-const HOME_TITLE = "초보 개발자 강인재(chobolevel)의 블로그 - 초로";
+const HOME_TITLE = "초보 개발자의 로그 - 초로";
 const HOME_DESC =
-  "안녕하세요! 강인재(chobolevel) 초보 개발자가 운영하는 개인 블로그입니다." +
-  "현재 java/kotlin, javascript, spring(spring boot, spring security, jpa), db(mysql), network, kafka, linux, aws, programing, os, git, redis 카테고리로 블로그를 운영하고 있습니다." +
-  "많은 관심과 피드백 부탁드리겠습니다!";
+  "안녕하세요! 초보 개발자 강인재(chobolevel)가 운영하는 개인 블로그 초로입니다." +
+  "현재 java/kotlin, javascript, spring(spring boot, spring security, jpa), db(mysql), network, kafka, linux, aws, programing, os, git, redis 카테고리로 블로그를 운영하고 있습니다.";
 const CATEGORIES = [
   "개발",
   "블로그",
   "초로",
-  "초보 개발자의 블로그",
+  "초보 개발자의 로그",
   "cholo",
   "chobolevel",
 ];
