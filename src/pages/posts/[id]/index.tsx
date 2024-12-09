@@ -95,12 +95,13 @@ export const getServerSideProps: GetServerSideProps<{
   const id = QueryParser.toNumber(context.query.id, undefined);
   const metadata = {
     title: "게시글 상세 - 초로",
-    description: "초보 개발자 강인재(chobolevel)의 블로그 게시글",
+    description:
+      "초보 개발자 강인재(chobolevel)가 운영하는 개인 블로그 초로의 게시글",
     categories: [
       "개발",
       "블로그",
       "초로",
-      "초보 개발자의 블로그",
+      "초보 개발자의 로그",
       "cholo",
       "chobolevel",
       "게시글",

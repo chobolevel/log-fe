@@ -15,12 +15,12 @@ import { PageRoutes } from "@/constants";
 
 const HOME_TITLE = "방명록 - 초로";
 const HOME_DESC =
-  "초보 개발자 강인재(chobolevel)의 블로그에 오신 여러분 방명록을 등록해주세요!";
+  "초보 개발자 강인재(chobolevel)가 운영하는 개인 블로그 초로에 방문한 여러분들의 방명록을 남겨주세요!";
 const CATEGORIES = [
   "개발",
   "블로그",
   "초로",
-  "초보 개발자의 블로그",
+  "초보 개발자의 로그",
   "cholo",
   "chobolevel",
   "방명록",

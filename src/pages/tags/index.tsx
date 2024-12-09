@@ -4,17 +4,18 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useGetTags } from "@/apis";
 import { useSafePush } from "@/hooks";
 
-const HOME_TITLE = "모든 태그 - ";
+const HOME_TITLE = "모든 태그 - 초로";
 const HOME_DESC =
-  "초보 개발자 강인재(chobolevel)의 블로그의 모든 태그(카테고리) 목록";
+  "초보 개발자 강인재(chobolevel)가 운영하는 개인 블로그 초로의 모든 태그(카테고리)";
 const CATEGORIES = [
   "개발",
   "블로그",
   "초로",
-  "초보 개발자의 블로그",
+  "초보 개발자의 로그",
   "cholo",
   "chobolevel",
   "태그",
+  "tag",
 ];
 
 const TagListPage = () => {
@@ -45,16 +46,6 @@ const TagListPage = () => {
           href={`https://chobolevel.site${router.asPath}`}
         />
         <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
-
-        {/*웹 마스터 도구*/}
-        <meta
-          name="naver-site-verification"
-          content="feeafc253d837182ad237200dd12ac55bbc3da5c"
-        />
-        <meta
-          name="google-site-verification"
-          content="obf1F82VgJTwj1comoY_Yc8KQU_hH3UnoZ1gDD6zYIc"
-        />
 
         {/*공유하기*/}
         <meta property="og:locale" content="ko_KR" />
