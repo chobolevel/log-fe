@@ -39,7 +39,7 @@ const MobileLayoutHeader = () => {
   return (
     <Flex
       as={"header"}
-      h={100}
+      h={"80px"}
       justify={"space-between"}
       align={"center"}
       px={4}
