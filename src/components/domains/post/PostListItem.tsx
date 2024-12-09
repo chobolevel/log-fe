@@ -2,7 +2,7 @@ import { Post } from "@/apis";
 import { Badge, Flex, Image, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import { DateUtils, toUrl } from "@/utils";
-import { useSafePush } from "@/hooks";
+import { useIsMobile, useSafePush } from "@/hooks";
 import { images, PageRoutes } from "@/constants";
 
 interface PostListItemProps {
@@ -13,6 +13,8 @@ const PostListItem = ({ post }: PostListItemProps) => {
   const { push } = useSafePush();
   const [loading, setLoading] = useState<boolean>(false);
 
+  const isMobile = useIsMobile();
+
   const writtenAt = useMemo(
     () => DateUtils.format(new Date(post.created_at), "YYYY-MM-DD"),
     [post],
@@ -20,6 +22,7 @@ const PostListItem = ({ post }: PostListItemProps) => {
   return (
     <Tooltip
       hasArrow
+      isDisabled={isMobile}
       arrowSize={16}
       placement={"right-start"}
       openDelay={500}
