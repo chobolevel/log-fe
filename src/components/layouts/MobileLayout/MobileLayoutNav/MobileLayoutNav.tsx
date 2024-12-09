@@ -34,6 +34,7 @@ const MobileLayoutNav = () => {
       justify={"space-between"}
       fontSize={"xs"}
       fontWeight={"bold"}
+      zIndex={100}
     >
       <Flex
         style={navItemStyle}
