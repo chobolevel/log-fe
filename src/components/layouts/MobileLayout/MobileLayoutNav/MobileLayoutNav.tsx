@@ -1,16 +1,18 @@
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Avatar, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { FaHashtag, FaHome } from "react-icons/fa";
 import { MdAccountCircle, MdArticle } from "react-icons/md";
 import { HiPencilAlt } from "react-icons/hi";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
-import { PageRoutes } from "@/constants";
+import { images, PageRoutes } from "@/constants";
 import { CSSProperties } from "react";
+import { useGetMe } from "@/apis";
 
 const MobileLayoutNav = () => {
   const { push } = useSafePush();
 
   const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
+  const { data: me } = useGetMe();
 
   const navItemStyle = {
     width: "50px",
@@ -78,7 +80,15 @@ const MobileLayoutNav = () => {
           push(toUrl(PageRoutes.Profile));
         }}
       >
-        <MdAccountCircle size={20} />
+        {me ? (
+          me.profile_image ? (
+            <Avatar src={me.profile_image.origin_url} size={"xs"} />
+          ) : (
+            <Avatar src={images.unknown.src} size={"xs"} />
+          )
+        ) : (
+          <MdAccountCircle size={20} />
+        )}
         <Text>Profile</Text>
       </Flex>
     </Flex>
