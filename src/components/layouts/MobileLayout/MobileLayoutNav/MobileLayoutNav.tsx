@@ -25,7 +25,7 @@ const MobileLayoutNav = () => {
       bottom={0}
       left={0}
       w={"100%"}
-      h={"60px"}
+      h={"80px"}
       px={4}
       bgColor={bgColor}
       borderTop={"1px solid"}
@@ -34,6 +34,7 @@ const MobileLayoutNav = () => {
       justify={"space-between"}
       fontSize={"xs"}
       fontWeight={"bold"}
+      zIndex={100}
     >
       <Flex
         style={navItemStyle}
