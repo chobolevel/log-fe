@@ -4,16 +4,62 @@ import { MdAccountCircle, MdArticle } from "react-icons/md";
 import { HiPencilAlt } from "react-icons/hi";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
-import { images, PageRoutes } from "@/constants";
+import { images, Nav, PageRoutes } from "@/constants";
 import { CSSProperties } from "react";
 import { useGetMe } from "@/apis";
+import { match } from "path-to-regexp";
 
 const MobileLayoutNav = () => {
-  const { push } = useSafePush();
+  const { push, router } = useSafePush();
 
   const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
   const { data: me } = useGetMe();
 
+  const navs: Nav[] = [
+    {
+      icon: <MdArticle size={20} />,
+      label: "Archive",
+      pathname: PageRoutes.Posts,
+      matchers: [
+        match(PageRoutes.Posts),
+        match(PageRoutes.PostDetailById),
+        match(PageRoutes.WritePost),
+        match(PageRoutes.EditPost),
+      ],
+    },
+    {
+      icon: <FaHashtag size={20} />,
+      label: "Tag",
+      pathname: PageRoutes.Tags,
+      matchers: [match(PageRoutes.Tags)],
+    },
+    {
+      icon: <FaHome size={20} />,
+      label: "Home",
+      pathname: PageRoutes.Home,
+      matchers: [match(PageRoutes.Home)],
+    },
+    {
+      icon: <HiPencilAlt size={20} />,
+      label: "Guest",
+      pathname: PageRoutes.GuestBooks,
+      matchers: [match(PageRoutes.GuestBooks)],
+    },
+    {
+      icon: me ? (
+        me.profile_image ? (
+          <Avatar src={me.profile_image.origin_url} size={"xs"} />
+        ) : (
+          <Avatar src={images.unknown.src} size={"xs"} />
+        )
+      ) : (
+        <MdAccountCircle size={20} />
+      ),
+      label: "Profile",
+      pathname: PageRoutes.Profile,
+      matchers: [match(PageRoutes.Profile)],
+    },
+  ];
   const navItemStyle = {
     width: "50px",
     height: "50px",
@@ -32,64 +78,30 @@ const MobileLayoutNav = () => {
       bgColor={bgColor}
       borderTop={"1px solid"}
       borderColor={"#ccc"}
-      align={"center"}
-      justify={"space-between"}
+      direction={"column"}
       fontSize={"xs"}
       fontWeight={"bold"}
       zIndex={100}
     >
-      <Flex
-        style={navItemStyle}
-        onClick={() => {
-          push(toUrl(PageRoutes.Posts));
-        }}
-      >
-        <MdArticle size={20} />
-        <Text>Archive</Text>
-      </Flex>
-      <Flex
-        style={navItemStyle}
-        onClick={() => {
-          push(toUrl(PageRoutes.Tags));
-        }}
-      >
-        <FaHashtag size={20} />
-        <Text>Tag</Text>
-      </Flex>
-      <Flex
-        style={navItemStyle}
-        onClick={() => {
-          push(toUrl(PageRoutes.Home));
-        }}
-      >
-        <FaHome size={20} />
-        <Text>Home</Text>
-      </Flex>
-      <Flex
-        style={navItemStyle}
-        onClick={() => {
-          push(toUrl(PageRoutes.GuestBooks));
-        }}
-      >
-        <HiPencilAlt size={20} />
-        <Text>Guest</Text>
-      </Flex>
-      <Flex
-        style={navItemStyle}
-        onClick={() => {
-          push(toUrl(PageRoutes.Profile));
-        }}
-      >
-        {me ? (
-          me.profile_image ? (
-            <Avatar src={me.profile_image.origin_url} size={"xs"} />
-          ) : (
-            <Avatar src={images.unknown.src} size={"xs"} />
-          )
-        ) : (
-          <MdAccountCircle size={20} />
-        )}
-        <Text>Profile</Text>
+      <Flex w={"100%"} h={"60px"} align={"center"} justify={"space-between"}>
+        {navs.map((nav, idx) => {
+          const isActive = nav.matchers.some((matcher) =>
+            matcher(router.pathname),
+          );
+          return (
+            <Flex
+              key={idx}
+              style={navItemStyle}
+              onClick={() => {
+                push(toUrl(nav.pathname));
+              }}
+              color={isActive ? "lightGreen" : "none"}
+            >
+              {nav.icon}
+              <Text>{nav.label}</Text>
+            </Flex>
+          );
+        })}
       </Flex>
     </Flex>
   );
