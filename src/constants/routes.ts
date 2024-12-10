@@ -100,18 +100,9 @@ export const isOnlyAdmin = (pathname: string) => {
 
 // 네비게이션 메뉴 정의
 export interface Nav {
+  icon?: React.ReactNode;
   label: string;
   pathname: PageRoutes;
   query?: Record<string, number | string>;
   matchers: MatchFunction[];
 }
-
-export const navs: Nav[] = [];
-
-export const myPageNavs: Nav[] = [];
-
-export const isInMyPage = (pathname: string) => {
-  return myPageNavs.some((nav) =>
-    nav.matchers.some((matcher) => matcher(pathname)),
-  );
-};
