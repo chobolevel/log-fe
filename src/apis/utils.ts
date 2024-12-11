@@ -6,7 +6,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { ApiError, QueryKey, UrlBuilder } from "./types";
-import { ReissueRequest, ReissueResponse } from "@/apis/domains";
+import { ReissueResponse } from "@/apis/domains";
 
 const protoc = process.env.NODE_ENV === "development" ? "http" : "https";
 
@@ -33,7 +33,7 @@ export class Api {
   });
 
   static addToken = (token: string) => {
-    Api.instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    Api.instance.defaults.headers.common["Authorization"] = token;
   };
 
   static removeTokens = () => {
@@ -85,6 +85,7 @@ export class Api {
       url,
       method,
       data: body,
+      withCredentials: true,
     });
   };
 }
@@ -102,7 +103,7 @@ Api.instance.interceptors.response.use(
     // 이전 요청이 Reissiue 요청이라면 에러를 반환합니다.
     // 저장된 모든 토큰을 삭제합니다.
     if (request?.responseURL?.includes(toUrl(ApiRoutes.AuthReissue))) {
-      localStorage.removeItem("refresh");
+      Api.request(toUrl(ApiRoutes.AuthLogout), "POST");
       Api.removeTokens();
       return Promise.reject(error);
     }
@@ -111,32 +112,19 @@ Api.instance.interceptors.response.use(
       // 재시도 플래그를 설정하여 무한 루프를 방지합니다.
       originalRequest._retry = true;
 
-      const refresh = localStorage.getItem("refresh");
-      if (!refresh) {
-        console.error("refresh token is not exist");
-        return Promise.reject(error);
-      }
-
       try {
-        const req = {
-          refresh_token: refresh,
-        } as ReissueRequest;
-
         // 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급합니다.
         const result = await Api.request<ReissueResponse>(
           toUrl(ApiRoutes.AuthReissue),
           "POST",
-          req,
         );
-        const reissuedResponse = result.data.data;
+        const reissuedAccessToken = result.headers.authorization;
 
         // 새로운 액세스 토큰을 저장합니다.
-        Api.addToken(reissuedResponse.access_token);
-        localStorage.setItem("refresh", reissuedResponse.refresh_token);
+        Api.addToken(reissuedAccessToken);
 
         // 새로운 액세스 토큰을 사용하여 요청을 재시도합니다.
-        originalRequest.headers["Authorization"] =
-          `Bearer ${reissuedResponse.access_token}`;
+        originalRequest.headers["Authorization"] = reissuedAccessToken;
         return Api.instance(originalRequest);
       } catch {
         console.error("refresh token is invalid");

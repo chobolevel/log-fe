@@ -6,6 +6,7 @@ export enum ApiRoutes {
   // auth
   AuthLogin = "/api/v1/login",
   AuthReissue = "/api/v1/reissue",
+  AuthLogout = "/api/v1/logout",
   // user
   CreateUser = "/api/v1/users",
   Users = "/api/v1/users",

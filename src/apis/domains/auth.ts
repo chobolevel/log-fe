@@ -14,7 +14,6 @@ export interface LoginRequestType {
 export interface LoginResponseType {
   data: {
     access_token: string;
-    refresh_token: string;
   };
 }
 
@@ -36,18 +35,13 @@ const login = async (params: LoginRequestType) => {
     params,
   ).then((res) => {
     return {
-      access: res.data.data.access_token,
-      refresh: res.data.data.refresh_token,
+      access: res.headers.authorization,
     };
   });
 };
 
-const handleSuccess = (
-  data: { access: string; refresh: string },
-  invalidate: () => void,
-) => {
+const handleSuccess = (data: { access: string }, invalidate: () => void) => {
   Api.addToken(data.access);
-  localStorage.setItem("refresh", data.refresh);
   invalidate();
 };
 
@@ -71,11 +65,12 @@ export const useLogout = () => {
   const { openAlert } = useModalStore(["openAlert"]);
 
   return () => {
-    push(toUrl(PageRoutes.Home))?.then(() => {
-      openAlert({ content: "로그아웃 되었습니다." });
-      localStorage.removeItem("refresh");
-      Api.removeTokens();
-      invalidate();
+    Api.request(toUrl(ApiRoutes.AuthLogout), "POST").then(() => {
+      push(toUrl(PageRoutes.Home))?.then(() => {
+        openAlert({ content: "로그아웃 되었습니다." });
+        Api.removeTokens();
+        invalidate();
+      });
     });
   };
 };
