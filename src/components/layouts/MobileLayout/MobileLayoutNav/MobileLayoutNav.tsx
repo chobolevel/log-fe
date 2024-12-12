@@ -93,7 +93,6 @@ const MobileLayoutNav = () => {
               key={idx}
               style={navItemStyle}
               onClick={() => {
-                navigator.vibrate(1000);
                 if ("variate" in navigator) {
                   navigator.vibrate(200);
                   push(toUrl(nav.pathname));
