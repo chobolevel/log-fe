@@ -93,6 +93,7 @@ const MobileLayoutNav = () => {
               key={idx}
               style={navItemStyle}
               onClick={() => {
+                navigator.vibrate(1000);
                 push(toUrl(nav.pathname));
               }}
               color={isActive ? "lightGreen" : "none"}
