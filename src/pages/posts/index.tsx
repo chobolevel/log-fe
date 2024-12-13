@@ -40,7 +40,7 @@ const PostListPage = () => {
     limitCount: LIMIT_COUNT,
     tagId: router.query.tag ? Number(router.query.tag) : undefined,
     title: (router.query.title as string) ?? undefined,
-    content: (router.query.content as string) ?? undefined,
+    subTitle: (router.query.subTitle as string) ?? undefined,
     orderTypes: ["CREATED_AT_DESC"],
   });
 

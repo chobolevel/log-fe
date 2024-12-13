@@ -39,7 +39,7 @@ export interface Post extends Scheme {
 export interface GetPostsParams extends PageQueryParams {
   tagId?: ID;
   title?: string;
-  content?: string;
+  subTitle?: string;
   orderTypes?: PostOrderType[];
 }
 
