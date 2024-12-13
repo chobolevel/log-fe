@@ -2,17 +2,13 @@ import { Button, Divider, Flex, Image, Tag, Text } from "@chakra-ui/react";
 import { Post, useDeletePost, useGetMe } from "@/apis";
 import { useMemo, useState } from "react";
 import { DateUtils, toUrl } from "@/utils";
-import {
-  Pagination,
-  PostCommentList,
-  PostCommentWriter,
-  SanitizeText,
-} from "@/components";
+import { Pagination, PostCommentList, PostCommentWriter } from "@/components";
 import { useSafePush } from "@/hooks";
 import { PageRoutes } from "@/constants";
 import { useModalStore } from "@/stores";
 import { useGetPostComments } from "@/apis/domains/postComment";
 import { IoMdShare } from "react-icons/io";
+import ClientViewer from "@/components/common/WysiwygEditor/ClientViewer";
 
 const LIMIT_COUNT = 5;
 
@@ -80,6 +76,27 @@ const PostDetail = ({ post }: PostDetailPops) => {
               }}
             />
           </Flex>
+          <Flex gap={4} flexWrap={"wrap"}>
+            {post.tags.map((tag, idx) => {
+              return (
+                <Tag
+                  key={idx}
+                  size={"lg"}
+                  fontWeight={"bold"}
+                  colorScheme={"green"}
+                  cursor={"pointer"}
+                  onClick={() => {
+                    push({
+                      pathname: PageRoutes.Posts,
+                      query: {
+                        tag: tag.id,
+                      },
+                    });
+                  }}
+                >{`#${tag.name}`}</Tag>
+              );
+            })}
+          </Flex>
         </Flex>
         <Flex>
           {post.thumb_nail_image && (
@@ -100,28 +117,7 @@ const PostDetail = ({ post }: PostDetailPops) => {
       </Flex>
       <Divider />
       <Flex direction={"column"} overflowX={"auto"}>
-        <SanitizeText htmlString={post.content} />
-      </Flex>
-      <Flex gap={2} flexWrap={"wrap"}>
-        {post.tags.map((tag, idx) => {
-          return (
-            <Tag
-              key={idx}
-              size={"lg"}
-              fontWeight={"bold"}
-              colorScheme={"green"}
-              cursor={"pointer"}
-              onClick={() => {
-                push({
-                  pathname: PageRoutes.Posts,
-                  query: {
-                    tag: tag.id,
-                  },
-                });
-              }}
-            >{`# ${tag.name}`}</Tag>
-          );
-        })}
+        <ClientViewer value={post.content} />
       </Flex>
       <Flex direction={"column"} gap={6}>
         <Text

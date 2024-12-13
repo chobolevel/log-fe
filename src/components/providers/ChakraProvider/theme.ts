@@ -129,27 +129,8 @@ const theme = extendTheme({
       // code block
       "div.sanitize-text-area code, div.toastui-editor-contents code": {
         padding: "6px",
-        color: "#EB5757 !important",
-        backgroundColor: "rgba(135, 131, 120, .15) !important",
         borderRadius: "10px",
       },
-      "div.sanitize-text-area .toastui-editor-ww-code-block, div.toastui-editor-contents .toastui-editor-ww-code-block":
-        {
-          marginY: "20px",
-          overflowX: "auto",
-          borderRadius: "10px",
-          padding: "20px",
-          backgroundColor: "rgba(135, 131, 120, .15)",
-          textWrap: "wrap",
-        },
-      "div.sanitize-text-area .toastui-editor-ww-code-block code, div.toastui-editor-contents .toastui-editor-ww-code-block code":
-        {
-          padding: "unset",
-          border: "none",
-          color: "var(--chakra-colors-chakra-body-text)",
-          backgroundColor: "transparent",
-          borderRadius: "unset",
-        },
     },
   },
   fonts: {
