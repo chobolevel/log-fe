@@ -17,32 +17,12 @@ export interface LoginResponseType {
   };
 }
 
-export interface ReissueRequest {
-  refresh_token: string;
-}
-
-export interface ReissueResponse {
-  data: {
-    access_token: string;
-    refresh_token: string;
-  };
-}
-
 const login = async (params: LoginRequestType) => {
-  return Api.request<LoginResponseType>(
-    toUrl(ApiRoutes.AuthLogin),
-    "POST",
-    params,
-  ).then((res) => {
-    return {
-      access: res.headers.authorization,
-    };
-  });
-};
-
-const handleSuccess = (data: { access: string }, invalidate: () => void) => {
-  Api.addToken(data.access);
-  invalidate();
+  return Api.post<LoginResponseType>(toUrl(ApiRoutes.AuthLogin), params).then(
+    (res) => {
+      return res;
+    },
+  );
 };
 
 export const useLogin = () => {
@@ -50,8 +30,8 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: (params: LoginRequestType) => login(params),
-    onSuccess: (data) => {
-      handleSuccess(data, invalidate);
+    onSuccess: () => {
+      invalidate();
     },
     meta: {
       ignoreSuccess: true,
@@ -65,10 +45,9 @@ export const useLogout = () => {
   const { openAlert } = useModalStore(["openAlert"]);
 
   return () => {
-    Api.request(toUrl(ApiRoutes.AuthLogout), "POST").then(() => {
+    Api.post(toUrl(ApiRoutes.AuthLogout)).then(() => {
       push(toUrl(PageRoutes.Home))?.then(() => {
         openAlert({ content: "로그아웃 되었습니다." });
-        Api.removeTokens();
         invalidate();
       });
     });
