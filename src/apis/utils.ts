@@ -6,7 +6,6 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import { ApiError, QueryKey, UrlBuilder } from "./types";
-import { ReissueResponse } from "@/apis/domains";
 
 const protoc = process.env.NODE_ENV === "development" ? "http" : "https";
 
@@ -30,6 +29,7 @@ export class Api {
     headers: {
       "Content-Type": "application/json",
     },
+    withCredentials: true,
   });
 
   static addToken = (token: string) => {
@@ -85,7 +85,6 @@ export class Api {
       url,
       method,
       data: body,
-      withCredentials: true,
     });
   };
 }
@@ -103,8 +102,7 @@ Api.instance.interceptors.response.use(
     // 이전 요청이 Reissiue 요청이라면 에러를 반환합니다.
     // 저장된 모든 토큰을 삭제합니다.
     if (request?.responseURL?.includes(toUrl(ApiRoutes.AuthReissue))) {
-      Api.request(toUrl(ApiRoutes.AuthLogout), "POST");
-      Api.removeTokens();
+      await Api.post(toUrl(ApiRoutes.AuthLogout));
       return Promise.reject(error);
     }
 
@@ -114,17 +112,7 @@ Api.instance.interceptors.response.use(
 
       try {
         // 리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급합니다.
-        const result = await Api.request<ReissueResponse>(
-          toUrl(ApiRoutes.AuthReissue),
-          "POST",
-        );
-        const reissuedAccessToken = result.headers.authorization;
-
-        // 새로운 액세스 토큰을 저장합니다.
-        Api.addToken(reissuedAccessToken);
-
-        // 새로운 액세스 토큰을 사용하여 요청을 재시도합니다.
-        originalRequest.headers["Authorization"] = reissuedAccessToken;
+        await Api.post(toUrl(ApiRoutes.AuthReissue));
         return Api.instance(originalRequest);
       } catch {
         console.error("refresh token is invalid");
