@@ -12,7 +12,7 @@ const breakpoints = {
 
 const theme = extendTheme({
   config: {
-    initialColorMode: "system",
+    initialColorMode: "dark",
     useSystemColorMode: false,
   },
   styles: {
@@ -139,8 +139,7 @@ const theme = extendTheme({
   },
   colors: {
     lightGreen: "#38a16a",
-    lightModeBack: "#fff",
-    darkModeBack: "#1B202B",
+    bgColor: "#1B202B",
   },
   breakpoints,
 });

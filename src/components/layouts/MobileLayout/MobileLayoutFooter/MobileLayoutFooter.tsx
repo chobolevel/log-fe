@@ -14,7 +14,14 @@ const iconBoxStyle: CSSProperties = {
 const MobileLayoutFooter = () => {
   const year = useMemo(() => new Date().getFullYear(), []);
   return (
-    <Flex as={"footer"} direction={"column"} align={"center"} gap={4} py={10}>
+    <Flex
+      as={"footer"}
+      direction={"column"}
+      align={"center"}
+      gap={4}
+      pt={10}
+      pb={40}
+    >
       <Flex gap={4}>
         <Link style={iconBoxStyle} href={"mailto:rodaka123@naver.com"}>
           <IoIosMail size={30} />

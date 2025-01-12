@@ -1,20 +1,23 @@
-import { Avatar, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { FaHashtag, FaHome } from "react-icons/fa";
-import { MdAccountCircle, MdArticle } from "react-icons/md";
+import { MdArticle } from "react-icons/md";
 import { HiPencilAlt } from "react-icons/hi";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
 import { images, Nav, PageRoutes } from "@/constants";
-import { CSSProperties } from "react";
+import { CSSProperties, useMemo } from "react";
 import { useGetMe } from "@/apis";
 import { match } from "path-to-regexp";
 
 const MobileLayoutNav = () => {
   const { push, router } = useSafePush();
 
-  const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
   const { data: me } = useGetMe();
 
+  const profileImageUrl = useMemo(
+    () => me?.profile_image?.origin_url ?? images.unknown.src,
+    [me],
+  );
   const navs: Nav[] = [
     {
       icon: <MdArticle size={20} />,
@@ -47,13 +50,9 @@ const MobileLayoutNav = () => {
     },
     {
       icon: me ? (
-        me.profile_image ? (
-          <Avatar src={me.profile_image.origin_url} size={"xs"} />
-        ) : (
-          <Avatar src={images.unknown.src} size={"xs"} />
-        )
+        <Avatar src={profileImageUrl} size={"xs"} />
       ) : (
-        <MdAccountCircle size={20} />
+        <Avatar src={images.unknown.src} size={"xs"} />
       ),
       label: "Profile",
       pathname: PageRoutes.Profile,
@@ -74,8 +73,8 @@ const MobileLayoutNav = () => {
       left={0}
       w={"100%"}
       h={"80px"}
+      bgColor={"bgColor"}
       px={4}
-      bgColor={bgColor}
       borderTop={"1px solid"}
       borderColor={"#ccc"}
       direction={"column"}
