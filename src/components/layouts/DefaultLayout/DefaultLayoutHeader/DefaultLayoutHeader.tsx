@@ -1,4 +1,12 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
 import { images, PageRoutes } from "@/constants";
@@ -58,38 +66,48 @@ const DefaultLayoutHeader = () => {
       <Flex align={"center"} gap={4}>
         {me ? (
           <>
-            <Avatar
-              size={"sm"}
-              cursor={"pointer"}
-              src={profileImage}
-              onClick={() => {
-                push(toUrl(PageRoutes.Profile));
-              }}
-            />
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                push(toUrl(PageRoutes.WritePost));
-              }}
-            >
-              POSTING
-            </Text>
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                logout();
-              }}
-            >
-              LOGOUT
-            </Text>
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                push(toUrl(PageRoutes.Channels));
-              }}
-            >
-              CHANNELS
-            </Text>
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  size={"sm"}
+                  cursor={"pointer"}
+                  src={profileImage}
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Profile));
+                  }}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Profile));
+                  }}
+                >
+                  PROFILE
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  LOGOUT
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.WritePost));
+                  }}
+                >
+                  POSTING
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Channels));
+                  }}
+                >
+                  CHANNELS
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </>
         ) : (
           <Text
