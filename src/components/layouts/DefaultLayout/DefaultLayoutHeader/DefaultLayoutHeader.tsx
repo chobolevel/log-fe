@@ -1,10 +1,11 @@
 import {
   Avatar,
-  Button,
   Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
-  useColorMode,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { useSafePush } from "@/hooks";
 import { toUrl } from "@/utils";
@@ -12,7 +13,6 @@ import { images, PageRoutes } from "@/constants";
 import { CSSProperties, useMemo } from "react";
 import { useGetMe, useLogout } from "@/apis";
 import { IoIosArrowBack } from "react-icons/io";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 const linkStyle: CSSProperties = {
   fontSize: "lg",
@@ -23,12 +23,6 @@ const linkStyle: CSSProperties = {
 const DefaultLayoutHeader = () => {
   const { push } = useSafePush();
   const logout = useLogout();
-  const { toggleColorMode } = useColorMode();
-  const colorModeToggleIcon = useColorModeValue(
-    <MdDarkMode size={20} />,
-    <MdLightMode size={20} />,
-  );
-  const bgColor = useColorModeValue("lightModeBack", "darkModeBack");
 
   const { data: me } = useGetMe();
 
@@ -48,7 +42,7 @@ const DefaultLayoutHeader = () => {
       px={2}
       position={"sticky"}
       top={0}
-      bgColor={bgColor}
+      bgColor={"bgColor"}
       zIndex={100}
     >
       <Flex gap={4} align={"center"}>
@@ -68,45 +62,52 @@ const DefaultLayoutHeader = () => {
         >
           CHOLO
         </Text>
-        <Button size={"sm"} onClick={toggleColorMode}>
-          {colorModeToggleIcon}
-        </Button>
       </Flex>
       <Flex align={"center"} gap={4}>
         {me ? (
           <>
-            <Avatar
-              size={"sm"}
-              cursor={"pointer"}
-              src={profileImage}
-              onClick={() => {
-                push(toUrl(PageRoutes.Profile));
-              }}
-            />
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                push(toUrl(PageRoutes.WritePost));
-              }}
-            >
-              POSTING
-            </Text>
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                logout();
-              }}
-            >
-              LOGOUT
-            </Text>
-            <Text
-              style={linkStyle}
-              onClick={() => {
-                push(toUrl(PageRoutes.Channels));
-              }}
-            >
-              CHANNELS
-            </Text>
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  size={"sm"}
+                  cursor={"pointer"}
+                  src={profileImage}
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Profile));
+                  }}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Profile));
+                  }}
+                >
+                  PROFILE
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  LOGOUT
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.WritePost));
+                  }}
+                >
+                  POSTING
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    push(toUrl(PageRoutes.Channels));
+                  }}
+                >
+                  CHANNELS
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </>
         ) : (
           <Text
