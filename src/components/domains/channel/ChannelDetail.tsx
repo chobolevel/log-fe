@@ -1,6 +1,5 @@
 import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import {
-  Api,
   Channel,
   ChannelMessage,
   ID,
@@ -48,19 +47,12 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
 
   const connect = (channelId: ID) => {
     setIsConnected(false);
-    const accessToken = Api.instance.defaults.headers.common[
-      "Authorization"
-    ] as string;
-    if (!accessToken) return;
     client.current = new StompJs.Client({
       brokerURL: `${process.env.NODE_ENV === "development" ? "http" : "https"}://${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/ws`,
-      connectHeaders: {
-        Authorization: accessToken,
-      },
       reconnectDelay: 5000,
       onConnect: () => {
         setIsConnected(true);
-        subscribeMessage(accessToken, channelId);
+        subscribeMessage(channelId);
       },
       onWebSocketError: (error) => {
         disconnect();
@@ -80,31 +72,15 @@ const ChannelDetail = ({ channel }: ChannelDetailProps) => {
     setIsConnected(false);
     client.current?.deactivate();
   };
-  const subscribeMessage = (accessToken: string, channelId: ID) => {
-    client.current?.subscribe(
-      `/sub/channels/${channelId}`,
-      (message) => {
-        const res = JSON.parse(message.body) as ChannelMessage;
-        setMessages((cur) => [...cur, res]);
-      },
-      {
-        Authorization: accessToken,
-      },
-    );
+  const subscribeMessage = (channelId: ID) => {
+    client.current?.subscribe(`/sub/channels/${channelId}`, (message) => {
+      const res = JSON.parse(message.body) as ChannelMessage;
+      setMessages((cur) => [...cur, res]);
+    });
   };
   const publishMessage = (content: string) => {
-    const accessToken = Api.instance.defaults.headers.common[
-      "Authorization"
-    ] as string;
-    if (!accessToken) {
-      setIsConnected(false);
-      return;
-    }
     client.current?.publish({
       destination: `/pub/channels/${channel.id}/messages`,
-      headers: {
-        Authorization: accessToken,
-      },
       body: JSON.stringify({ type: "TALK", content }),
     });
   };
