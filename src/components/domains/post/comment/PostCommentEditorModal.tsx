@@ -1,7 +1,6 @@
 import {
   Button,
   Flex,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -64,20 +63,6 @@ const PostCommentEditorModal = ({
               }, []),
             )}
           >
-            <Flex direction={"column"} gap={2}>
-              <Input
-                type={"password"}
-                placeholder={"비밀번호"}
-                {...register("password", {
-                  required: "비밀번호가 입력되지 않았습니다.",
-                })}
-              />
-              <ErrorMessage
-                name={"password"}
-                errors={errors}
-                render={({ message }) => <ErrorText>{message}</ErrorText>}
-              />
-            </Flex>
             <Flex direction={"column"} gap={2}>
               <Textarea
                 placeholder={"내용을 입력하세요."}
