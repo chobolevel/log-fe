@@ -11,7 +11,6 @@ export {
 } from "./channel";
 export { GuestBookEditor, GuestBookList, GuestBookListItem } from "./guestBook";
 export {
-  PostCommentDeleterModal,
   PostCommentEditorModal,
   PostCommentList,
   PostCommentListItem,
