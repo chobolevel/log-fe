@@ -30,10 +30,8 @@ export default function HomePage() {
     <>
       <Head>
         <title>{HOME_TITLE}</title>
-
         {/*view port*/}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         {/*meta*/}
         <link rel="icon" href="/favicon.ico" />
         <meta name="title" content={HOME_TITLE} />
@@ -51,11 +49,11 @@ export default function HomePage() {
         {/*웹 마스터 도구*/}
         <meta
           name="naver-site-verification"
-          content="feeafc253d837182ad237200dd12ac55bbc3da5c"
+          content="65a69709a0c4cd983815820bc54e58ac1e451355"
         />
         <meta
           name="google-site-verification"
-          content="obf1F82VgJTwj1comoY_Yc8KQU_hH3UnoZ1gDD6zYIc"
+          content="Nrob-smwtJPVsW1tKJdGjFTODSecJyb1SyvdMLBxCiQ"
         />
 
         {/*공유하기*/}
