@@ -62,5 +62,7 @@ export const useUpdatePostComment = () => {
 };
 
 export const useDeletePostComment = () => {
-  return useDelete(toUrl(ApiRoutes.PostComments));
+  return useDelete(toUrl(ApiRoutes.PostComments), undefined, {
+    onSettled: useInvalidate(toUrl(ApiRoutes.PostComments)),
+  });
 };
