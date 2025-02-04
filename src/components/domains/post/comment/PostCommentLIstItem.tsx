@@ -1,12 +1,13 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { PostComment, useDeletePostComment } from "@/apis/domains/postComment";
 import { useMemo } from "react";
-import { DateUtils } from "@/utils";
+import { DateUtils, toUrl } from "@/utils";
 import { HiPencilAlt } from "react-icons/hi";
 import { useModalStore } from "@/stores";
 import { PostCommentEditorModal } from "@/components";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { useGetMe } from "@/apis";
+import { useGetMe, useInvalidate } from "@/apis";
+import { ApiRoutes } from "@/constants";
 
 interface PostCommentListItemProps {
   postComment: PostComment;
@@ -17,6 +18,7 @@ const PostCommentListItem = ({ postComment }: PostCommentListItemProps) => {
     "openConfirm",
     "openModal",
   ]);
+  const invalidate = useInvalidate(toUrl(ApiRoutes.PostComments));
 
   const { data: me } = useGetMe();
   const { mutate: deletePostComment } = useDeletePostComment();
@@ -61,7 +63,11 @@ const PostCommentListItem = ({ postComment }: PostCommentListItemProps) => {
                   title: "댓글 삭제",
                   content: "정말 댓글을 삭제하시겠습니까?",
                   onConfirm: () => {
-                    deletePostComment({ id: postComment.id });
+                    deletePostComment(postComment.id, {
+                      onSuccess: () => {
+                        invalidate();
+                      },
+                    });
                   },
                 });
               }}

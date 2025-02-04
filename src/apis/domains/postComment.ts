@@ -2,6 +2,7 @@ import {
   ID,
   PageQueryParams,
   Scheme,
+  useDelete,
   useGetPage,
   useInvalidate,
   usePost,
@@ -61,9 +62,5 @@ export const useUpdatePostComment = () => {
 };
 
 export const useDeletePostComment = () => {
-  return useUpdate<PostComment, DeletePostCommentRequest, ID>(
-    (data) => toUrl(ApiRoutes.DeletePostComment, { id: data.id }),
-    undefined,
-    { onSettled: useInvalidate(toUrl(ApiRoutes.PostComments)) },
-  );
+  return useDelete(toUrl(ApiRoutes.PostComments));
 };
