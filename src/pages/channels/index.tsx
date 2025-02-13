@@ -60,9 +60,9 @@ const ChannelsPage = () => {
         {/*링크*/}
         <link
           rel="canonical"
-          href={`https://chobolevel.site${router.asPath}`}
+          href={`https://chobolevel.co.kr${router.asPath}`}
         />
-        <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
+        <link rel="icon" href="https://chobolevel.co.kr/images/main-logo.png" />
 
         {/*공유하기*/}
         <meta property="og:locale" content="ko_KR" />
@@ -73,7 +73,7 @@ const ChannelsPage = () => {
         <meta property="og:image" content="/images/main-logo.png" />
         <meta
           property="og:url"
-          content={`https://chobolevel.site${router.asPath}`}
+          content={`https://chobolevel.co.kr${router.asPath}`}
         />
       </Head>
       <ResponsiveLayout>

@@ -42,8 +42,8 @@ export default function HomePage() {
         <meta name="subject" content={CATEGORIES.join(", ")} />
 
         {/*링크*/}
-        <link rel="canonical" href="https://chobolevel.site" />
-        <link rel="icon" href="https://chobolevel.site/images/main-logo.png" />
+        <link rel="canonical" href="https://chobolevel.co.kr" />
+        <link rel="icon" href="https://chobolevel.co.kr/images/main-logo.png" />
 
         {/*웹 마스터 도구*/}
         <meta
@@ -62,7 +62,7 @@ export default function HomePage() {
         <meta property="og:title" content={HOME_TITLE} />
         <meta property="og:description" content={HOME_DESC} />
         <meta property="og:image" content="/images/main-logo.png" />
-        <meta property="og:url" content={"https://chobolevel.site"} />
+        <meta property="og:url" content={"https://chobolevel.co.kr"} />
       </Head>
       <ResponsiveLayout>
         <Flex p={4} direction={"column"} gap={4}>
