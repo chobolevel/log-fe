@@ -1,7 +1,7 @@
 import { ListSkeleton, PostList, ResponsiveLayout } from "@/components";
 import Head from "next/head";
 import { useGetPosts } from "@/apis";
-import { Flex, Text } from "@chakra-ui/react";
+import {Flex, Heading, Text} from "@chakra-ui/react";
 
 const HOME_TITLE = "초보 개발자의 로그 - 초로";
 const HOME_DESC =
@@ -16,15 +16,6 @@ const CATEGORIES = [
 ];
 
 export default function HomePage() {
-  const {
-    data: posts,
-    isError,
-    error,
-  } = useGetPosts({
-    skipCount: 0,
-    limitCount: 8,
-    orderTypes: ["CREATED_AT_DESC"],
-  });
   return (
     <>
       <Head>
@@ -64,20 +55,24 @@ export default function HomePage() {
         <meta property="og:image" content="/images/main-logo.png" />
         <meta property="og:url" content={"https://chobolevel.co.kr"} />
       </Head>
-      <ResponsiveLayout>
-        <Flex p={4} direction={"column"} gap={4}>
-          <Text color={"lightGreen"} fontWeight={"bold"}>
-            최신글
-          </Text>
-          {posts ? (
-            <PostList posts={posts.data} />
-          ) : isError ? (
-            <Text>{error?.response?.data.error_message}</Text>
-          ) : (
-            <ListSkeleton />
-          )}
-        </Flex>
-      </ResponsiveLayout>
+      <Flex py={200} px={200} direction={"column"} align={"center"} justify={"center"} gap={10}>
+        <Text fontSize={"2xl"} fontWeight={"bold"} color={"lightGreen"}>🙋‍♀️ [서비스 리뉴얼로 인한 일시 중단 안내]</Text>
+        <Text whiteSpace={"break-spaces"} textAlign={"center"} fontSize={"lg"} fontWeight={"bold"}>
+          {`[초보 개발자의 로그 초로]가 여러분께 더 좋은 경험을 드리기 위해
+          잠시 숨을 고르고, 다시 뛰어오를 준비를 하고 있습니다!
+
+          내부적으로 큰 변화와 개선을 위한 리뉴얼 작업에 돌입하면서,
+          부득이하게 [2025.07.07]부터 서비스 이용이 어렵게 되었습니다.
+
+          정확한 재오픈 시점은 아직 정해지지 않았지만,
+          새로운 모습으로 꼭 다시 인사드릴게요.
+
+          기다려주시는 모든 분들께 감사드리며,
+          앞으로의 소식은 추후에 여기를 통해 전달드리겠습니다.
+
+          고맙습니다. 또 만나요! 🌱`}
+        </Text>
+      </Flex>
     </>
   );
 }
