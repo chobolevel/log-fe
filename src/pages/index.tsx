@@ -1,7 +1,5 @@
-import { ListSkeleton, PostList, ResponsiveLayout } from "@/components";
 import Head from "next/head";
-import { useGetPosts } from "@/apis";
-import {Flex, Heading, Text} from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 const HOME_TITLE = "초보 개발자의 로그 - 초로";
 const HOME_DESC =
@@ -55,9 +53,23 @@ export default function HomePage() {
         <meta property="og:image" content="/images/main-logo.png" />
         <meta property="og:url" content={"https://chobolevel.co.kr"} />
       </Head>
-      <Flex py={200} px={200} direction={"column"} align={"center"} justify={"center"} gap={10}>
-        <Text fontSize={"2xl"} fontWeight={"bold"} color={"lightGreen"}>🙋‍♀️ [서비스 리뉴얼로 인한 일시 중단 안내]</Text>
-        <Text whiteSpace={"break-spaces"} textAlign={"center"} fontSize={"lg"} fontWeight={"bold"}>
+      <Flex
+        py={200}
+        px={200}
+        direction={"column"}
+        align={"center"}
+        justify={"center"}
+        gap={10}
+      >
+        <Text fontSize={"2xl"} fontWeight={"bold"} color={"lightGreen"}>
+          🙋‍♀️ [서비스 리뉴얼로 인한 일시 중단 안내]
+        </Text>
+        <Text
+          whiteSpace={"break-spaces"}
+          textAlign={"center"}
+          fontSize={"lg"}
+          fontWeight={"bold"}
+        >
           {`[초보 개발자의 로그 초로]가 여러분께 더 좋은 경험을 드리기 위해
           잠시 숨을 고르고, 다시 뛰어오를 준비를 하고 있습니다!
 
