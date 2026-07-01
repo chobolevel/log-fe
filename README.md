@@ -13,8 +13,6 @@
 ## 프로젝트 사용기술
 
 > <img src="https://img.shields.io/badge/next-000000?style=for-the-badge&logo=next.js&logoColor=white">
-> <img src="https://img.shields.io/badge/chakra ui-319795?style=for-the-badge&logo=chakra ui&logoColor=white">
-> <img src="https://img.shields.io/badge/react query-ff4154?style=for-the-badge&logo=react query&logoColor=white">
 > <img src="https://img.shields.io/badge/axios-5a29e4?style=for-the-badge&logo=axios&logoColor=white">
 > <img src="https://img.shields.io/badge/lodash-3492ff?style=for-the-badge&logo=lodash&logoColor=white">
 > <img src="https://img.shields.io/badge/pwa-5a0fc8?style=for-the-badge&logo=pwa&logoColor=white">
