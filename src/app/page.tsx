@@ -1,7 +1,6 @@
 import { Code2, PenLine, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import PostCard from "@/components/post/post-card";
-import ComingSoonForm from "@/components/home/coming-soon-form";
 import { Post } from "@/types/post";
 
 const MOCK_POSTS: Post[] = [
@@ -126,9 +125,6 @@ export default function Home() {
             <br />
             오픈 소식을 가장 먼저 받아보세요.
           </p>
-          <div className="mt-10 flex justify-center">
-            <ComingSoonForm />
-          </div>
         </div>
       </section>
 
@@ -205,11 +201,10 @@ export default function Home() {
           </div>
 
           {/* 오픈 안내 */}
-          <div className="mt-8 flex flex-col items-center gap-4 text-center">
+          <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
               정식 오픈 후 모든 글을 자유롭게 읽고 쓸 수 있어요.
             </p>
-            <ComingSoonForm />
           </div>
         </div>
       </section>
