@@ -37,6 +37,11 @@ Tailwind v4 + shadcn/ui (style: `base-nova`). CSS 변수는 `globals.css`의 `:r
 
 새 색상 추가 시 `:root`에 변수 선언 → `@theme inline`에 `--color-*` 매핑 순서로 작업한다.
 
+## Git 규칙
+
+- **커밋 전 반드시 사용자에게 확인 후 진행한다.** 작업 완료 후 커밋 내용을 보여주고 승인받은 뒤 커밋할 것.
+- **커밋 메시지에 `Co-Authored-By: Claude` 라인을 포함하지 않는다.**
+
 ## Key Conventions
 
 - **경로 alias**: `@/` → `src/`
