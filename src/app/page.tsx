@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { Code2, PenLine, BookOpen } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PostCard from "@/components/post/post-card";
+import ComingSoonForm from "@/components/home/coming-soon-form";
 import { Post } from "@/types/post";
 
 const MOCK_POSTS: Post[] = [
@@ -79,7 +78,6 @@ const CONTENT_TYPES = [
     icon: Code2,
     label: "기술블로그",
     description: "개발 경험과 기술적 인사이트를 깊이 있게 기록하세요.",
-    href: "/posts?category=tech",
     color: "text-green",
     bg: "bg-green-subtle",
   },
@@ -87,7 +85,6 @@ const CONTENT_TYPES = [
     icon: PenLine,
     label: "블로그",
     description: "생각, 경험, 관점을 자유롭게 풀어내는 공간입니다.",
-    href: "/posts?category=blog",
     color: "text-blue-500",
     bg: "bg-blue-50",
   },
@@ -95,7 +92,6 @@ const CONTENT_TYPES = [
     icon: BookOpen,
     label: "일기",
     description: "소소한 하루와 감정을 솔직하게 담아두세요.",
-    href: "/posts?category=diary",
     color: "text-amber-500",
     bg: "bg-amber-50",
   },
@@ -117,7 +113,7 @@ export default function Home() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green" />
             </span>
             <span className="text-xs font-semibold text-green-subtle-foreground">
-              지금 베타 서비스 중
+              오픈 준비 중
             </span>
           </div>
           <h1 className="text-5xl font-black leading-[1.15] tracking-tight md:text-7xl">
@@ -126,49 +122,35 @@ export default function Home() {
             <span className="text-green">초로에서 기록하세요.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
-            기술블로그, 블로그, 일기 — 모든 종류의 글을 하나의 공간에서.
+            곧 정식 오픈합니다. 아래는 서비스 미리보기입니다.
             <br />
-            당신의 생각을 세상과 나눠보세요.
+            오픈 소식을 가장 먼저 받아보세요.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/write"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "gap-2 rounded-full bg-green px-8 text-green-foreground hover:bg-green/90"
-              )}
-            >
-              <PenLine className="h-4 w-4" />
-              지금 바로 쓰기
-            </Link>
-            <Link
-              href="/posts"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-8"
-              )}
-            >
-              글 둘러보기
-            </Link>
+          <div className="mt-10 flex justify-center">
+            <ComingSoonForm />
           </div>
         </div>
       </section>
 
-      {/* 콘텐츠 타입 */}
+      {/* 콘텐츠 타입 미리보기 */}
       <section className="border-b border-border py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-2 text-2xl font-black tracking-tight md:text-3xl">
-            무엇이든 쓸 수 있어요
-          </h2>
+          <div className="mb-2 flex items-center gap-3">
+            <h2 className="text-2xl font-black tracking-tight md:text-3xl">
+              무엇이든 쓸 수 있어요
+            </h2>
+            <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
+              미리보기
+            </span>
+          </div>
           <p className="mb-10 text-muted-foreground">
             글의 종류에 맞게 골라서 작성하세요.
           </p>
           <div className="grid gap-4 sm:grid-cols-3">
             {CONTENT_TYPES.map((type) => (
-              <Link
+              <div
                 key={type.label}
-                href={type.href}
-                className="group rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-border bg-card p-6"
               >
                 <div className={cn("mb-4 inline-flex rounded-xl p-3", type.bg)}>
                   <type.icon className={cn("h-6 w-6", type.color)} />
@@ -177,33 +159,57 @@ export default function Home() {
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {type.description}
                 </p>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 최근 글 */}
+      {/* 최근 글 미리보기 */}
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-10 flex items-end justify-between">
             <div>
-              <h2 className="mb-2 text-2xl font-black tracking-tight md:text-3xl">
-                최근 글
-              </h2>
-              <p className="text-muted-foreground">초로에 새로 올라온 글들</p>
+              <div className="mb-2 flex items-center gap-3">
+                <h2 className="text-2xl font-black tracking-tight md:text-3xl">
+                  이런 글을 쓸 수 있어요
+                </h2>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
+                  샘플
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                오픈 후 실제 글들이 이 자리를 채웁니다.
+              </p>
             </div>
-            <Link
-              href="/posts"
-              className="text-sm font-medium text-green hover:underline"
-            >
-              전체 보기 →
-            </Link>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {MOCK_POSTS.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+
+          {/* 포스트 그리드 + 하단 페이드 */}
+          <div className="relative">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {MOCK_POSTS.map((post, index) => (
+                <div
+                  key={post.id}
+                  className={cn(
+                    "pointer-events-none transition-opacity",
+                    index >= 3 && "opacity-40"
+                  )}
+                >
+                  <PostCard post={post} />
+                </div>
+              ))}
+            </div>
+
+            {/* 하단 페이드 오버레이 */}
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          </div>
+
+          {/* 오픈 안내 */}
+          <div className="mt-8 flex flex-col items-center gap-4 text-center">
+            <p className="text-sm text-muted-foreground">
+              정식 오픈 후 모든 글을 자유롭게 읽고 쓸 수 있어요.
+            </p>
+            <ComingSoonForm />
           </div>
         </div>
       </section>
