@@ -103,7 +103,7 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-border py-24 md:py-32">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-green opacity-[0.06] blur-3xl"
+          className="pointer-events-none absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full bg-green opacity-[0.06] blur-3xl"
         />
         <div className="mx-auto max-w-6xl px-6 text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green/30 bg-green-subtle px-4 py-1.5">
@@ -115,12 +115,12 @@ export default function Home() {
               오픈 준비 중
             </span>
           </div>
-          <h1 className="text-5xl font-black leading-[1.15] tracking-tight md:text-7xl">
+          <h1 className="text-5xl leading-[1.15] font-black tracking-tight md:text-7xl">
             기술부터 일상까지,
             <br />
             <span className="text-green">초로에서 기록하세요.</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-lg text-lg font-light leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed font-light text-muted-foreground">
             곧 정식 오픈합니다. 아래는 서비스 미리보기입니다.
             <br />
             오픈 소식을 가장 먼저 받아보세요.
@@ -151,7 +151,9 @@ export default function Home() {
                 <div className={cn("mb-4 inline-flex rounded-xl p-3", type.bg)}>
                   <type.icon className={cn("h-6 w-6", type.color)} />
                 </div>
-                <h3 className="mb-1.5 font-bold tracking-tight">{type.label}</h3>
+                <h3 className="mb-1.5 font-bold tracking-tight">
+                  {type.label}
+                </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {type.description}
                 </p>
@@ -197,7 +199,7 @@ export default function Home() {
             </div>
 
             {/* 하단 페이드 오버레이 */}
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
+            <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
           </div>
 
           {/* 오픈 안내 */}
