@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
 
 const notoSansKR = Noto_Sans_KR({
   variable: "--font-sans",
@@ -24,11 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <Providers>
-          <Header />
-          <main className="flex flex-1 flex-col">{children}</main>
-          <Footer />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
