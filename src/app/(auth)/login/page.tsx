@@ -11,7 +11,7 @@ export default function LoginPage() {
       <div className="mb-8 text-center">
         <Link
           href="/"
-          className="inline-block select-none text-2xl font-black tracking-tight"
+          className="inline-block text-2xl font-black tracking-tight select-none"
         >
           초로
         </Link>

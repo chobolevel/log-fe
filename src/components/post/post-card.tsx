@@ -40,7 +40,7 @@ export default function PostCard({ post }: PostCardProps) {
         </span>
       </div>
 
-      <h3 className="line-clamp-2 text-base font-bold leading-snug tracking-tight group-hover:text-green">
+      <h3 className="line-clamp-2 text-base leading-snug font-bold tracking-tight group-hover:text-green">
         {post.title}
       </h3>
 

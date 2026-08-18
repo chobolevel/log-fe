@@ -6,7 +6,7 @@ export default function Header() {
       <div className="mx-auto flex h-14 max-w-6xl items-center px-6">
         <Link
           href="/"
-          className="select-none text-lg font-black tracking-tight"
+          className="text-lg font-black tracking-tight select-none"
         >
           초로
         </Link>

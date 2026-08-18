@@ -19,7 +19,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       })
   );
 
-  const [DevTools, setDevTools] = useState<typeof ReactQueryDevtoolsType | null>(null);
+  const [DevTools, setDevTools] = useState<
+    typeof ReactQueryDevtoolsType | null
+  >(null);
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {

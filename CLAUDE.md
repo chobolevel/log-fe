@@ -28,12 +28,12 @@ Tailwind v4 + shadcn/ui (style: `base-nova`). CSS 변수는 `globals.css`의 `:r
 
 **포인트 컬러 변수 (그린 계열)**
 
-| CSS 변수 | Tailwind 클래스 예시 | 용도 |
-|---|---|---|
-| `--green` | `bg-green`, `text-green`, `border-green` | 메인 그린 |
-| `--green-foreground` | `text-green-foreground` | 그린 배경 위 텍스트 |
-| `--green-subtle` | `bg-green-subtle` | 연한 그린 배경 |
-| `--green-subtle-foreground` | `text-green-subtle-foreground` | 연한 그린 위 텍스트 |
+| CSS 변수                    | Tailwind 클래스 예시                     | 용도                |
+| --------------------------- | ---------------------------------------- | ------------------- |
+| `--green`                   | `bg-green`, `text-green`, `border-green` | 메인 그린           |
+| `--green-foreground`        | `text-green-foreground`                  | 그린 배경 위 텍스트 |
+| `--green-subtle`            | `bg-green-subtle`                        | 연한 그린 배경      |
+| `--green-subtle-foreground` | `text-green-subtle-foreground`           | 연한 그린 위 텍스트 |
 
 새 색상 추가 시 `:root`에 변수 선언 → `@theme inline`에 `--color-*` 매핑 순서로 작업한다.
 
