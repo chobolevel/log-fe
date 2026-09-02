@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   return (
@@ -22,44 +21,7 @@ export default function LoginPage() {
 
       {/* 카드 */}
       <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-        <form className="flex flex-col gap-5">
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="email">이메일</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="hello@example.com"
-              autoComplete="email"
-              required
-            />
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">비밀번호</Label>
-              <Link
-                href="/forgot-password"
-                className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-              >
-                비밀번호 찾기
-              </Link>
-            </div>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              autoComplete="current-password"
-              required
-            />
-          </div>
-
-          <Button
-            type="submit"
-            className="mt-1 h-9 w-full bg-green text-green-foreground hover:bg-green/85"
-          >
-            로그인
-          </Button>
-        </form>
+        <LoginForm />
 
         <div className="my-6 flex items-center gap-3">
           <Separator className="flex-1" />
