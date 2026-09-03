@@ -45,3 +45,20 @@ export const sendEmailVerificationCodeApi = (
 export const checkEmailVerificationCodeApi = (
   request: CheckEmailVerificationCodeRequest
 ) => api.post<string>("/api/v1/users/email-verifications/verify-code", request);
+
+export interface SendResetPasswordEmailRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  code: string;
+  password: string;
+}
+
+export const sendResetPasswordEmailApi = (
+  request: SendResetPasswordEmailRequest
+) => api.post<boolean>("/api/v1/user/reset-password/send-code", request);
+
+export const resetPasswordApi = (request: ResetPasswordRequest) =>
+  api.post<boolean>("/api/v1/user/reset-password", request);
