@@ -1,4 +1,4 @@
-export type UserLoginType = "GENERAL" | "KAKAO" | "NAVER" | "GOOGLE";
+export type UserLoginType = "GENERAL" | "GITHUB";
 
 export type UserRoleType = "ROLE_ADMIN" | "ROLE_ADMIN";
 
