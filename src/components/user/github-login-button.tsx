@@ -18,10 +18,7 @@ export function GithubLoginButton() {
     <button
       onClick={handleClick}
       disabled={isPending}
-      className={cn(
-        buttonVariants({ variant: "outline" }),
-        "h-9 w-full gap-2"
-      )}
+      className={cn(buttonVariants({ variant: "outline" }), "h-9 w-full gap-2")}
     >
       {isPending ? (
         <svg
