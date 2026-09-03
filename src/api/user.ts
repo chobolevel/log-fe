@@ -14,8 +14,34 @@ export interface SocialLoginRequest {
   nickname: string;
 }
 
+export interface CreateUserRequest {
+  email: string;
+  password: string;
+  nickname: string;
+}
+
+export interface SendEmailVerificationCodeRequest {
+  email: string;
+}
+
+export interface CheckEmailVerificationCodeRequest {
+  email: string;
+  verification_code: string;
+}
+
 export const loginApi = (request: LoginRequest) =>
   api.post<boolean>("/api/v1/users/login", request);
 
 export const socialLoginApi = (request: SocialLoginRequest) =>
   api.post<boolean>("/api/v1/users/social-login", request);
+
+export const createUserApi = (request: CreateUserRequest) =>
+  api.post<number>("/api/v1/users", request);
+
+export const sendEmailVerificationCodeApi = (
+  request: SendEmailVerificationCodeRequest
+) => api.post<boolean>("/api/v1/users/email-verifications/send-code", request);
+
+export const checkEmailVerificationCodeApi = (
+  request: CheckEmailVerificationCodeRequest
+) => api.post<string>("/api/v1/users/email-verifications/verify-code", request);
