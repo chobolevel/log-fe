@@ -148,6 +148,24 @@ export function useChangePassword() {
   });
 }
 
+export function useLogout() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation<boolean, ApiError, void>({
+    mutationFn: () => logoutApi(),
+    onSuccess: () => {
+      toast.success("로그아웃되었습니다.");
+      queryClient.removeQueries({ queryKey: MY_USER_QUERY_KEY });
+      router.push("/");
+      router.refresh();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+}
+
 export function useResign() {
   const router = useRouter();
 
