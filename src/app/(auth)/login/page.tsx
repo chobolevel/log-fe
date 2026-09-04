@@ -1,11 +1,16 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { LoginForm } from "@/components/user/login-form";
 import { GithubLoginButton } from "@/components/user/github-login-button";
+import { RedirectMessage } from "@/components/auth/redirect-message";
 
 export default function LoginPage() {
   return (
     <div className="w-full max-w-sm">
+      <Suspense>
+        <RedirectMessage />
+      </Suspense>
       {/* 로고 */}
       <div className="mb-8 text-center">
         <Link
