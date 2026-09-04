@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSendResetPasswordEmail } from "@/hooks/user/useSendResetPasswordEmail";
+import { useSendResetPasswordEmail } from "@/hooks/user/user";
 
 const schema = z.object({
   email: z.string().email("올바른 이메일을 입력해주세요."),

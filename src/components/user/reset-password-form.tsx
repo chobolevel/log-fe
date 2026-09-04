@@ -4,16 +4,17 @@ import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { passwordField } from "@/lib/validators";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useResetPassword } from "@/hooks/user/useResetPassword";
+import { useResetPassword } from "@/hooks/user/user";
 
 const schema = z
   .object({
     email: z.string().email("올바른 이메일을 입력해주세요."),
     code: z.string().min(1, "인증 코드를 입력해주세요."),
-    password: z.string().min(8, "비밀번호는 8자 이상이어야 합니다."),
+    password: passwordField,
     password_confirm: z.string(),
   })
   .refine((d) => d.password === d.password_confirm, {

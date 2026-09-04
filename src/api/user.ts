@@ -1,5 +1,5 @@
 import { api } from "@/lib/fetcher";
-import type { UserLoginType } from "@/types/user";
+import type { User, UserLoginType } from "@/types/user";
 
 export interface LoginRequest {
   email: string;
@@ -62,3 +62,37 @@ export const sendResetPasswordEmailApi = (
 
 export const resetPasswordApi = (request: ResetPasswordRequest) =>
   api.post<boolean>("/api/v1/user/reset-password", request);
+
+export const getMyUserApi = () => api.get<User>("/api/v1/user/me");
+
+export interface UpdateUserRequest {
+  nickname?: string;
+  update_mask: "NICKNAME"[];
+}
+
+export const updateUserApi = (request: UpdateUserRequest) =>
+  api.put<number>("/api/v1/user/me", request);
+
+export interface CreateUserImageRequest {
+  type: "PROFILE";
+  path: string;
+  name: string;
+}
+
+export const createUserImageApi = (request: CreateUserImageRequest) =>
+  api.post<number>("/api/v1/users/images", request);
+
+export const deleteUserImageApi = (userImageId: number) =>
+  api.delete<boolean>(`/api/v1/users/images/${userImageId}`);
+
+export interface ChangePasswordRequest {
+  cur_password: string;
+  new_password: string;
+}
+
+export const changePasswordApi = (request: ChangePasswordRequest) =>
+  api.post<number>("/api/v1/user/change-password", request);
+
+export const logoutApi = () => api.post<boolean>("/api/v1/users/logout", {});
+
+export const resignApi = () => api.post<boolean>("/api/v1/user/resign", {});

@@ -4,21 +4,21 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { nicknameField, passwordField } from "@/lib/validators";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSendEmailVerificationCode } from "@/hooks/user/useSendEmailVerificationCode";
-import { useVerifyEmailVerificationCode } from "@/hooks/user/useVerifyEmailVerificationCode";
-import { useSignup } from "@/hooks/user/useSignup";
+import {
+  useSendEmailVerificationCode,
+  useVerifyEmailVerificationCode,
+  useSignup,
+} from "@/hooks/user/user";
 
 const schema = z
   .object({
     email: z.string().email("올바른 이메일을 입력해주세요."),
-    nickname: z
-      .string()
-      .min(2, "닉네임은 2자 이상이어야 합니다.")
-      .max(20, "닉네임은 20자 이하여야 합니다."),
-    password: z.string().min(8, "비밀번호는 8자 이상이어야 합니다."),
+    nickname: nicknameField,
+    password: passwordField,
     password_confirm: z.string(),
   })
   .refine((d) => d.password === d.password_confirm, {
