@@ -9,7 +9,7 @@ const PUBLIC_ONLY_ROUTES = [
   "/reset-password",
 ];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isAuthenticated = request.cookies.has("_cat");
 
