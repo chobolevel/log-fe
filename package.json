@@ -16,14 +16,25 @@
     "@stomp/stompjs": "^7.3.0",
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-query-devtools": "^5.101.4",
-    "@tiptap/extension-image": "^3.30.1",
-    "@tiptap/extension-link": "^3.30.1",
-    "@tiptap/extension-placeholder": "^3.30.1",
-    "@tiptap/react": "^3.30.1",
-    "@tiptap/starter-kit": "^3.30.1",
+    "@tiptap/core": "3.31.3",
+    "@tiptap/extension-highlight": "^3.31.3",
+    "@tiptap/extension-image": "^3.31.3",
+    "@tiptap/extension-link": "^3.31.3",
+    "@tiptap/extension-placeholder": "^3.31.3",
+    "@tiptap/extension-table": "^3.31.3",
+    "@tiptap/extension-task-item": "^3.31.3",
+    "@tiptap/extension-task-list": "^3.31.3",
+    "@tiptap/extension-text-align": "^3.31.3",
+    "@tiptap/extension-underline": "^3.31.3",
+    "@tiptap/extension-youtube": "^3.31.3",
+    "@tiptap/pm": "3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "cn": "^0.2.6",
     "cookies-next": "^6.1.1",
     "isomorphic-dompurify": "^3.22.0",
     "lucide-react": "^1.31.0",
@@ -57,5 +68,11 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@10.33.0",
+  "pnpm": {
+    "overrides": {
+      "@tiptap/core": "3.31.3",
+      "@tiptap/pm": "3.31.3"
+    }
+  }
 }
