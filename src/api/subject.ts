@@ -1,4 +1,5 @@
 import { api } from "@/lib/fetcher";
+import { buildPageQuery } from "@/lib/query";
 import type { Subject, SubjectType } from "@/types/subject";
 import type { Pageable } from "@/types/common";
 
@@ -10,12 +11,9 @@ export interface SearchSubjectParams {
 }
 
 function buildSubjectQuery(params: SearchSubjectParams): string {
-  const qs = new URLSearchParams();
-  if (params.type) qs.append("filter.type", params.type);
-  if (params.title) qs.append("filter.title", params.title);
-  qs.append("pageRequest.page", String(params.page ?? 0));
-  qs.append("pageRequest.size", String(params.size ?? 20));
-  qs.append("pageRequest.orderTypes", "CREATED_AT_DESC");
+  const qs = buildPageQuery(params);
+  if (params.type) qs.append("type", params.type);
+  if (params.title) qs.append("title", params.title);
   return qs.toString();
 }
 
