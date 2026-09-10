@@ -1,18 +1,21 @@
 "use client";
 
+import Image from "next/image";
+import { ImageIcon } from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RecordEditor } from "@/components/record/record-editor";
-import { SubjectCombobox } from "@/components/record/subject-combobox";
+import { SubjectSelectModal } from "@/components/subject/subject-select-modal";
 import { StarRating } from "@/components/record/star-rating";
 import { useCreateRecord } from "@/hooks/record/record";
 import {
   RECORD_TYPE_OPTIONS,
   RECORD_TYPE_ACTIVE_CLASSES,
 } from "@/constants/record";
+import { PILL_SIZE } from "@/constants/ui";
 import type { RecordType } from "@/types/record";
 import type { Subject } from "@/types/subject";
 
@@ -71,6 +74,7 @@ export function RecordWriteForm() {
 
   const watchType = watch("type");
   const watchIsPrivate = watch("is_private");
+  const watchSubject = watch("subject");
   const isReview = watchType === "REVIEW";
 
   const onSubmit = (values: FormValues) => {
@@ -98,7 +102,8 @@ export function RecordWriteForm() {
                 type="button"
                 onClick={() => setValue("type", value as RecordType)}
                 className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium transition-all",
+                  PILL_SIZE.md,
+                  "rounded-full font-medium transition-all",
                   watchType === value
                     ? RECORD_TYPE_ACTIVE_CLASSES[value as RecordType]
                     : "bg-muted text-muted-foreground hover:text-foreground"
@@ -120,14 +125,14 @@ export function RecordWriteForm() {
             >
               <span
                 className={cn(
-                  "relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors",
+                  "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors",
                   watchIsPrivate ? "bg-green" : "bg-input"
                 )}
               >
                 <span
                   className={cn(
-                    "inline-block h-3.5 w-3.5 translate-x-0.5 rounded-full bg-white shadow-sm transition-transform",
-                    watchIsPrivate && "translate-x-[1.125rem]"
+                    "inline-block h-4 w-4 translate-x-1 rounded-full bg-white shadow-sm transition-transform",
+                    watchIsPrivate && "translate-x-6"
                   )}
                 />
               </span>
@@ -168,41 +173,63 @@ export function RecordWriteForm() {
 
         {/* Review info (REVIEW type only) */}
         {isReview && (
-          <div className="mb-6 space-y-4 rounded-2xl bg-muted/40 px-5 py-4">
-            <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+          <div className="mb-6 rounded-2xl bg-muted/40 px-5 py-4">
+            <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
               리뷰 정보
             </p>
-            <div className="space-y-3">
-              <Controller
-                control={control}
-                name="subject"
-                render={({ field }) => (
-                  <SubjectCombobox
-                    value={field.value}
-                    onChange={field.onChange}
+            <div className="flex gap-4">
+              {/* Poster */}
+              <div className="relative h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+                {watchSubject?.images?.[0] ? (
+                  <Image
+                    src={watchSubject.images[0].url}
+                    alt={watchSubject.images[0].name}
+                    fill
+                    className="object-cover"
                   />
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-1.5 text-muted-foreground/40">
+                    <ImageIcon className="h-6 w-6" />
+                    <span className="text-[10px] leading-tight text-center px-1">
+                      포스터 없음
+                    </span>
+                  </div>
                 )}
-              />
-              {errors.subject && (
-                <p className="text-xs text-destructive">
-                  {errors.subject.message as string}
-                </p>
-              )}
-              <Controller
-                control={control}
-                name="rating"
-                render={({ field }) => (
-                  <StarRating
-                    value={field.value ?? 0}
-                    onChange={field.onChange}
-                  />
+              </div>
+
+              {/* Controls */}
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-3">
+                <Controller
+                  control={control}
+                  name="subject"
+                  render={({ field }) => (
+                    <SubjectSelectModal
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.subject && (
+                  <p className="text-xs text-destructive">
+                    {errors.subject.message as string}
+                  </p>
                 )}
-              />
-              {errors.rating && (
-                <p className="text-xs text-destructive">
-                  {errors.rating.message}
-                </p>
-              )}
+                <Controller
+                  control={control}
+                  name="rating"
+                  render={({ field }) => (
+                    <StarRating
+                      value={field.value ?? 0}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.rating && (
+                  <p className="text-xs text-destructive">
+                    {errors.rating.message}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         )}
