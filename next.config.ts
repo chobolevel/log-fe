@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "chobolevel.s3.ap-northeast-2.amazonaws.com",
+      },
+    ],
+  },
   turbopack: {
     resolveAlias: {
       // pnpm이 @tanstack/react-query를 두 개의 물리적 인스턴스로 설치해
