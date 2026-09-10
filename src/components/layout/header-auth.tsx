@@ -22,7 +22,7 @@ export function HeaderAuth() {
   const { mutate: logout, isPending } = useLogout();
 
   if (isLoading) {
-    return <Skeleton className="h-7 w-24 rounded-lg" />;
+    return <Skeleton className="h-7 w-24 rounded-full" />;
   }
 
   if (!user) {
