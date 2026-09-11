@@ -1,6 +1,8 @@
-export default function Footer() {
+import { cn } from "@/lib/utils";
+
+export default function Footer({ className }: { className?: string }) {
   return (
-    <footer className="border-t border-border">
+    <footer className={cn("border-t border-border", className)}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <span className="text-xs font-black tracking-tight text-muted-foreground">
           초로
