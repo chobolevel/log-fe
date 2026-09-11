@@ -18,7 +18,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { SUBJECT_TYPE_LABELS, SUBJECT_TYPE_OPTIONS } from "@/constants/subject";
+import {
+  SUBJECT_TYPE_LABELS,
+  SUBJECT_TYPE_OPTIONS,
+  SUBJECT_TYPE_PILL_CLASSES,
+  SUBJECT_TYPE_PLACEHOLDER,
+} from "@/constants/subject";
 import { PILL_SIZE } from "@/constants/ui";
 import { useSubjects } from "@/hooks/subject/subject";
 import { useDebounce } from "@/hooks/use-debounce";
@@ -143,8 +148,8 @@ export function SubjectSelectModal({
                 PILL_SIZE.sm,
                 "rounded-full font-medium transition-all",
                 typeFilter === option.value
-                  ? "bg-green text-green-foreground"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
+                  ? SUBJECT_TYPE_PILL_CLASSES[option.value].active
+                  : SUBJECT_TYPE_PILL_CLASSES[option.value].inactive
               )}
             >
               {option.label}
@@ -205,9 +210,14 @@ export function SubjectSelectModal({
                           sizes="(max-width: 640px) 30vw, 160px"
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-muted-foreground/30">
-                          <ImageIcon className="h-6 w-6" />
-                        </div>
+                        (() => {
+                          const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[subject.type];
+                          return (
+                            <div className={cn("flex h-full flex-col items-center justify-center gap-1.5", bg)}>
+                              <Icon className={cn("h-7 w-7 opacity-60", color)} />
+                            </div>
+                          );
+                        })()
                       )}
                       {isSelected ? (
                         <div className="absolute inset-0 flex items-center justify-center bg-green/30">
