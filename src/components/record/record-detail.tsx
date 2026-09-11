@@ -186,7 +186,7 @@ export function RecordDetail({ id }: RecordDetailProps) {
                 <AlertDialogFooter>
                   <AlertDialogCancel>취소</AlertDialogCancel>
                   <AlertDialogAction
-                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    className="bg-destructive text-white hover:bg-destructive/90"
                     disabled={isDeleting}
                     onClick={() => deleteRecord(id)}
                   >
