@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   createRecordApi,
+  deleteRecordApi,
+  getRecordApi,
   searchRecordsApi,
   type CreateRecordRequest,
   type SearchRecordParams,
@@ -13,8 +15,34 @@ import { ApiError } from "@/lib/fetcher";
 import type { Pageable } from "@/types/common";
 import type { RecordItem } from "@/types/record";
 
+export const RECORD_QUERY_KEY = (id: number) => ["records", id] as const;
+
 export const RECORDS_QUERY_KEY = (params: SearchRecordParams) =>
   ["records", params] as const;
+
+export function useRecord(id: number) {
+  return useQuery<RecordItem, ApiError>({
+    queryKey: RECORD_QUERY_KEY(id),
+    queryFn: () => getRecordApi(id),
+  });
+}
+
+export function useDeleteRecord() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation<boolean, ApiError, number>({
+    mutationFn: deleteRecordApi,
+    onSuccess: () => {
+      toast.success("기록이 삭제되었습니다.");
+      queryClient.invalidateQueries({ queryKey: ["records"] });
+      router.push("/records");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+}
 
 export function useRecords(params: SearchRecordParams) {
   return useQuery<Pageable<RecordItem>, ApiError>({
