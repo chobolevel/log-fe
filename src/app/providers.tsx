@@ -39,7 +39,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       >
         {children}
-        <Toaster richColors position="top-right" />
+        <Toaster richColors closeButton position="top-right" />
       </ThemeProvider>
       {DevTools && <DevTools initialIsOpen={false} />}
     </QueryClientProvider>
