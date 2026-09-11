@@ -31,7 +31,9 @@ export interface SearchRecordParams {
   title?: string;
   page?: number;
   size?: number;
-  orderTypes?: ("CREATED_AT_ASC" | "CREATED_AT_DESC" | "UPDATED_AT_ASC" | "UPDATED_AT_DESC")[];
+  order_types?: (
+    "CREATED_AT_ASC" | "CREATED_AT_DESC" | "UPDATED_AT_ASC" | "UPDATED_AT_DESC"
+  )[];
 }
 
 function buildRecordQuery(params: SearchRecordParams): string {

@@ -28,7 +28,7 @@ export function RecordList() {
     type: typeFilter,
     page,
     size: PAGE_SIZE,
-    orderTypes: ["CREATED_AT_DESC"],
+    order_types: ["CREATED_AT_DESC"],
   });
 
   const records = data?.data ?? [];
