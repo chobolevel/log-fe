@@ -59,45 +59,56 @@ export function RecordCard({ record }: RecordCardProps) {
       className="group block overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm"
     >
       {/* Header */}
-      <div className={cn("relative h-36 overflow-hidden", TYPE_HEADER_BG[type])}>
+      <div className={cn("relative h-36 overflow-hidden", type === "REVIEW" ? "bg-black" : TYPE_HEADER_BG[type])}>
         {type === "REVIEW" ? (
-          posterUrl ? (
-            <Image
-              src={posterUrl}
-              alt={review!.subject.title}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-          ) : review?.subject ? (
-            (() => {
-              const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[review.subject.type];
-              return (
-                <div className={cn("flex h-full flex-col items-center justify-center gap-2 px-4", bg)}>
-                  <Icon className={cn("h-8 w-8 opacity-60", color)} />
-                  <span className={cn("text-center text-[10px] font-semibold leading-tight opacity-80 line-clamp-2", color)}>
-                    {SUBJECT_TYPE_LABELS[review.subject.type]}
-                  </span>
-                </div>
-              );
-            })()
-          ) : (
-            <div className="flex h-full items-center justify-center bg-muted" />
-          )
-        ) : (
-          <div
-            className={cn(
-              "flex h-full items-center justify-center",
-              TYPE_ICON_COLOR[type]
+          <>
+            {/* 블러 배경 */}
+            {posterUrl && (
+              <Image
+                src={posterUrl}
+                alt=""
+                fill
+                aria-hidden
+                className="scale-110 object-cover opacity-40 blur-xl brightness-50"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
             )}
-          >
+            {/* 세로 비율 포스터 */}
+            <div className="absolute inset-0 flex items-center justify-center p-3">
+              {posterUrl ? (
+                <div className="relative aspect-[2/3] h-full max-h-28 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src={posterUrl}
+                    alt={review!.subject.title}
+                    fill
+                    className="object-cover"
+                    sizes="80px"
+                  />
+                </div>
+              ) : review?.subject ? (
+                (() => {
+                  const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[review.subject.type];
+                  return (
+                    <div className={cn("flex h-full w-full flex-col items-center justify-center gap-2", bg)}>
+                      <Icon className={cn("h-8 w-8 opacity-60", color)} />
+                      <span className={cn("text-[10px] font-semibold opacity-80", color)}>
+                        {SUBJECT_TYPE_LABELS[review.subject.type]}
+                      </span>
+                    </div>
+                  );
+                })()
+              ) : null}
+            </div>
+            {review && (
+              <div className="absolute right-2.5 bottom-2.5 flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                <span className="text-yellow-400">★</span>
+                {review.rating}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className={cn("flex h-full items-center justify-center", TYPE_ICON_COLOR[type])}>
             {Icon && <Icon className="h-12 w-12 opacity-15" />}
-          </div>
-        )}
-        {type === "REVIEW" && review && (
-          <div className="absolute right-2.5 bottom-2.5 flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-            <span className="text-yellow-400">★</span>
-            {review.rating}
           </div>
         )}
       </div>
