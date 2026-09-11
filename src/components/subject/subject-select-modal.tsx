@@ -97,7 +97,7 @@ export function SubjectSelectModal({
       >
         {value ? (
           <span className="flex items-center gap-2">
-            <span className="shrink-0 rounded-full bg-green-subtle px-2 py-0.5 text-xs text-green-subtle-foreground">
+            <span className={cn("shrink-0 rounded-full px-2 py-0.5 text-xs", SUBJECT_TYPE_PILL_CLASSES[value.type].active)}>
               {SUBJECT_TYPE_LABELS[value.type]}
             </span>
             <span className="truncate">{value.title}</span>

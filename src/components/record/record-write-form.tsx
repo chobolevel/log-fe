@@ -15,6 +15,7 @@ import {
   RECORD_TYPE_OPTIONS,
   RECORD_TYPE_ACTIVE_CLASSES,
 } from "@/constants/record";
+import { SUBJECT_TYPE_PLACEHOLDER } from "@/constants/subject";
 import { PILL_SIZE } from "@/constants/ui";
 import type { RecordType } from "@/types/record";
 import type { Subject } from "@/types/subject";
@@ -160,7 +161,7 @@ export function RecordWriteForm() {
           <input
             {...register("title")}
             placeholder="제목을 입력하세요"
-            className="w-full bg-transparent text-[1.75rem] font-bold leading-tight placeholder:text-muted-foreground/30 focus:outline-none"
+            className="w-full bg-transparent text-[1.75rem] leading-tight font-bold placeholder:text-muted-foreground/30 focus:outline-none"
           />
           {errors.title && (
             <p className="mt-1.5 text-xs text-destructive">
@@ -179,7 +180,7 @@ export function RecordWriteForm() {
             </p>
             <div className="flex gap-4">
               {/* Poster */}
-              <div className="relative h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+              <div className="relative h-48 w-32 shrink-0 overflow-hidden rounded-xl bg-muted">
                 {watchSubject?.images?.[0] ? (
                   <Image
                     src={watchSubject.images[0].url}
@@ -187,12 +188,18 @@ export function RecordWriteForm() {
                     fill
                     className="object-cover"
                   />
+                ) : watchSubject ? (
+                  (() => {
+                    const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[watchSubject.type];
+                    return (
+                      <div className={cn("flex h-full flex-col items-center justify-center gap-2", bg)}>
+                        <Icon className={cn("h-8 w-8 opacity-60", color)} />
+                      </div>
+                    );
+                  })()
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center gap-1.5 text-muted-foreground/40">
                     <ImageIcon className="h-6 w-6" />
-                    <span className="text-[10px] leading-tight text-center px-1">
-                      포스터 없음
-                    </span>
                   </div>
                 )}
               </div>
@@ -224,6 +231,11 @@ export function RecordWriteForm() {
                     />
                   )}
                 />
+                {watchSubject?.description && (
+                  <p className="line-clamp-3 text-xs leading-relaxed text-muted-foreground">
+                    {watchSubject.description}
+                  </p>
+                )}
                 {errors.rating && (
                   <p className="text-xs text-destructive">
                     {errors.rating.message}

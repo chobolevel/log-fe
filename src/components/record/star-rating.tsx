@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 interface StarRatingProps {
   value: number;
@@ -12,54 +11,47 @@ export function StarRating({ value, onChange }: StarRatingProps) {
   const [hover, setHover] = useState<number | null>(null);
   const display = hover ?? value;
 
+  const activeScore = hover ?? value;
+
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-2">
       <div className="flex">
         {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            type="button"
-            className="relative h-8 w-8"
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const isLeftHalf = e.clientX < rect.left + rect.width / 2;
-              setHover(isLeftHalf ? star - 0.5 : star);
-            }}
-            onMouseLeave={() => setHover(null)}
-            onClick={() => onChange(hover ?? star)}
-          >
-            {/* Empty star */}
+        <button
+          key={star}
+          type="button"
+          className="relative h-8 w-8"
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const isLeftHalf = e.clientX < rect.left + rect.width / 2;
+            setHover(isLeftHalf ? star - 0.5 : star);
+          }}
+          onMouseLeave={() => setHover(null)}
+          onClick={() => onChange(hover ?? star)}
+        >
+          <StarIcon
+            className="absolute inset-0 h-8 w-8 text-muted-foreground/30"
+            filled={false}
+          />
+          {display >= star && (
             <StarIcon
-              className="absolute inset-0 h-8 w-8 text-muted-foreground/30"
-              filled={false}
+              className="absolute inset-0 h-8 w-8 text-yellow-400"
+              filled
             />
-            {/* Full star */}
-            {display >= star && (
-              <StarIcon
-                className="absolute inset-0 h-8 w-8 text-yellow-400"
-                filled
-              />
-            )}
-            {/* Half star */}
-            {display >= star - 0.5 && display < star && (
-              <div
-                className="absolute inset-0 overflow-hidden"
-                style={{ width: "50%" }}
-              >
-                <StarIcon className="h-8 w-8 text-yellow-400" filled />
-              </div>
-            )}
-          </button>
-        ))}
+          )}
+          {display >= star - 0.5 && display < star && (
+            <div className="absolute inset-0 overflow-hidden" style={{ width: "50%" }}>
+              <StarIcon className="h-8 w-8 text-yellow-400" filled />
+            </div>
+          )}
+        </button>
+      ))}
       </div>
-      <span
-        className={cn(
-          "font-medium축 text-s축m",
-          value > 0 ? "text-foreground" : "text-muted-foreground"
-        )}
-      >
-        {value > 0 && `${value}점`}
-      </span>
+      {activeScore > 0 && (
+        <span className="text-sm font-bold tabular-nums text-yellow-500">
+          {activeScore.toFixed(1)}
+        </span>
+      )}
     </div>
   );
 }
