@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Code2, PenLine } from "lucide-react";
+import { BookOpen, Code2, Heart, PenLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -49,7 +49,7 @@ interface RecordCardProps {
 }
 
 export function RecordCard({ record }: RecordCardProps) {
-  const { id, type, title, content, writer, review, created_at } = record;
+  const { id, type, title, content, writer, review, like_count, created_at } = record;
   const posterUrl = review?.subject?.images?.[0]?.url;
   const Icon = type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
 
@@ -147,9 +147,154 @@ export function RecordCard({ record }: RecordCardProps) {
           </AvatarFallback>
         </Avatar>
         <span className="text-xs text-muted-foreground">{writer.nickname}</span>
-        <span className="ml-auto text-xs text-muted-foreground">
-          {formatDate(created_at)}
-        </span>
+        <div className="ml-auto flex items-center gap-3">
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Heart className="h-3 w-3" />
+            {like_count}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {formatDate(created_at)}
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export function RecordFeaturedCard({ record }: RecordCardProps) {
+  const { id, type, title, content, writer, review, like_count, created_at } =
+    record;
+  const posterUrl = review?.subject?.images?.[0]?.url;
+  const Icon =
+    type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
+
+  return (
+    <Link
+      href={`/records/${id}`}
+      className="group block overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-md"
+    >
+      <div className="flex flex-col sm:flex-row">
+        {/* Visual */}
+        <div
+          className={cn(
+            "relative h-44 shrink-0 sm:h-auto sm:w-52",
+            type === "REVIEW" ? "bg-black" : TYPE_HEADER_BG[type]
+          )}
+        >
+          {type === "REVIEW" ? (
+            <>
+              {posterUrl && (
+                <Image
+                  src={posterUrl}
+                  alt=""
+                  fill
+                  aria-hidden
+                  className="scale-110 object-cover opacity-40 blur-xl brightness-50"
+                  sizes="208px"
+                />
+              )}
+              <div className="absolute inset-0 flex items-center justify-center p-4">
+                {posterUrl ? (
+                  <div className="relative aspect-[2/3] h-full max-h-32 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <Image
+                      src={posterUrl}
+                      alt={review!.subject.title}
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                    />
+                  </div>
+                ) : review?.subject ? (
+                  (() => {
+                    const { bg, color, Icon } =
+                      SUBJECT_TYPE_PLACEHOLDER[review.subject.type];
+                    return (
+                      <div
+                        className={cn(
+                          "flex h-full w-full flex-col items-center justify-center gap-2",
+                          bg
+                        )}
+                      >
+                        <Icon className={cn("h-10 w-10 opacity-60", color)} />
+                        <span
+                          className={cn(
+                            "text-[10px] font-semibold opacity-80",
+                            color
+                          )}
+                        >
+                          {SUBJECT_TYPE_LABELS[review.subject.type]}
+                        </span>
+                      </div>
+                    );
+                  })()
+                ) : null}
+              </div>
+              {review && (
+                <div className="absolute right-2.5 bottom-2.5 flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                  <span className="text-yellow-400">★</span>
+                  {review.rating}
+                </div>
+              )}
+            </>
+          ) : (
+            <div
+              className={cn(
+                "flex h-full items-center justify-center",
+                TYPE_ICON_COLOR[type]
+              )}
+            >
+              {Icon && <Icon className="h-20 w-20 opacity-10" />}
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col p-5">
+          <div className="mb-3 flex items-center gap-2">
+            <span
+              className={cn(
+                "shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-medium",
+                RECORD_TYPE_SUBTLE_CLASSES[type]
+              )}
+            >
+              {RECORD_TYPE_LABELS[type]}
+            </span>
+            {type === "REVIEW" && review?.subject && (
+              <span className="truncate text-xs text-muted-foreground">
+                {review.subject.title}
+              </span>
+            )}
+          </div>
+          <h3 className="mb-2 line-clamp-2 text-lg leading-snug font-bold tracking-tight">
+            {title}
+          </h3>
+          <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+            {stripHtml(content) || " "}
+          </p>
+          <div className="mt-4 flex items-center gap-2 border-t border-border/40 pt-3">
+            <Avatar className="h-6 w-6">
+              <AvatarImage
+                src={writer.profile_image?.url}
+                alt={writer.nickname}
+              />
+              <AvatarFallback className="text-[9px] font-bold">
+                {writer.nickname.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <span className="text-sm text-muted-foreground">
+              {writer.nickname}
+            </span>
+            <div className="ml-auto flex items-center gap-3">
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Heart className="h-3 w-3" />
+                {like_count}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {formatDate(created_at)}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </Link>
   );
