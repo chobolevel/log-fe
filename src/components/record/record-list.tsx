@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,10 +19,12 @@ import type { RecordType } from "@/types/record";
 const PAGE_SIZE = 12;
 
 export function RecordList() {
-  const [typeFilter, setTypeFilter] = useState<RecordType | undefined>(
-    undefined
-  );
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const typeFilter = (searchParams.get("type") as RecordType) || undefined;
+  const page = Math.max(1, Number(searchParams.get("page") || "1"));
 
   const { data, isFetching } = useRecords({
     type: typeFilter,
@@ -34,10 +36,20 @@ export function RecordList() {
   const records = data?.data ?? [];
   const totalPages = Math.ceil((data?.total_count ?? 0) / PAGE_SIZE);
 
-  const handleTypeChange = (type: RecordType | undefined) => {
-    setTypeFilter(type);
-    setPage(1);
+  const updateParams = (type: RecordType | undefined, nextPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (type) params.set("type", type);
+    else params.delete("type");
+    if (nextPage > 1) params.set("page", String(nextPage));
+    else params.delete("page");
+    router.replace(`${pathname}?${params.toString()}`);
   };
+
+  const handleTypeChange = (type: RecordType | undefined) =>
+    updateParams(type, 1);
+
+  const handlePageChange = (nextPage: number) =>
+    updateParams(typeFilter, nextPage);
 
   return (
     <div className="w-full">
@@ -107,7 +119,7 @@ export function RecordList() {
             variant="ghost"
             size="sm"
             disabled={page === 1 || isFetching}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => handlePageChange(page - 1)}
           >
             <ChevronLeft className="h-4 w-4" />
             이전
@@ -119,7 +131,7 @@ export function RecordList() {
             variant="ghost"
             size="sm"
             disabled={page >= totalPages || isFetching}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => handlePageChange(page + 1)}
           >
             다음
             <ChevronRight className="h-4 w-4" />

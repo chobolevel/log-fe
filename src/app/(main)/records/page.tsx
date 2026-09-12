@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { RecordList } from "@/components/record/record-list";
 
 export default function RecordsPage() {
@@ -9,7 +10,9 @@ export default function RecordsPage() {
           모든 기록을 둘러보세요.
         </p>
       </div>
-      <RecordList />
+      <Suspense>
+        <RecordList />
+      </Suspense>
     </div>
   );
 }
