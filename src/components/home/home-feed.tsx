@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import {
   RecordCard,
   RecordCardSkeleton,
+  RecordFeaturedCard,
 } from "@/components/record/record-card";
 import { useRecords } from "@/hooks/record/record";
 import type { RecordType } from "@/types/record";
@@ -48,6 +49,42 @@ const SECTIONS: SectionDef[] = [
     bg: "bg-record-review-subtle",
   },
 ];
+
+function FeaturedSection() {
+  const { data, isFetching } = useRecords({
+    size: 1,
+    order_types: ["CREATED_AT_DESC"],
+  });
+  const record = data?.data?.[0];
+
+  if (isFetching) {
+    return (
+      <section className="mb-10">
+        <div className="mb-4 flex items-center gap-2">
+          <span className="h-1 w-4 rounded-full bg-green" />
+          <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
+            최신 기록
+          </span>
+        </div>
+        <div className="h-44 animate-pulse rounded-2xl bg-muted sm:h-40" />
+      </section>
+    );
+  }
+
+  if (!record) return null;
+
+  return (
+    <section className="mb-10">
+      <div className="mb-4 flex items-center gap-2">
+        <span className="h-1 w-4 rounded-full bg-green" />
+        <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
+          최신 기록
+        </span>
+      </div>
+      <RecordFeaturedCard record={record} />
+    </section>
+  );
+}
 
 function TypeSection({ type, label, icon: Icon, color, bg }: SectionDef) {
   const { data, isFetching } = useRecords({
@@ -100,6 +137,7 @@ function TypeSection({ type, label, icon: Icon, color, bg }: SectionDef) {
 export default function HomeFeed() {
   return (
     <div>
+      <FeaturedSection />
       {SECTIONS.map((section) => (
         <TypeSection key={section.type} {...section} />
       ))}
