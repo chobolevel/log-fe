@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Heart, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Heart, Pencil, Share2, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,16 @@ import {
 import { useRecord, useDeleteRecord, useIsLiked, useToggleLike } from "@/hooks/record/record";
 import { useMe } from "@/hooks/user/user";
 import type { RecordType } from "@/types/record";
+
+async function shareRecord(title: string) {
+  const url = window.location.href;
+  if (navigator.share) {
+    await navigator.share({ title, url });
+  } else {
+    await navigator.clipboard.writeText(url);
+    toast.success("링크가 복사되었습니다.");
+  }
+}
 
 function formatDate(timestamp: number): string {
   const d = new Date(timestamp);
@@ -67,7 +78,37 @@ export function RecordDetail({ id }: RecordDetailProps) {
   const isAuthor = me?.id === writer.id;
   const posterUrl = review?.subject?.images?.[0]?.url;
 
+  const likeButtonClass = cn(
+    "flex flex-col items-center gap-1 transition-colors",
+    isLiked ? "text-rose-500" : "text-muted-foreground hover:text-rose-500",
+    !me && "cursor-default"
+  );
+
   return (
+    <>
+    {/* 플로팅 액션 패널 */}
+    <div className="fixed right-4 top-1/3 z-10 -translate-y-1/2 xl:right-6">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-border/60 bg-background/80 px-3 py-4 shadow-sm backdrop-blur-sm">
+        <button
+          type="button"
+          disabled={!me || isTogglingLike}
+          onClick={() => me && toggleLike(!!isLiked)}
+          className={likeButtonClass}
+        >
+          <Heart className={cn("h-5 w-5", isLiked && "fill-rose-500")} />
+          <span className="text-xs font-medium">{record.like_count}</span>
+        </button>
+        <div className="h-px w-6 bg-border/60" />
+        <button
+          type="button"
+          onClick={() => shareRecord(title)}
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <Share2 className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+
     <article className="mx-auto w-full max-w-3xl px-4 py-6 md:px-6 md:py-10">
       {/* 뒤로가기 */}
       <Link
@@ -201,25 +242,6 @@ export function RecordDetail({ id }: RecordDetailProps) {
         )}
       </div>
 
-      {/* 좋아요 */}
-      <div className="mb-8 flex items-center gap-2">
-        <button
-          type="button"
-          disabled={!me || isTogglingLike}
-          onClick={() => me && toggleLike(!!isLiked)}
-          className={cn(
-            "flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-            isLiked
-              ? "border-rose-300 bg-rose-50 text-rose-500"
-              : "border-border bg-background text-muted-foreground hover:border-rose-300 hover:bg-rose-50 hover:text-rose-500",
-            !me && "cursor-default"
-          )}
-        >
-          <Heart className={cn("h-4 w-4", isLiked && "fill-rose-500")} />
-          <span>{record.like_count}</span>
-        </button>
-      </div>
-
       {/* 태그 */}
       {tags.length > 0 && (
         <div className="mb-8 flex flex-wrap gap-2">
@@ -239,7 +261,9 @@ export function RecordDetail({ id }: RecordDetailProps) {
         className="ProseMirror !min-h-0 !p-0"
         dangerouslySetInnerHTML={{ __html: content }}
       />
+
     </article>
+    </>
   );
 }
 
