@@ -8,6 +8,7 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RecordEditor } from "@/components/record/record-editor";
+import { TagInput } from "@/components/record/tag-input";
 import { SubjectSelectModal } from "@/components/subject/subject-select-modal";
 import { StarRating } from "@/components/record/star-rating";
 import { useCreateRecord } from "@/hooks/record/record";
@@ -29,6 +30,7 @@ const schema = z
       .max(200, "제목은 200자 이하여야 합니다."),
     content: z.string().min(1, "내용을 입력해주세요."),
     is_private: z.boolean(),
+    tags: z.array(z.string()),
     subject: z.custom<Subject>().optional(),
     rating: z.number().min(0.5).max(5).optional(),
   })
@@ -70,6 +72,7 @@ export function RecordWriteForm() {
       title: "",
       content: "",
       is_private: false,
+      tags: [],
     },
   });
 
@@ -84,6 +87,7 @@ export function RecordWriteForm() {
       title: values.title,
       content: values.content,
       is_private: values.is_private,
+      tags: values.tags,
       ...(isReview && values.subject && values.rating
         ? { review: { subject_id: values.subject.id, rating: values.rating } }
         : {}),
@@ -170,7 +174,18 @@ export function RecordWriteForm() {
           )}
         </div>
 
-        <div className="mb-8 h-px bg-border/60" />
+        <div className="mb-4 h-px bg-border/60" />
+
+        {/* 태그 */}
+        <div className="mb-6">
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field }) => (
+              <TagInput value={field.value} onChange={field.onChange} />
+            )}
+          />
+        </div>
 
         {/* Review info (REVIEW type only) */}
         {isReview && (

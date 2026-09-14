@@ -63,7 +63,7 @@ export function RecordDetail({ id }: RecordDetailProps) {
     );
   }
 
-  const { type, title, content, writer, review, created_at } = record;
+  const { type, title, content, writer, review, tags, created_at } = record;
   const isAuthor = me?.id === writer.id;
   const posterUrl = review?.subject?.images?.[0]?.url;
 
@@ -219,6 +219,20 @@ export function RecordDetail({ id }: RecordDetailProps) {
           <span>{record.like_count}</span>
         </button>
       </div>
+
+      {/* 태그 */}
+      {tags.length > 0 && (
+        <div className="mb-8 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-green-subtle px-3 py-1 text-xs font-medium text-green-subtle-foreground"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* 본문 */}
       <div

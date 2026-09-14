@@ -13,6 +13,7 @@ export interface CreateRecordRequest {
   title: string;
   content: string;
   is_private: boolean;
+  tags: string[];
   review?: CreateRecordReviewRequest;
 }
 
@@ -21,14 +22,16 @@ export interface UpdateRecordRequest {
   title?: string;
   content?: string;
   is_private?: boolean;
+  tags?: string[];
   review?: CreateRecordReviewRequest;
-  update_mask: ("TYPE" | "TITLE" | "CONTENT" | "IS_PRIVATE")[];
+  update_mask: ("TYPE" | "TITLE" | "CONTENT" | "IS_PRIVATE" | "TAGS")[];
 }
 
 export interface SearchRecordParams {
   userId?: number;
   type?: RecordType;
   title?: string;
+  tag_name?: string;
   page?: number;
   size?: number;
   order_types?: (
@@ -41,6 +44,7 @@ function buildRecordQuery(params: SearchRecordParams): string {
   if (params.userId) qs.append("userId", String(params.userId));
   if (params.type) qs.append("type", params.type);
   if (params.title) qs.append("title", params.title);
+  if (params.tag_name) qs.append("tagName", params.tag_name);
   return qs.toString();
 }
 

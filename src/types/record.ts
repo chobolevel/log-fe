@@ -18,6 +18,7 @@ export interface RecordItem {
   title: string;
   content: string;
   is_private: boolean;
+  tags: string[];
   review?: RecordReviewItem;
   like_count: number;
   created_at: number;

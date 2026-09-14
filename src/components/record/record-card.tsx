@@ -53,6 +53,8 @@ export function RecordCard({ record }: RecordCardProps) {
   const posterUrl = review?.subject?.images?.[0]?.url;
   const Icon = type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
 
+  const visibleTags = record.tags.slice(0, 3);
+
   return (
     <Link
       href={`/records/${id}`}
@@ -133,9 +135,21 @@ export function RecordCard({ record }: RecordCardProps) {
         <h3 className="mb-1.5 line-clamp-2 text-sm font-bold leading-snug">
           {title}
         </h3>
-        <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+        <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
           {stripHtml(content) || " "}
         </p>
+        {visibleTags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {visibleTags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-green-subtle px-2 py-0.5 text-[10px] text-green-subtle-foreground"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Footer */}

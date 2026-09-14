@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RecordEditor } from "@/components/record/record-editor";
+import { TagInput } from "@/components/record/tag-input";
 import { SubjectSelectModal } from "@/components/subject/subject-select-modal";
 import { StarRating } from "@/components/record/star-rating";
 import { useRecord, useUpdateRecord } from "@/hooks/record/record";
@@ -30,6 +31,7 @@ const schema = z
       .max(200, "제목은 200자 이하여야 합니다."),
     content: z.string().min(1, "내용을 입력해주세요."),
     is_private: z.boolean(),
+    tags: z.array(z.string()),
     subject: z.custom<Subject>().optional(),
     rating: z.number().min(0.5).max(5).optional(),
   })
@@ -77,6 +79,7 @@ export function RecordEditForm({ id }: RecordEditFormProps) {
           title: record.title,
           content: record.content,
           is_private: record.is_private,
+          tags: record.tags,
           subject: record.review?.subject,
           rating: record.review?.rating,
         }
@@ -94,7 +97,8 @@ export function RecordEditForm({ id }: RecordEditFormProps) {
       title: values.title,
       content: values.content,
       is_private: values.is_private,
-      update_mask: ["TYPE", "TITLE", "CONTENT", "IS_PRIVATE"],
+      tags: values.tags,
+      update_mask: ["TYPE", "TITLE", "CONTENT", "IS_PRIVATE", "TAGS"],
       ...(isReview && values.subject && values.rating
         ? { review: { subject_id: values.subject.id, rating: values.rating } }
         : {}),
@@ -183,7 +187,18 @@ export function RecordEditForm({ id }: RecordEditFormProps) {
           )}
         </div>
 
-        <div className="mb-8 h-px bg-border/60" />
+        <div className="mb-4 h-px bg-border/60" />
+
+        {/* 태그 */}
+        <div className="mb-6">
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field }) => (
+              <TagInput value={field.value} onChange={field.onChange} />
+            )}
+          />
+        </div>
 
         {/* Review info (REVIEW type only) */}
         {isReview && (
