@@ -58,3 +58,12 @@ export const deleteRecordApi = (id: number) =>
 
 export const searchRecordsApi = (params: SearchRecordParams) =>
   api.get<Pageable<RecordItem>>(`/api/v1/records?${buildRecordQuery(params)}`);
+
+export const likeRecordApi = (id: number) =>
+  api.post<number>(`/api/v1/records/${id}/like`, {});
+
+export const dislikeRecordApi = (id: number) =>
+  api.post<number>(`/api/v1/records/${id}/dislike`, {});
+
+export const getIsLikedApi = (id: number) =>
+  api.get<boolean>(`/api/v1/records/${id}/likes/me`);

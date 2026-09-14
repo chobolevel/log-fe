@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Heart, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ import {
   SUBJECT_TYPE_LABELS,
   SUBJECT_TYPE_PLACEHOLDER,
 } from "@/constants/subject";
-import { useRecord, useDeleteRecord } from "@/hooks/record/record";
+import { useRecord, useDeleteRecord, useIsLiked, useToggleLike } from "@/hooks/record/record";
 import { useMe } from "@/hooks/user/user";
 import type { RecordType } from "@/types/record";
 
@@ -45,6 +45,8 @@ export function RecordDetail({ id }: RecordDetailProps) {
   const router = useRouter();
   const { data: record, isLoading, isError } = useRecord(id);
   const { data: me } = useMe();
+  const { data: isLiked } = useIsLiked(id);
+  const { mutate: toggleLike, isPending: isTogglingLike } = useToggleLike(id);
   const { mutate: deleteRecord, isPending: isDeleting } = useDeleteRecord();
 
   if (isLoading) return <RecordDetailSkeleton />;
@@ -197,6 +199,25 @@ export function RecordDetail({ id }: RecordDetailProps) {
             </AlertDialog>
           </div>
         )}
+      </div>
+
+      {/* 좋아요 */}
+      <div className="mb-8 flex items-center gap-2">
+        <button
+          type="button"
+          disabled={!me || isTogglingLike}
+          onClick={() => me && toggleLike(!!isLiked)}
+          className={cn(
+            "flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+            isLiked
+              ? "border-rose-300 bg-rose-50 text-rose-500"
+              : "border-border bg-background text-muted-foreground hover:border-rose-300 hover:bg-rose-50 hover:text-rose-500",
+            !me && "cursor-default"
+          )}
+        >
+          <Heart className={cn("h-4 w-4", isLiked && "fill-rose-500")} />
+          <span>{record.like_count}</span>
+        </button>
       </div>
 
       {/* 본문 */}

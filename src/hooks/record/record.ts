@@ -6,12 +6,16 @@ import { toast } from "sonner";
 import {
   createRecordApi,
   deleteRecordApi,
+  dislikeRecordApi,
+  getIsLikedApi,
   getRecordApi,
+  likeRecordApi,
   searchRecordsApi,
   type CreateRecordRequest,
   type SearchRecordParams,
 } from "@/api/record";
 import { ApiError } from "@/lib/fetcher";
+import { useMe } from "@/hooks/user/user";
 import type { Pageable } from "@/types/common";
 import type { RecordItem } from "@/types/record";
 
@@ -24,6 +28,30 @@ export function useRecord(id: number) {
   return useQuery<RecordItem, ApiError>({
     queryKey: RECORD_QUERY_KEY(id),
     queryFn: () => getRecordApi(id),
+  });
+}
+
+export function useIsLiked(id: number) {
+  const { data: me } = useMe();
+  return useQuery<boolean, ApiError>({
+    queryKey: ["records", id, "liked"],
+    queryFn: () => getIsLikedApi(id),
+    enabled: !!me,
+  });
+}
+
+export function useToggleLike(id: number) {
+  const queryClient = useQueryClient();
+
+  return useMutation<number, ApiError, boolean>({
+    mutationFn: (isLiked) => isLiked ? dislikeRecordApi(id) : likeRecordApi(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["records", id] });
+      queryClient.invalidateQueries({ queryKey: ["records"], exact: false });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 }
 
