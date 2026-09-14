@@ -11,8 +11,10 @@ import {
   getRecordApi,
   likeRecordApi,
   searchRecordsApi,
+  updateRecordApi,
   type CreateRecordRequest,
   type SearchRecordParams,
+  type UpdateRecordRequest,
 } from "@/api/record";
 import { ApiError } from "@/lib/fetcher";
 import { useMe } from "@/hooks/user/user";
@@ -77,6 +79,23 @@ export function useRecords(params: SearchRecordParams) {
     queryKey: RECORDS_QUERY_KEY(params),
     queryFn: () => searchRecordsApi(params),
     placeholderData: keepPreviousData,
+  });
+}
+
+export function useUpdateRecord(id: number) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation<number, ApiError, UpdateRecordRequest>({
+    mutationFn: (request) => updateRecordApi(id, request),
+    onSuccess: () => {
+      toast.success("기록이 수정되었습니다.");
+      queryClient.invalidateQueries({ queryKey: ["records"] });
+      router.push(`/records/${id}`);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 }
 
