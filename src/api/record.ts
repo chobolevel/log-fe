@@ -8,6 +8,11 @@ export interface CreateRecordReviewRequest {
   rating: number;
 }
 
+export interface CreateRecordEmotionRequest {
+  emotion_id: number;
+  intensity: number;
+}
+
 export interface CreateRecordRequest {
   type: RecordType;
   title: string;
@@ -15,6 +20,7 @@ export interface CreateRecordRequest {
   is_private: boolean;
   tags: string[];
   review?: CreateRecordReviewRequest;
+  emotion?: CreateRecordEmotionRequest;
 }
 
 export interface UpdateRecordRequest {
@@ -24,6 +30,7 @@ export interface UpdateRecordRequest {
   is_private?: boolean;
   tags?: string[];
   review?: CreateRecordReviewRequest;
+  emotion?: CreateRecordEmotionRequest;
   update_mask: ("TYPE" | "TITLE" | "CONTENT" | "IS_PRIVATE" | "TAGS")[];
 }
 
