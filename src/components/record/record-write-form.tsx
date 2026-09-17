@@ -11,6 +11,8 @@ import { RecordEditor } from "@/components/record/record-editor";
 import { TagInput } from "@/components/record/tag-input";
 import { SubjectSelectModal } from "@/components/subject/subject-select-modal";
 import { StarRating } from "@/components/record/star-rating";
+import { EmotionSelectTable } from "@/components/record/emotion-select-table";
+import { IntensityDots } from "@/components/record/intensity-dots";
 import { useCreateRecord } from "@/hooks/record/record";
 import {
   RECORD_TYPE_OPTIONS,
@@ -20,6 +22,7 @@ import { SUBJECT_TYPE_PLACEHOLDER } from "@/constants/subject";
 import { PILL_SIZE } from "@/constants/ui";
 import type { RecordType } from "@/types/record";
 import type { Subject } from "@/types/subject";
+import type { Emotion } from "@/types/emotion";
 
 const schema = z
   .object({
@@ -33,6 +36,8 @@ const schema = z
     tags: z.array(z.string()),
     subject: z.custom<Subject>().optional(),
     rating: z.number().min(0.5).max(5).optional(),
+    emotion: z.custom<Emotion>().optional(),
+    intensity: z.number().min(1).max(10).optional(),
   })
   .superRefine((data, ctx) => {
     if (data.type === "REVIEW") {
@@ -48,6 +53,22 @@ const schema = z
           code: z.ZodIssueCode.custom,
           message: "별점을 선택해주세요.",
           path: ["rating"],
+        });
+      }
+    }
+    if (data.type === "DIARY") {
+      if (!data.emotion) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "감정을 선택해주세요.",
+          path: ["emotion"],
+        });
+      }
+      if (!data.intensity) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "감정의 강도를 선택해주세요.",
+          path: ["intensity"],
         });
       }
     }
@@ -80,6 +101,7 @@ export function RecordWriteForm() {
   const watchIsPrivate = watch("is_private");
   const watchSubject = watch("subject");
   const isReview = watchType === "REVIEW";
+  const isDiary = watchType === "DIARY";
 
   const onSubmit = (values: FormValues) => {
     createRecord({
@@ -90,6 +112,14 @@ export function RecordWriteForm() {
       tags: values.tags,
       ...(isReview && values.subject && values.rating
         ? { review: { subject_id: values.subject.id, rating: values.rating } }
+        : {}),
+      ...(isDiary && values.emotion && values.intensity
+        ? {
+            emotion: {
+              emotion_id: values.emotion.id,
+              intensity: values.intensity,
+            },
+          }
         : {}),
     });
   };
@@ -205,9 +235,15 @@ export function RecordWriteForm() {
                   />
                 ) : watchSubject ? (
                   (() => {
-                    const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[watchSubject.type];
+                    const { bg, color, Icon } =
+                      SUBJECT_TYPE_PLACEHOLDER[watchSubject.type];
                     return (
-                      <div className={cn("flex h-full flex-col items-center justify-center gap-2", bg)}>
+                      <div
+                        className={cn(
+                          "flex h-full flex-col items-center justify-center gap-2",
+                          bg
+                        )}
+                      >
                         <Icon className={cn("h-8 w-8 opacity-60", color)} />
                       </div>
                     );
@@ -258,6 +294,48 @@ export function RecordWriteForm() {
                 )}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Emotion info (DIARY type only) */}
+        {isDiary && (
+          <div className="mb-6 rounded-2xl bg-muted/40 px-5 py-4">
+            <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+              오늘의 감정
+            </p>
+            <Controller
+              control={control}
+              name="emotion"
+              render={({ field }) => (
+                <EmotionSelectTable
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            {errors.emotion && (
+              <p className="mt-2 text-xs text-destructive">
+                {errors.emotion.message as string}
+              </p>
+            )}
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-xs text-muted-foreground">강도</span>
+              <Controller
+                control={control}
+                name="intensity"
+                render={({ field }) => (
+                  <IntensityDots
+                    value={field.value ?? 0}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+            </div>
+            {errors.intensity && (
+              <p className="mt-1.5 text-xs text-destructive">
+                {errors.intensity.message}
+              </p>
+            )}
           </div>
         )}
 
