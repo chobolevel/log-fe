@@ -13,6 +13,7 @@ import {
   SUBJECT_TYPE_LABELS,
   SUBJECT_TYPE_PLACEHOLDER,
 } from "@/constants/subject";
+import { EMOTION_CATEGORY_TYPE_CLASSES } from "@/constants/emotion";
 import type { RecordItem, RecordType } from "@/types/record";
 
 const TYPE_HEADER_BG: Record<RecordType, string> = {
@@ -35,8 +36,39 @@ const TYPE_ICON = {
   DIARY: BookOpen,
 } as const;
 
+function EmotionBadge({
+  emotion,
+}: {
+  emotion: NonNullable<RecordItem["emotion"]>;
+}) {
+  const { bg, text } =
+    EMOTION_CATEGORY_TYPE_CLASSES[emotion.emotion.emotion_category.type];
+  return (
+    <span
+      className={cn(
+        "flex items-center gap-1.5 truncate rounded-full px-2 py-0.5 text-[10px] font-medium",
+        bg,
+        text
+      )}
+    >
+      {emotion.emotion.name}
+      <span
+        className={cn(
+          "flex h-3.5 min-w-3.5 shrink-0 items-center justify-center rounded-full bg-white px-0.5 text-[9px] font-bold tabular-nums shadow-sm",
+          text
+        )}
+      >
+        {emotion.intensity}
+      </span>
+    </span>
+  );
+}
+
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function formatDate(timestamp: number): string {
@@ -49,9 +81,20 @@ interface RecordCardProps {
 }
 
 export function RecordCard({ record }: RecordCardProps) {
-  const { id, type, title, content, writer, review, like_count, created_at } = record;
+  const {
+    id,
+    type,
+    title,
+    content,
+    writer,
+    review,
+    emotion,
+    like_count,
+    created_at,
+  } = record;
   const posterUrl = review?.subject?.images?.[0]?.url;
-  const Icon = type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
+  const Icon =
+    type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
 
   const visibleTags = record.tags.slice(0, 3);
 
@@ -61,7 +104,12 @@ export function RecordCard({ record }: RecordCardProps) {
       className="group block overflow-hidden rounded-2xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-sm"
     >
       {/* Header */}
-      <div className={cn("relative h-36 overflow-hidden", type === "REVIEW" ? "bg-black" : TYPE_HEADER_BG[type])}>
+      <div
+        className={cn(
+          "relative h-36 overflow-hidden",
+          type === "REVIEW" ? "bg-black" : TYPE_HEADER_BG[type]
+        )}
+      >
         {type === "REVIEW" ? (
           <>
             {/* 블러 배경 */}
@@ -89,11 +137,22 @@ export function RecordCard({ record }: RecordCardProps) {
                 </div>
               ) : review?.subject ? (
                 (() => {
-                  const { bg, color, Icon } = SUBJECT_TYPE_PLACEHOLDER[review.subject.type];
+                  const { bg, color, Icon } =
+                    SUBJECT_TYPE_PLACEHOLDER[review.subject.type];
                   return (
-                    <div className={cn("flex h-full w-full flex-col items-center justify-center gap-2", bg)}>
+                    <div
+                      className={cn(
+                        "flex h-full w-full flex-col items-center justify-center gap-2",
+                        bg
+                      )}
+                    >
                       <Icon className={cn("h-8 w-8 opacity-60", color)} />
-                      <span className={cn("text-[10px] font-semibold opacity-80", color)}>
+                      <span
+                        className={cn(
+                          "text-[10px] font-semibold opacity-80",
+                          color
+                        )}
+                      >
                         {SUBJECT_TYPE_LABELS[review.subject.type]}
                       </span>
                     </div>
@@ -109,7 +168,12 @@ export function RecordCard({ record }: RecordCardProps) {
             )}
           </>
         ) : (
-          <div className={cn("flex h-full items-center justify-center", TYPE_ICON_COLOR[type])}>
+          <div
+            className={cn(
+              "flex h-full items-center justify-center",
+              TYPE_ICON_COLOR[type]
+            )}
+          >
             {Icon && <Icon className="h-12 w-12 opacity-15" />}
           </div>
         )}
@@ -131,8 +195,9 @@ export function RecordCard({ record }: RecordCardProps) {
               {review.subject.title}
             </span>
           )}
+          {type === "DIARY" && emotion && <EmotionBadge emotion={emotion} />}
         </div>
-        <h3 className="mb-1.5 line-clamp-2 text-sm font-bold leading-snug">
+        <h3 className="mb-1.5 line-clamp-2 text-sm leading-snug font-bold">
           {title}
         </h3>
         <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
@@ -176,8 +241,17 @@ export function RecordCard({ record }: RecordCardProps) {
 }
 
 export function RecordFeaturedCard({ record }: RecordCardProps) {
-  const { id, type, title, content, writer, review, like_count, created_at } =
-    record;
+  const {
+    id,
+    type,
+    title,
+    content,
+    writer,
+    review,
+    emotion,
+    like_count,
+    created_at,
+  } = record;
   const posterUrl = review?.subject?.images?.[0]?.url;
   const Icon =
     type !== "REVIEW" ? TYPE_ICON[type as keyof typeof TYPE_ICON] : null;
@@ -278,6 +352,7 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
                 {review.subject.title}
               </span>
             )}
+            {type === "DIARY" && emotion && <EmotionBadge emotion={emotion} />}
           </div>
           <h3 className="mb-2 line-clamp-2 text-lg leading-snug font-bold tracking-tight">
             {title}
