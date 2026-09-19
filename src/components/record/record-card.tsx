@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Code2, Heart, PenLine } from "lucide-react";
+import { BookOpen, Code2, Eye, Heart, PenLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -90,6 +90,7 @@ export function RecordCard({ record }: RecordCardProps) {
     review,
     emotion,
     like_count,
+    view_count,
     created_at,
   } = record;
   const posterUrl = review?.subject?.images?.[0]?.url;
@@ -228,6 +229,10 @@ export function RecordCard({ record }: RecordCardProps) {
         <span className="text-xs text-muted-foreground">{writer.nickname}</span>
         <div className="ml-auto flex items-center gap-3">
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Eye className="h-3 w-3" />
+            {view_count}
+          </span>
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <Heart className="h-3 w-3" />
             {like_count}
           </span>
@@ -250,6 +255,7 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
     review,
     emotion,
     like_count,
+    view_count,
     created_at,
   } = record;
   const posterUrl = review?.subject?.images?.[0]?.url;
@@ -374,6 +380,10 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
               {writer.nickname}
             </span>
             <div className="ml-auto flex items-center gap-3">
+              <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Eye className="h-3 w-3" />
+                {view_count}
+              </span>
               <span className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Heart className="h-3 w-3" />
                 {like_count}

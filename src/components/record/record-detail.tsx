@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Heart, Pencil, Share2, Trash2 } from "lucide-react";
+import { ArrowLeft, Eye, Heart, Pencil, Share2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import hljs from "highlight.js";
 import { cn } from "@/lib/utils";
@@ -97,8 +97,17 @@ export function RecordDetail({ id }: RecordDetailProps) {
     );
   }
 
-  const { type, title, content, writer, review, emotion, tags, created_at } =
-    record;
+  const {
+    type,
+    title,
+    content,
+    writer,
+    review,
+    emotion,
+    tags,
+    created_at,
+    view_count,
+  } = record;
   const isAuthor = me?.id === writer.id;
   const posterUrl = review?.subject?.images?.[0]?.url;
 
@@ -257,8 +266,12 @@ export function RecordDetail({ id }: RecordDetailProps) {
           </Avatar>
           <div className="flex flex-col">
             <span className="text-sm font-semibold">{writer.nickname}</span>
-            <span className="text-xs text-muted-foreground">
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               {formatDate(created_at)}
+              <span className="flex items-center gap-0.5">
+                <Eye className="h-3 w-3" />
+                {view_count}
+              </span>
             </span>
           </div>
 

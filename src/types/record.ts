@@ -31,6 +31,7 @@ export interface RecordItem {
   review?: RecordReviewItem;
   emotion?: RecordEmotionItem;
   like_count: number;
+  view_count: number;
   created_at: number;
   updated_at: number;
 }
