@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -27,10 +28,24 @@ export const RECORDS_QUERY_KEY = (params: SearchRecordParams) =>
   ["records", params] as const;
 
 export function useRecord(id: number) {
-  return useQuery<RecordItem, ApiError>({
+  const queryClient = useQueryClient();
+  const query = useQuery<RecordItem, ApiError>({
     queryKey: RECORD_QUERY_KEY(id),
     queryFn: () => getRecordApi(id),
   });
+
+  // 상세 조회 시 서버에서 조회수가 증가하므로, 목록 캐시(조회수 표시)를 stale 처리해 재방문 시 최신화되도록 한다.
+  // 목록 조회 쿼리(queryKey: ["records", params])만 대상으로 하고, 이 훅이 구독 중인 단건 조회 쿼리는 제외해
+  // 재조회로 인한 조회수 중복 증가를 방지한다.
+  useEffect(() => {
+    if (!query.data) return;
+    queryClient.invalidateQueries({
+      predicate: (q) =>
+        q.queryKey[0] === "records" && typeof q.queryKey[1] === "object",
+    });
+  }, [query.data, queryClient]);
+
+  return query;
 }
 
 export function useIsLiked(id: number) {
