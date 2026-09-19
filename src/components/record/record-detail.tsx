@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Heart, Pencil, Share2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import hljs from "highlight.js";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -65,6 +67,17 @@ export function RecordDetail({ id }: RecordDetailProps) {
   const { data: isLiked } = useIsLiked(id);
   const { mutate: toggleLike, isPending: isTogglingLike } = useToggleLike(id);
   const { mutate: deleteRecord, isPending: isDeleting } = useDeleteRecord();
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    contentRef.current
+      .querySelectorAll<HTMLElement>("pre code")
+      .forEach((block) => {
+        delete block.dataset.highlighted;
+        hljs.highlightElement(block);
+      });
+  }, [record?.content]);
 
   if (isLoading) return <RecordDetailSkeleton />;
 
@@ -304,6 +317,7 @@ export function RecordDetail({ id }: RecordDetailProps) {
 
         {/* 본문 */}
         <div
+          ref={contentRef}
           className="ProseMirror !min-h-0 !p-0"
           dangerouslySetInnerHTML={{ __html: content }}
         />

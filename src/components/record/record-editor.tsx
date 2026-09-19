@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, ReactNodeViewRenderer } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Image as TiptapImage } from "@tiptap/extension-image";
@@ -15,9 +15,12 @@ import {
   TableCell,
 } from "@tiptap/extension-table";
 import Youtube from "@tiptap/extension-youtube";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
+import { createLowlight, common } from "lowlight";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { CodeBlockView } from "@/components/record/code-block-view";
 import { getPresignedUrlApi } from "@/api/upload";
 import {
   Bold,
@@ -137,6 +140,14 @@ function InlineInput({
   );
 }
 
+const lowlight = createLowlight(common);
+
+const CodeBlockLowlightWithView = CodeBlockLowlight.extend({
+  addNodeView() {
+    return ReactNodeViewRenderer(CodeBlockView);
+  },
+});
+
 async function uploadImage(file: File): Promise<string> {
   const dotIndex = file.name.lastIndexOf(".");
   const ext = dotIndex !== -1 ? file.name.slice(dotIndex + 1) : "jpg";
@@ -177,9 +188,11 @@ export function RecordEditor({
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({
-        // StarterKit이 내장한 Link/Underline을 설정만 변경
+        // StarterKit이 내장한 Link/Underline을 설정만 변경, 코드 블록은 lowlight 버전으로 대체
         link: { openOnClick: false },
+        codeBlock: false,
       }),
+      CodeBlockLowlightWithView.configure({ lowlight }),
       Placeholder.configure({ placeholder }),
       TiptapImage,
       Highlight,
