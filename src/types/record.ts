@@ -20,12 +20,11 @@ export interface RecordEmotionItem {
   updated_at: number;
 }
 
-export interface RecordItem {
+export interface RecordListItem {
   id: number;
   writer: User;
   type: RecordType;
   title: string;
-  content: string;
   is_private: boolean;
   tags: string[];
   review?: RecordReviewItem;
@@ -34,4 +33,8 @@ export interface RecordItem {
   view_count: number;
   created_at: number;
   updated_at: number;
+}
+
+export interface RecordItem extends RecordListItem {
+  content: string;
 }

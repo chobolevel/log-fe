@@ -20,7 +20,7 @@ import {
 import { ApiError } from "@/lib/fetcher";
 import { useMe } from "@/hooks/user/user";
 import type { Pageable } from "@/types/common";
-import type { RecordItem } from "@/types/record";
+import type { RecordItem, RecordListItem } from "@/types/record";
 
 export const RECORD_QUERY_KEY = (id: number) => ["records", id] as const;
 
@@ -90,7 +90,7 @@ export function useDeleteRecord() {
 }
 
 export function useRecords(params: SearchRecordParams) {
-  return useQuery<Pageable<RecordItem>, ApiError>({
+  return useQuery<Pageable<RecordListItem>, ApiError>({
     queryKey: RECORDS_QUERY_KEY(params),
     queryFn: () => searchRecordsApi(params),
     placeholderData: keepPreviousData,

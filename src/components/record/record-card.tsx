@@ -14,7 +14,7 @@ import {
   SUBJECT_TYPE_PLACEHOLDER,
 } from "@/constants/subject";
 import { EMOTION_CATEGORY_TYPE_CLASSES } from "@/constants/emotion";
-import type { RecordItem, RecordType } from "@/types/record";
+import type { RecordListItem, RecordType } from "@/types/record";
 
 const TYPE_HEADER_BG: Record<RecordType, string> = {
   BLOG_TECH: "bg-record-tech-subtle",
@@ -39,7 +39,7 @@ const TYPE_ICON = {
 function EmotionBadge({
   emotion,
 }: {
-  emotion: NonNullable<RecordItem["emotion"]>;
+  emotion: NonNullable<RecordListItem["emotion"]>;
 }) {
   const { bg, text } =
     EMOTION_CATEGORY_TYPE_CLASSES[emotion.emotion.emotion_category.type];
@@ -64,20 +64,13 @@ function EmotionBadge({
   );
 }
 
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function formatDate(timestamp: number): string {
   const d = new Date(timestamp);
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 }
 
 interface RecordCardProps {
-  record: RecordItem;
+  record: RecordListItem;
 }
 
 export function RecordCard({ record }: RecordCardProps) {
@@ -85,7 +78,6 @@ export function RecordCard({ record }: RecordCardProps) {
     id,
     type,
     title,
-    content,
     writer,
     review,
     emotion,
@@ -198,12 +190,9 @@ export function RecordCard({ record }: RecordCardProps) {
           )}
           {type === "DIARY" && emotion && <EmotionBadge emotion={emotion} />}
         </div>
-        <h3 className="mb-1.5 line-clamp-2 text-sm leading-snug font-bold">
+        <h3 className="mb-2 line-clamp-2 text-sm leading-snug font-bold">
           {title}
         </h3>
-        <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-          {stripHtml(content) || " "}
-        </p>
         {visibleTags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {visibleTags.map((tag) => (
@@ -250,7 +239,6 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
     id,
     type,
     title,
-    content,
     writer,
     review,
     emotion,
@@ -360,12 +348,9 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
             )}
             {type === "DIARY" && emotion && <EmotionBadge emotion={emotion} />}
           </div>
-          <h3 className="mb-2 line-clamp-2 text-lg leading-snug font-bold tracking-tight">
+          <h3 className="mb-2 line-clamp-2 flex-1 text-lg leading-snug font-bold tracking-tight">
             {title}
           </h3>
-          <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-            {stripHtml(content) || " "}
-          </p>
           <div className="mt-4 flex items-center gap-2 border-t border-border/40 pt-3">
             <Avatar className="h-6 w-6">
               <AvatarImage
@@ -406,8 +391,7 @@ export function RecordCardSkeleton() {
       <div className="p-4">
         <div className="mb-2 h-4 w-14 animate-pulse rounded-full bg-muted" />
         <div className="mb-1.5 h-4 w-full animate-pulse rounded-full bg-muted" />
-        <div className="mb-1 h-4 w-4/5 animate-pulse rounded-full bg-muted" />
-        <div className="h-3 w-3/5 animate-pulse rounded-full bg-muted" />
+        <div className="h-4 w-4/5 animate-pulse rounded-full bg-muted" />
       </div>
       <div className="flex items-center gap-2 border-t border-border/40 px-4 py-2.5">
         <div className="h-5 w-5 animate-pulse rounded-full bg-muted" />

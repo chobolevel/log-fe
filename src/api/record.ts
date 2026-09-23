@@ -1,6 +1,6 @@
 import { api } from "@/lib/fetcher";
 import { buildPageQuery } from "@/lib/query";
-import type { RecordItem, RecordType } from "@/types/record";
+import type { RecordItem, RecordListItem, RecordType } from "@/types/record";
 import type { Pageable } from "@/types/common";
 
 export interface CreateRecordReviewRequest {
@@ -68,7 +68,9 @@ export const deleteRecordApi = (id: number) =>
   api.delete<boolean>(`/api/v1/records/${id}`);
 
 export const searchRecordsApi = (params: SearchRecordParams) =>
-  api.get<Pageable<RecordItem>>(`/api/v1/records?${buildRecordQuery(params)}`);
+  api.get<Pageable<RecordListItem>>(
+    `/api/v1/records?${buildRecordQuery(params)}`
+  );
 
 export const likeRecordApi = (id: number) =>
   api.post<number>(`/api/v1/records/${id}/like`, {});
