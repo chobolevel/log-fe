@@ -22,7 +22,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { IntensityDots } from "@/components/record/intensity-dots";
 import {
   RECORD_TYPE_LABELS,
   RECORD_TYPE_SUBTLE_CLASSES,
@@ -234,7 +233,7 @@ export function RecordDetail({ id }: RecordDetailProps) {
             {type === "DIARY" && emotion && (
               <span
                 className={cn(
-                  "flex items-center gap-2 rounded-full px-2.5 py-0.5 text-xs font-medium",
+                  "flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium",
                   EMOTION_CATEGORY_TYPE_CLASSES[
                     emotion.emotion.emotion_category.type
                   ].bg,
@@ -244,7 +243,16 @@ export function RecordDetail({ id }: RecordDetailProps) {
                 )}
               >
                 {emotion.emotion.name}
-                <IntensityDots value={emotion.intensity} readOnly size="sm" />
+                <span
+                  className={cn(
+                    "flex h-3.5 min-w-3.5 shrink-0 items-center justify-center rounded-full bg-white px-0.5 text-[9px] font-bold tabular-nums shadow-sm",
+                    EMOTION_CATEGORY_TYPE_CLASSES[
+                      emotion.emotion.emotion_category.type
+                    ].text
+                  )}
+                >
+                  {emotion.intensity}
+                </span>
               </span>
             )}
           </div>
@@ -320,7 +328,7 @@ export function RecordDetail({ id }: RecordDetailProps) {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-green-subtle px-3 py-1 text-xs font-medium text-green-subtle-foreground"
+                className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
               >
                 #{tag}
               </span>

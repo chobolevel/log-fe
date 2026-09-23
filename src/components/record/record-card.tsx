@@ -198,7 +198,7 @@ export function RecordCard({ record }: RecordCardProps) {
             {visibleTags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-green-subtle px-2 py-0.5 text-[10px] text-green-subtle-foreground"
+                className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
               >
                 #{tag}
               </span>
