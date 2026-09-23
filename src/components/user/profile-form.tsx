@@ -31,6 +31,10 @@ import {
   useUploadProfileImage,
   useDeleteUserImage,
 } from "@/hooks/user/userImage";
+import {
+  FollowListModal,
+  type FollowListTab,
+} from "@/components/user/follow-list-modal";
 
 const nicknameSchema = z.object({
   nickname: nicknameField,
@@ -62,6 +66,10 @@ export function ProfileForm() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [resignDialogOpen, setResignDialogOpen] = useState(false);
+  const [followModal, setFollowModal] = useState<{
+    open: boolean;
+    tab: FollowListTab;
+  }>({ open: false, tab: "followers" });
 
   const nicknameForm = useForm<NicknameValues>({
     resolver: zodResolver(nicknameSchema),
@@ -168,7 +176,34 @@ export function ProfileForm() {
             onChange={handleImageChange}
           />
         </div>
+
+        <div className="mt-5 flex items-center gap-6 border-t border-border pt-5">
+          <button
+            type="button"
+            className="text-center"
+            onClick={() => setFollowModal({ open: true, tab: "followers" })}
+          >
+            <p className="text-lg font-bold">{user.follower_count}</p>
+            <p className="text-xs text-muted-foreground">팔로워</p>
+          </button>
+          <button
+            type="button"
+            className="text-center"
+            onClick={() => setFollowModal({ open: true, tab: "followings" })}
+          >
+            <p className="text-lg font-bold">{user.following_count}</p>
+            <p className="text-xs text-muted-foreground">팔로잉</p>
+          </button>
+        </div>
       </section>
+
+      <FollowListModal
+        userId={user.id}
+        open={followModal.open}
+        tab={followModal.tab}
+        onTabChange={(tab) => setFollowModal((s) => ({ ...s, tab }))}
+        onOpenChange={(open) => setFollowModal((s) => ({ ...s, open }))}
+      />
 
       {/* 기본 정보 */}
       <section className="rounded-2xl border border-border bg-card p-6">

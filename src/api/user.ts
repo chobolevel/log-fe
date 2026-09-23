@@ -1,5 +1,7 @@
 import { api } from "@/lib/fetcher";
-import type { User, UserLoginType } from "@/types/user";
+import { buildPageQuery } from "@/lib/query";
+import type { Pageable } from "@/types/common";
+import type { User, UserFollow, UserLoginType } from "@/types/user";
 
 export interface LoginRequest {
   email: string;
@@ -65,6 +67,8 @@ export const resetPasswordApi = (request: ResetPasswordRequest) =>
 
 export const getMyUserApi = () => api.get<User>("/api/v1/user/me");
 
+export const getUserApi = (id: number) => api.get<User>(`/api/v1/users/${id}`);
+
 export interface UpdateUserRequest {
   nickname?: string;
   update_mask: "NICKNAME"[];
@@ -96,3 +100,38 @@ export const changePasswordApi = (request: ChangePasswordRequest) =>
 export const logoutApi = () => api.post<boolean>("/api/v1/users/logout", {});
 
 export const resignApi = () => api.post<boolean>("/api/v1/user/resign", {});
+
+export interface SearchUserFollowParams {
+  nickname?: string;
+  page?: number;
+  size?: number;
+  order_types?: ("CREATED_AT_ASC" | "CREATED_AT_DESC")[];
+}
+
+function buildUserFollowQuery(params: SearchUserFollowParams): string {
+  const qs = buildPageQuery(params);
+  if (params.nickname) qs.append("nickname", params.nickname);
+  return qs.toString();
+}
+
+export const followUserApi = (userId: number) =>
+  api.post<boolean>(`/api/v1/users/${userId}/follow`, {});
+
+export const unfollowUserApi = (userId: number) =>
+  api.post<boolean>(`/api/v1/users/${userId}/unfollow`, {});
+
+export const getUserFollowersApi = (
+  userId: number,
+  params: SearchUserFollowParams
+) =>
+  api.get<Pageable<UserFollow>>(
+    `/api/v1/users/${userId}/followers?${buildUserFollowQuery(params)}`
+  );
+
+export const getUserFollowingsApi = (
+  userId: number,
+  params: SearchUserFollowParams
+) =>
+  api.get<Pageable<UserFollow>>(
+    `/api/v1/users/${userId}/followings?${buildUserFollowQuery(params)}`
+  );

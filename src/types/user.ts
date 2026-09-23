@@ -18,6 +18,19 @@ export interface User {
   nickname: string;
   role: UserRoleType;
   profile_image?: UserImage;
+  follower_count: number;
+  following_count: number;
   created_at: number;
   updated_at: number;
+}
+
+export interface UserSummary {
+  id: number;
+  nickname: string;
+  profile_image?: UserImage;
+}
+
+export interface UserFollow {
+  user: UserSummary;
+  created_at: number;
 }

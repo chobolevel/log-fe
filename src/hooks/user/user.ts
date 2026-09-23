@@ -17,6 +17,7 @@ import {
   resetPasswordApi,
   type ResetPasswordRequest,
   getMyUserApi,
+  getUserApi,
   updateUserApi,
   type UpdateUserRequest,
   changePasswordApi,
@@ -28,6 +29,8 @@ import { ApiError } from "@/lib/fetcher";
 import type { User } from "@/types/user";
 
 export const MY_USER_QUERY_KEY = ["user", "me"] as const;
+
+export const USER_QUERY_KEY = (id: number) => ["users", id] as const;
 
 export function useLogin() {
   const router = useRouter();
@@ -118,6 +121,14 @@ export function useMe() {
     queryKey: MY_USER_QUERY_KEY,
     queryFn: getMyUserApi,
     retry: false,
+  });
+}
+
+export function useUser(id: number, options?: { enabled?: boolean }) {
+  return useQuery<User, ApiError>({
+    queryKey: USER_QUERY_KEY(id),
+    queryFn: () => getUserApi(id),
+    enabled: options?.enabled,
   });
 }
 
