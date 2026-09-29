@@ -191,21 +191,19 @@ export function RecordCard({ record }: RecordCardProps) {
           )}
           {type === "DIARY" && emotion && <EmotionBadge emotion={emotion} />}
         </div>
-        <h3 className="mb-2 line-clamp-2 text-sm leading-snug font-bold">
+        <h3 className="mb-2 line-clamp-2 min-h-10 text-sm leading-snug font-bold">
           {title}
         </h3>
-        {visibleTags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {visibleTags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="flex min-h-[22px] flex-wrap gap-1">
+          {visibleTags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Footer */}
