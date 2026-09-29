@@ -33,10 +33,11 @@ export const RECORD_QUERY_KEY = (id: number) => ["records", id] as const;
 export const RECORDS_QUERY_KEY = (params: SearchRecordParams) =>
   ["records", params] as const;
 
-export function useRecord(id: number) {
+export function useRecord(id: number, initialData?: RecordItem) {
   return useQuery<RecordItem, ApiError>({
     queryKey: RECORD_QUERY_KEY(id),
     queryFn: () => getRecordApi(id),
+    initialData,
   });
 }
 

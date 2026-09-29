@@ -39,7 +39,7 @@ import {
   useToggleLike,
 } from "@/hooks/record/record";
 import { useMe } from "@/hooks/user/user";
-import type { RecordType } from "@/types/record";
+import type { RecordItem } from "@/types/record";
 
 async function shareRecord(title: string) {
   const url = window.location.href;
@@ -58,11 +58,12 @@ function formatDate(timestamp: number): string {
 
 interface RecordDetailProps {
   id: number;
+  initialRecord?: RecordItem;
 }
 
-export function RecordDetail({ id }: RecordDetailProps) {
+export function RecordDetail({ id, initialRecord }: RecordDetailProps) {
   const router = useRouter();
-  const { data: record, isLoading, isError } = useRecord(id);
+  const { data: record, isLoading, isError } = useRecord(id, initialRecord);
   useRecordView(id, { enabled: !!record });
   const { data: me } = useMe();
   const { data: isLiked } = useIsLiked(id);
