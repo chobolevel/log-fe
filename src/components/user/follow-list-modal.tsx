@@ -14,6 +14,7 @@ import { PILL_SIZE } from "@/constants/ui";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useUserFollowers, useUserFollowings } from "@/hooks/user/userFollow";
+import { UserNicknameLink } from "@/components/user/user-nickname-link";
 
 export type FollowListTab = "followers" | "followings";
 
@@ -153,9 +154,12 @@ export function FollowListModal({
                         {initials}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="truncate text-sm font-medium">
-                      {user.nickname}
-                    </span>
+                    <UserNicknameLink
+                      userId={user.id}
+                      nickname={user.nickname}
+                      className="truncate text-sm font-medium"
+                      onNavigate={() => onOpenChange(false)}
+                    />
                   </li>
                 );
               })}

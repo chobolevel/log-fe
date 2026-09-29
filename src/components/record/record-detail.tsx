@@ -39,6 +39,7 @@ import {
   useToggleLike,
 } from "@/hooks/record/record";
 import { useMe } from "@/hooks/user/user";
+import { UserNicknameLink } from "@/components/user/user-nickname-link";
 import type { RecordItem } from "@/types/record";
 
 async function shareRecord(title: string) {
@@ -276,7 +277,11 @@ export function RecordDetail({ id, initialRecord }: RecordDetailProps) {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold">{writer.nickname}</span>
+            <UserNicknameLink
+              userId={writer.id}
+              nickname={writer.nickname}
+              className="text-sm font-semibold"
+            />
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               {formatDate(created_at)}
               <span className="flex items-center gap-0.5">

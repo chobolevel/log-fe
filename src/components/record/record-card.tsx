@@ -14,6 +14,7 @@ import {
   SUBJECT_TYPE_PLACEHOLDER,
 } from "@/constants/subject";
 import { EMOTION_CATEGORY_TYPE_CLASSES } from "@/constants/emotion";
+import { UserNicknameLink } from "@/components/user/user-nickname-link";
 import type { RecordListItem, RecordType } from "@/types/record";
 
 const TYPE_HEADER_BG: Record<RecordType, string> = {
@@ -215,7 +216,11 @@ export function RecordCard({ record }: RecordCardProps) {
             {writer.nickname.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        <span className="text-xs text-muted-foreground">{writer.nickname}</span>
+        <UserNicknameLink
+          userId={writer.id}
+          nickname={writer.nickname}
+          className="text-xs text-muted-foreground"
+        />
         <div className="ml-auto flex items-center gap-3">
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <Eye className="h-3 w-3" />
@@ -361,9 +366,11 @@ export function RecordFeaturedCard({ record }: RecordCardProps) {
                 {writer.nickname.slice(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm text-muted-foreground">
-              {writer.nickname}
-            </span>
+            <UserNicknameLink
+              userId={writer.id}
+              nickname={writer.nickname}
+              className="text-sm text-muted-foreground"
+            />
             <div className="ml-auto flex items-center gap-3">
               <span className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Eye className="h-3 w-3" />
