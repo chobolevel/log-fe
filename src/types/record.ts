@@ -38,3 +38,8 @@ export interface RecordListItem {
 export interface RecordItem extends RecordListItem {
   content: string;
 }
+
+export interface RecordContribution {
+  date: string;
+  count: number;
+}

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_ROUTES = ["/profile"];
+const PROTECTED_ROUTES = ["/settings"];
 const PUBLIC_ONLY_ROUTES = [
   "/login",
   "/signup",
@@ -35,7 +35,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/profile/:path*",
+    "/settings/:path*",
     "/login",
     "/signup",
     "/forgot-password",

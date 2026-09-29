@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { PenLine, User, LogOut } from "lucide-react";
+import { PenLine, User, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -56,9 +56,13 @@ export function HeaderAuth() {
           <PenLine />
           기록 작성
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push("/profile")}>
+        <DropdownMenuItem onClick={() => router.push(`/users/${user.id}`)}>
           <User />
           프로필
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push("/settings")}>
+          <Settings />
+          설정
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

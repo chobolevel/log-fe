@@ -8,6 +8,7 @@ import {
   createRecordApi,
   deleteRecordApi,
   dislikeRecordApi,
+  fetchRecordContributionsApi,
   getIsLikedApi,
   getRecordApi,
   likeRecordApi,
@@ -26,7 +27,11 @@ import {
   unmarkViewed,
 } from "@/lib/record-view-storage";
 import type { Pageable } from "@/types/common";
-import type { RecordItem, RecordListItem } from "@/types/record";
+import type {
+  RecordContribution,
+  RecordItem,
+  RecordListItem,
+} from "@/types/record";
 
 export const RECORD_QUERY_KEY = (id: number) => ["records", id] as const;
 
@@ -107,11 +112,22 @@ export function useDeleteRecord() {
   });
 }
 
-export function useRecords(params: SearchRecordParams) {
+export function useRecords(
+  params: SearchRecordParams,
+  { enabled = true }: { enabled?: boolean } = {}
+) {
   return useQuery<Pageable<RecordListItem>, ApiError>({
     queryKey: RECORDS_QUERY_KEY(params),
     queryFn: () => searchRecordsApi(params),
     placeholderData: keepPreviousData,
+    enabled,
+  });
+}
+
+export function useRecordContributions(year: number, userId: number) {
+  return useQuery<RecordContribution[], ApiError>({
+    queryKey: ["records", "contributions", userId, year] as const,
+    queryFn: () => fetchRecordContributionsApi({ year, userId }),
   });
 }
 

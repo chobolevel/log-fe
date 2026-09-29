@@ -1,6 +1,11 @@
 import { api } from "@/lib/fetcher";
 import { buildPageQuery } from "@/lib/query";
-import type { RecordItem, RecordListItem, RecordType } from "@/types/record";
+import type {
+  RecordContribution,
+  RecordItem,
+  RecordListItem,
+  RecordType,
+} from "@/types/record";
 import type { Pageable } from "@/types/common";
 
 export interface CreateRecordReviewRequest {
@@ -83,3 +88,19 @@ export const getIsLikedApi = (id: number) =>
 
 export const viewRecordApi = (id: number) =>
   api.post<boolean>(`/api/v1/records/${id}/view`, undefined);
+
+export interface FetchRecordContributionsParams {
+  year: number;
+  userId: number;
+}
+
+export const fetchRecordContributionsApi = (
+  params: FetchRecordContributionsParams
+) => {
+  const qs = new URLSearchParams();
+  qs.append("year", String(params.year));
+  qs.append("user_id", String(params.userId));
+  return api.get<RecordContribution[]>(
+    `/api/v1/records/contributions?${qs.toString()}`
+  );
+};
