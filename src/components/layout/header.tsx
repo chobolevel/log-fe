@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeaderAuth } from "@/components/layout/header-auth";
 import { HeaderNav } from "@/components/layout/header-nav";
+import { NotificationBell } from "@/components/layout/notification-bell";
 
 export default function Header() {
   return (
@@ -15,7 +16,10 @@ export default function Header() {
           </Link>
           <HeaderNav />
         </div>
-        <HeaderAuth />
+        <div className="flex items-center gap-2">
+          <NotificationBell />
+          <HeaderAuth />
+        </div>
       </div>
     </header>
   );
