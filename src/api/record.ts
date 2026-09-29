@@ -48,10 +48,10 @@ export interface SearchRecordParams {
 
 function buildRecordQuery(params: SearchRecordParams): string {
   const qs = buildPageQuery(params);
-  if (params.userId) qs.append("userId", String(params.userId));
+  if (params.userId) qs.append("user_id", String(params.userId));
   if (params.type) qs.append("type", params.type);
   if (params.title) qs.append("title", params.title);
-  if (params.tag_name) qs.append("tagName", params.tag_name);
+  if (params.tag_name) qs.append("tag_name", params.tag_name);
   return qs.toString();
 }
 
