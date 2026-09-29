@@ -80,3 +80,6 @@ export const dislikeRecordApi = (id: number) =>
 
 export const getIsLikedApi = (id: number) =>
   api.get<boolean>(`/api/v1/records/${id}/likes/me`);
+
+export const viewRecordApi = (id: number) =>
+  api.post<boolean>(`/api/v1/records/${id}/view`, undefined);

@@ -33,6 +33,7 @@ import {
 import { EMOTION_CATEGORY_TYPE_CLASSES } from "@/constants/emotion";
 import {
   useRecord,
+  useRecordView,
   useDeleteRecord,
   useIsLiked,
   useToggleLike,
@@ -62,6 +63,7 @@ interface RecordDetailProps {
 export function RecordDetail({ id }: RecordDetailProps) {
   const router = useRouter();
   const { data: record, isLoading, isError } = useRecord(id);
+  useRecordView(id, { enabled: !!record });
   const { data: me } = useMe();
   const { data: isLiked } = useIsLiked(id);
   const { mutate: toggleLike, isPending: isTogglingLike } = useToggleLike(id);
